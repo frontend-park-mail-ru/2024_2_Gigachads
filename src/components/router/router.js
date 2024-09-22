@@ -8,8 +8,7 @@ export class Router {
     }
 
     init() {
-        const Navigator = document.getElementsByTagName('navigator');
-        Navigator[0].addEventListener('click', (event) => {
+        root.addEventListener('click', (event) => {
             const {target} = event;
             if (target instanceof HTMLAnchorElement) {
                 event.preventDefault();

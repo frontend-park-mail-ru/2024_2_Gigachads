@@ -1,15 +1,17 @@
 <div class="container">
   <div class="entryarea">
     <input 
-      type="{{inputType}}"
-      name="{{inputName}}"
-      {{#if inputId}}id="{{inputId}}"{{/if}}
-      {{#if inputValue}}value="{{inputValue}}"{{/if}}
-      {{#if inputPlaceholder}}placeholder="{{inputPlaceholder}}"{{/if}}
+      type="{{type}}"
+      name="{{name}}"
+      {{#if id}}id="{{id}}"{{/if}}
+      {{#if value}}value="{{iva}}"{{/if}}
       {{#if required}}required{{/if}}
       {{#if disabled}}disabled{{/if}}
+      {{#if minlength}}minlength="{{minlength}}"{{/if}}
+      {{#if maxlength}}maxlength="{{maxlength}}"{{/if}}
       spellcheck="false"
+
     >
-    <div class="labelline">{{labelText}}</div>
+    <div class="labelline">{{label}}</div>
   </div>
 </div>

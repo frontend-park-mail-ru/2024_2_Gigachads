@@ -1,0 +1,44 @@
+@import url('/src/pages/signup/signup.css');
+@import url('animation.css');
+@import url('/src/components/dumb/button/button.css');
+@import url('/src/components/dumb/input/input.css');
+@font-face {
+    font-family: 'Roboto';
+    src: url('/src/assets/fonts/Roboto-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('/src/assets/fonts/Roboto-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('/src/assets/fonts/Roboto-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('/src/assets/fonts/Roboto-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+/* Пример использования шрифта */
+body {
+    font-family: 'Roboto', sans-serif;
+}
+body {
+    font-family: 'Roboto';
+}
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
