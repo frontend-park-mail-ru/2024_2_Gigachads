@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="entryarea">
+    <input 
+      type="{{inputType}}"
+      name="{{inputName}}"
+      {{#if inputId}}id="{{inputId}}"{{/if}}
+      {{#if inputValue}}value="{{inputValue}}"{{/if}}
+      {{#if inputPlaceholder}}placeholder="{{inputPlaceholder}}"{{/if}}
+      {{#if required}}required{{/if}}
+      {{#if disabled}}disabled{{/if}}
+      spellcheck="false"
+    >
+    <div class="labelline">{{labelText}}</div>
+  </div>
+</div>

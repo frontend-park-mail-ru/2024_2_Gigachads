@@ -1,0 +1,26 @@
+<form id="{{formId}}" class="{{formClass}}" {{#if novalidate}}novalidate{{/if}}>
+  {{#each fields}}
+    <div class="form-group">
+      {{> input-template 
+        type=this.type
+        name=this.name
+        id=this.id
+        label=this.label
+        placeholder=this.placeholder
+        required=this.required
+        minlength=this.minlength
+        maxlength=this.maxlength
+        value=this.value
+        disabled=this.disabled
+      }}
+    </div>
+  {{/each}}
+  
+  <div id="{{errorContainerId}}" class="error-container"></div>
+  
+  {{> button-template 
+    type="submit"
+    className=submitButtonClass
+    buttonText=submitButtonText
+  }}
+</form>
