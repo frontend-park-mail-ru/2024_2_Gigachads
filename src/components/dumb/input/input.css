@@ -1,12 +1,31 @@
 .container {
     width: 100%;
+    .error-box {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        min-height: 16px;
+        width: 320px;
+        gap: 8px;
+        font-size: 12px;
+        line-height: 16px;
+        margin-top: 4px;
+        color: #C84031;
+        letter-spacing: 0.1px;
+        .alert_icon {
+            height: 16px;
+            width: 16px;
+            display: none;
+        }
+    }
+    
 }
 .entryarea {
     position: relative;
     height: 40px;
     line-height: 40px;
 }
-input {
+.input {
     position: absolute;
     width: 100%;
     outline: none;
@@ -19,6 +38,7 @@ input {
     background: transparent;
     transition: 0.1 ease;
     z-index: 1111;
+    
 }
 .labelline {
     display: inline;
@@ -31,23 +51,32 @@ input {
     background-color: white;
     transition: 0.2s ease;
 }
-input:focus,
-input:valid{
-    color: #1a73e8;
+.input:focus,
+.input:valid{
     border: 1px solid #1a73e8;
 
 }
-
-input:focus + .labelline,
-input:valid + .labelline {
+.input.invalid + .labelline,
+.input:focus + .labelline,
+.input:valid + .labelline {
     height: 8px;
     line-height: 8px;
     transform: translate(-6px, -5px) scale(0.88);
     z-index: 1111;
 }
 
-input:focus + .labelline,
-input:valid + .labelline{
+.input:focus + .labelline,
+.input:valid + .labelline{
     color: #1a73e8;
     
+}
+.input.invalid + .labelline {
+    color: #C84031;
+}
+.input.invalid:focus {
+    border: 1px solid #C84031;
+}
+.input.input.invalid {
+    border: 1px solid #C84031;
+    transition: 0.1s ease;
 }

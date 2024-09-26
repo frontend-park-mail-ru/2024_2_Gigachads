@@ -1,6 +1,6 @@
 <div class="container">
   <div class="entryarea">
-    <input 
+    <input class="input"
       type="{{type}}"
       name="{{name}}"
       {{#if id}}id="{{id}}"{{/if}}
@@ -14,4 +14,9 @@
     >
     <div class="labelline">{{label}}</div>
   </div>
+  <div class="error-box">
+    <img class="alert_icon" src="/public/icons/alert.svg">
+    <div class="error-message" data-error-for="{{id}}"></div>
+  </div>
+  
 </div>

@@ -32,6 +32,7 @@ export class Router {
         if (matchedRoute) {
             const view = await matchedRoute.component.render();
             root.innerHTML = view;
+            matchedRoute.component.attachEventListeners();
         } else {
             root.innerHTML = '<h1>404 Not Found</h1>';
         }

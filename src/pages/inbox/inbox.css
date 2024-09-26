@@ -1,0 +1,170 @@
+.inbox {
+    display: grid;
+    grid-template-areas: "header header"
+        "menu   content";
+    grid-template-rows: 64px 1fr;
+    grid-template-columns: min-content 1fr;
+}
+
+.header {
+    grid-area: header;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 64px;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 60px;
+    padding-right: 18px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.218);
+
+    .logo {
+        .icon_logo {
+            height: 64px;
+            width: 64px;
+        }
+
+        display: flex;
+        flex-direction: row;
+        gap: 71px;
+        align-items: center;
+
+        .search {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            padding-left: 17px;
+            padding-right: 17px;
+            border-radius: 8px;
+            height: 46px;
+            width: 720px;
+            align-items: center;
+            background-color: #F1F3F4;
+            .icon_box {
+                align-items: center;
+                height: 38px;
+                width: 38px;
+                padding-top: 7px;
+                padding-left: 7px;
+                border-radius: 100px;
+                .search_icon {
+                    height: 24px;
+                    width: 24px;
+                }
+                &:hover {
+                    cursor: pointer;
+                    background-color: rgba(60, 64, 67, 0.08);
+                }
+            }
+            
+            .main_search {
+                all: unset;
+                width: 100%;
+                font-size: 16px;
+                line-height: 120%;
+                letter-spacing: -0.01em;
+                
+
+            }
+        }
+
+    }
+
+    .profile_card {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 16px;
+
+        .icon_box {
+            align-items: center;
+            height: 38px;
+            width: 38px;
+            padding-top: 7px;
+            padding-left: 7px;
+            border-radius: 100px;
+
+            .icon {
+                height: 24px;
+                width: 24px;
+            }
+
+            &:hover {
+                cursor: pointer;
+                background-color: rgba(60, 64, 67, 0.08);
+            }
+        }
+
+        .profile_box {
+            width: 42px;
+            height: 42px;
+            border-radius: 100px;
+            overflow: hidden;
+            border-top: solid 3px rgb(233, 45, 24);
+            border-right: solid 3px rgb(49, 116, 241);
+            border-left: solid 3px rgb(246, 173, 1);
+            border-bottom: solid 3px rgb(36, 154, 65);
+            .profile_icon {
+                height: 100%;
+                width: 100%;
+                border-radius: 100px;
+                border: solid 3px white;
+            }
+            &:hover {
+                cursor: pointer;
+                border-top: solid 4px rgb(233, 45, 24);
+                border-right: solid 4px rgb(49, 116, 241);
+                border-left: solid 4px rgb(246, 173, 1);
+                border-bottom: solid 4px rgb(36, 154, 65);
+                
+            }
+
+        }
+    }
+}
+
+
+.menu {
+    grid-area: menu;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+
+    .create_message {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 16px;
+        padding-top: 12px;
+        padding-left: 12px;
+        padding-bottom: 12px;
+        padding-right: 20px;
+        background-color: rgb(194, 231, 255);
+
+        margin-top: 15px;
+        margin-left: 8px;
+        margin-bottom: 16px;
+        align-self: flex-start;
+        border-radius: 100px;
+        font-size: 13px;
+        color: #3D4043;
+        letter-spacing: -0.01em;
+        font-weight: 500px;
+
+        &:hover {
+            box-shadow: rgba(60, 64, 67, 0.242) 0px 1px 3px 0px, rgba(60, 64, 67, 0.076) 0px 2px 4px 2px;
+            cursor: pointer;
+        }
+
+        ;
+    }
+}
+
+.content {
+    grid-area: content;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
