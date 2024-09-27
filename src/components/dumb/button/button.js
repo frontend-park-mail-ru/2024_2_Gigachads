@@ -1,6 +1,11 @@
-const buttons = document.querySelectorAll('button');
-buttons.forEach(btn => {
-    btn.addEventListener('click', function (e) {
+/**
+ * @description - Функция для реализации эффекта ripple на кнопке
+ * @returns {void}
+ */
+function rippleEffect() {
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(btn => {
+        btn.addEventListener('click', function (e) {
         let x = e.clientX - e.target.offsetLeft;
         let y = e.clientY - e.target.offsetTop;
 
@@ -12,5 +17,8 @@ buttons.forEach(btn => {
         setTimeout(() => {
             ripples.remove()
         }, 800)
-    })
-}); 
+        })
+    });     
+}
+
+export { rippleEffect };

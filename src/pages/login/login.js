@@ -1,7 +1,20 @@
+import User from "../../api/modules/user.js";
+import { Router } from "../../components/router/router.js";
+import { rippleEffect } from "../../components/dumb/button/button.js";
+import { filterInput } from "../../components/dumb/input/input.js";
+/**
+ * @class Login
+ * @description - Класс для отображения страницы "Login"
+ */
 class Login {
     constructor() {
         this.templatesLoaded = this.loadTemplates();
     }
+    /**
+     * @async
+     * @description - Загрузка шаблонов
+     * @returns {Promise<void>} - Promise, который разрешается после загрузки всех шаблонов
+     */
     async loadTemplates() {
       const [formResponse, inputResponse, buttonResponse, loginResponse] = await Promise.all([
           fetch('/src/components/smart/smart-form-template.hbs'),
@@ -15,6 +28,11 @@ class Login {
       this.buttonTemplateString = await buttonResponse.text();
       this.loginTemplateString = await loginResponse.text();
   }
+    /**
+     * @async
+     * @description - Отображение страницы "Login"
+     * @returns {string} - HTML-код страницы "Login"
+     */
     async render() {
             await this.templatesLoaded;
             Handlebars.registerPartial('input-template', this.inputTemplateString);
@@ -58,6 +76,11 @@ class Login {
 
             return formHtml;
         }
+        /**
+         * @description - Валидация email
+         * @param {Event} event - Событие ввода email
+         * @returns {void}
+         */
         validateEmail(event) {
             const email = event.target.value;
             const inputField = event.target;
@@ -74,7 +97,11 @@ class Login {
                 inputField.classList.remove('invalid');
             }
         }
-    
+        /**
+         * @description - Валидация пароля
+         * @param {Event} event - Событие ввода пароля
+         * @returns {void}
+         */
         validatePassword(event) {
             const password = event.target.value;
             const inputField = event.target;
@@ -91,7 +118,12 @@ class Login {
             }
         }
     
-        handleSubmit(event) {
+        /**
+         * @description - Обработка отправки формы
+         * @param {Event} event - Событие отправки формы
+         * @returns {void}
+         */
+        async handleSubmit(event) {
             event.preventDefault();
             const emailError = document.querySelector('[data-error-for="email"]').textContent;
             const passwordError = document.querySelector('[data-error-for="password"]').textContent;
@@ -101,11 +133,24 @@ class Login {
             // Проверка на наличие ошибок
             if (!emailError && !passwordError && emailInput && passwordInput) {
                 // Отправка формы
-                console.log('Форма отправлена');
+                const response = await User.login({
+                    email: emailInput,
+                    password: passwordInput
+                }) 
+                if (response != 'error') {
+                    Router.navigateTo('/inbox');
+                }
+                else {
+                    console.log("azazaza");
+                }
             } else {
                 console.log('Исправьте ошибки в форме');
             }
         }
+        /**
+         * @description - Добавление слушателей событий
+         * @returns {void}
+         */
         attachEventListeners() {
             const emailInput = document.querySelector('input[type="email"]');
             const passwordInput = document.querySelector('input[type="password"]');
@@ -114,6 +159,8 @@ class Login {
             emailInput.addEventListener('input', this.validateEmail);
             passwordInput.addEventListener('input', this.validatePassword);
             form.addEventListener('submit', this.handleSubmit);
+            rippleEffect();
+            filterInput();
         }
 
 

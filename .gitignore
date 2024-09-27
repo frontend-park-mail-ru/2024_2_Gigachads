@@ -45,3 +45,6 @@ build/
 .idea/
 *.sublime-project
 *.sublime-workspace
+
+# Documentation
+docs/

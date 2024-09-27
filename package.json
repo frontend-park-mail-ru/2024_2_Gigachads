@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "lint": "eslint .",
+    "docs": "jsdoc -c jsdoc.json"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +18,8 @@
     "handlebars": "^4.7.8"
   },
   "devDependencies": {
+    "eslint": "^9.11.1",
+    "jsdoc": "^4.0.3",
     "nodemon": "^3.1.7"
   }
 }

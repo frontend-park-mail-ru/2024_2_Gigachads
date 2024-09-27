@@ -1,9 +1,23 @@
 import Email from "../../api/modules/email.js";
-
+import { rippleEffect } from "../../components/dumb/button/button.js";
+import { filterInput } from "../../components/dumb/input/input.js";
+/**
+ * @class Inbox
+ * @description - Класс для отображения страницы "Inbox"
+ */
 class Inbox {
+    /**
+     * @constructor
+     * @description - Конструктор класса Inbox, инициализирует загрузку шаблонов
+     */
     constructor() {
         this.templatesLoaded = this.loadTemplates();
     }
+    /**
+     * @async
+     * @description - Загрузка шаблонов
+     * @returns {Promise<void>} - Promise, который разрешается после загрузки всех шаблонов
+     */
     async loadTemplates() {
       const [mail_messageResponse, buttonResponse, inboxResponse, element_menuResponse] = await Promise.all([
           fetch('/src/components/dumb/mail_message/mail_message-template.hbs'),
@@ -17,13 +31,22 @@ class Inbox {
       this.inboxString = await inboxResponse.text();
       this.element_menuString = await element_menuResponse.text();
     }
+    /**
+     * @async
+     * @description - Отображение страницы "Inbox"
+     * @returns {string} - HTML-код страницы "Inbox"
+     */
     async render() {
             await this.templatesLoaded;
             Handlebars.registerPartial('button-template', this.buttonTemplateString);
             Handlebars.registerPartial('mail_message-template', this.mail_messageString);
             Handlebars.registerPartial('element_menu-template', this.element_menuString);
             const inboxTemplate = Handlebars.compile(this.inboxString);
-            const messages_json = await Email.getMessages();
+            const response = await Email.getMessages();
+            if (response == 'error') {
+                return 'error';
+            }
+            const messages_json = response.json();
             console.log(messages_json);
             const authFormData = {
                 menu_elements: [
@@ -240,10 +263,16 @@ class Inbox {
             };
         
             
-            console.log(authFormData);
-            return inboxTemplate(authFormData);
+        console.log(authFormData);
+        return inboxTemplate(authFormData);
     }
+    /**
+     * @description - Добавление слушателей событий
+     * @returns {void}
+     */
     attachEventListeners() {
+        rippleEffect();
+        filterInput();
     }
 }
 

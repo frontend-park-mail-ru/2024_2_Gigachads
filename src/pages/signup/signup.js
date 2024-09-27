@@ -1,7 +1,24 @@
+import User from '../../api/modules/user.js'
+import Router from '../../../index.js'
+import { rippleEffect } from "../../components/dumb/button/button.js";
+import { filterInput } from "../../components/dumb/input/input.js";
+/**
+ * @class Signup
+ * @description - Класс для отображения страницы "Signup"
+ */
 class Signup {
+    /**
+     * @constructor
+     * @description - Конструктор класса Signup, инициализирует загрузку шаблонов
+     */
     constructor() {
         this.templatesLoaded = this.loadTemplates();
     }
+    /**
+     * @async
+     * @description - Загрузка шаблонов
+     * @returns {Promise<void>}
+     */
     async loadTemplates() {
       const [formResponse, inputResponse, buttonResponse, signupResponse] = await Promise.all([
           fetch('/src/components/smart/smart-form-template.hbs'),
@@ -15,6 +32,11 @@ class Signup {
       this.buttonTemplateString = await buttonResponse.text();
       this.signupTemplateString = await signupResponse.text();
   }
+    /**
+     * @async
+     * @description - Отображение страницы "Signup"
+     * @returns {string} - HTML-код страницы "Signup"
+     */
     async render() {
             await this.templatesLoaded;
             Handlebars.registerPartial('input-template', this.inputTemplateString);
@@ -34,7 +56,7 @@ class Signup {
                         label: "Имя пользователя",
                 
                         required: true,
-                        minlength: 6,
+                        minlength: 3,
                         maxlength: 20
                     },
                     {
@@ -52,7 +74,7 @@ class Signup {
                         label: "Пароль",
                        
                         required: true,
-                        minlength: 8
+                        minlength: 6
                     },
                     {
                         type: "password",
@@ -73,7 +95,11 @@ class Signup {
             console.log(formHtml);
             return formHtml;
         }
-
+        /**
+         * @description - Валидация email
+         * @param {Event} event - Событие ввода email
+         * @returns {void}
+         */
         validateEmail(event) {
             const email = event.target.value;
             const inputField = event.target;
@@ -91,6 +117,11 @@ class Signup {
             }
         }
     
+        /**
+         * @description - Валидация пароля
+         * @param {Event} event - Событие ввода пароля
+         * @returns {void}
+         */
         validatePassword(event) {
             const password = event.target.value;
             const inputField = event.target;
@@ -107,22 +138,45 @@ class Signup {
             }
         }
 
-        handleSubmit(event) {
+        /**
+         * @description - Обработка отправки формы
+         * @param {Event} event - Событие отправки формы
+         * @returns {void}
+         */
+        async handleSubmit(event) {
             event.preventDefault();
             const emailError = document.querySelector('[data-error-for="email"]').textContent;
             const passwordError = document.querySelector('[data-error-for="password"]').textContent;
-            const emailInput = document.getElementById('email').value;
-            const passwordInput = document.getElementById('password').value;
+            const usernameInput = document.querySelector('input[name="username"]').value;
+            const emailInput = document.querySelector('input[name="email"]').value;
+            const passwordInput = document.querySelector('input[name="password"]').value;
+            const confirmPasswordInput = document.querySelector('input[name="confirmPassword"]').value;
     
             // Проверка на наличие ошибок
             if (!emailError && !passwordError && emailInput && passwordInput) {
                 // Отправка формы
-                console.log('Форма отправлена');
+                const response = await User.signup({
+                    name: usernameInput,
+                    email: emailInput,
+                    password: passwordInput,
+                    repassword: confirmPasswordInput
+                });
+
+                if (response != 'error') {
+                    Router.navigateTo('/inbox');
+                }
+                else {
+                    console.log("azazaza");
+                }
             } else {
                 console.log('Исправьте ошибки в форме');
             }
         }
 
+        /**
+         * @description - Добавление слушателей событий для валидации формы
+         * @returns {void}
+         */
         attachEventListeners() {
             const usernameInput = document.querySelector('input[name="username"]');
             const emailInput = document.querySelector('input[name="email"]');
@@ -135,8 +189,15 @@ class Signup {
             emailInput.addEventListener('input', this.validateEmail);
             passwordInput.addEventListener('input', this.validatePassword);
             form.addEventListener('submit', this.handleSubmit);
+            rippleEffect();
+            filterInput();
         }
 
+        /**
+         * @description - Валидация username
+         * @param {Event} event - Событие ввода username, проверка на длину
+         * @returns {void}
+         */
         validateUsername(event) {
             const username = event.target.value;
             const inputField = event.target;
@@ -153,6 +214,11 @@ class Signup {
             }
         }
 
+        /**
+         * @description - Валидация confirmPassword
+         * @param {Event} event - Событие ввода confirmPassword, сравнение с password
+         * @returns {void}
+         */
         validateConfirmPassword(event) {    
             const confirmPassword = event.target.value;
             const inputField = event.target;
