@@ -1,4 +1,4 @@
-export const BASE_API_URL = 'http://localhost:8080/api/v1/';
+export const BASE_API_URL = 'http://localhost:8080/';
 
 export const ERROR_CODES = {
     "404": "Страница не найдена",

@@ -1,5 +1,4 @@
 import {BASE_API_URL } from "../config.js";
-import { error_Process } from "../errorProcess.js";
 /**
  * @class User
  * @description - Класс для работы с пользователями
@@ -17,7 +16,7 @@ class User {
             credentials: "include",
             body: JSON.stringify(userData)
         });
-        return error_Process(response);
+        return response;
     }
 
     /**
@@ -30,7 +29,7 @@ class User {
             headers: { 'Content-Type': 'application/json' },
             credentials: "include"
         });
-        return error_Process(response);
+        return response;
     }
 
     /**
@@ -45,7 +44,7 @@ class User {
             credentials: "include",
             body: JSON.stringify(userData)
         });
-        return error_Process(response);
+        return response;
     }
 }
 

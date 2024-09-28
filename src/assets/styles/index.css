@@ -7,6 +7,7 @@
 @import url('/src/assets/styles/icon.css');
 @import url('/src/components/dumb/mail_message/mail_message.css');
 @import url('/src/components/dumb/element_menu/element_menu.css');
+@import url('/src/pages/error/error.css');
 @font-face {
     font-family: 'Roboto';
     src: url('/src/assets/fonts/Roboto-Regular.ttf') format('truetype');

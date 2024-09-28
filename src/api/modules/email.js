@@ -1,5 +1,4 @@
 import {BASE_API_URL } from "../config.js";
-import { error_Process } from "../errorProcess.js";
 
 /**
  * @class Email
@@ -16,7 +15,7 @@ class Email {
             headers: { 'Content-Type': 'application/json' }, 
             credentials: "include" 
         });
-        return error_Process(response);
+        return response;
     }
 
     /**
@@ -30,7 +29,7 @@ class Email {
             headers: { 'Content-Type': 'application/json' },
             credentials: "include"
         });
-        return error_Process(response);
+        return (response);
     }
 
     /**
@@ -43,7 +42,7 @@ class Email {
             headers: { 'Content-Type': 'application/json' },
             credentials: "include"
         });
-        return error_Process(response);
+        return (response);
     }
 
     

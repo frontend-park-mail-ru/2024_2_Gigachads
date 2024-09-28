@@ -161,8 +161,7 @@ class Signup {
                     password: passwordInput,
                     repassword: confirmPasswordInput
                 });
-
-                if (response != 'error') {
+                if (response.ok) {
                     Router.navigateTo('/inbox');
                 }
                 else {

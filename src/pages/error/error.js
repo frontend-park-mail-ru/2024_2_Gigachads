@@ -37,4 +37,4 @@ class ErrorPage {
     }
 }
 
-export { ErrorPage };
+export default new ErrorPage();

@@ -1,4 +1,4 @@
-import { ErrorPage } from "../../pages/error/error.js";
+import  ErrorPage  from "../../pages/error/error.js";
 const root = document.getElementById('root');
 
 /**
@@ -25,10 +25,14 @@ export class Router {
             const {target} = event;
             if (target instanceof HTMLAnchorElement) {
                 event.preventDefault();
-                this.loadRoute(target.getAttribute('href'))
+                this.navigateTo(target.getAttribute('href'));
             }
-            
-        })
+        });
+    
+        window.addEventListener('popstate', () => {
+            this.loadRoute(window.location.pathname);
+        });
+    
         this.loadRoute(window.location.pathname);
     }
 
@@ -68,8 +72,6 @@ export class Router {
 
 
 export class Route {
-
-     
     constructor(path, component) {
         this.path = path;
         this.component = component;

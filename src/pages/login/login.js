@@ -1,5 +1,5 @@
 import User from "../../api/modules/user.js";
-import { Router } from "../../components/router/router.js";
+import Router from "../../../index.js";
 import { rippleEffect } from "../../components/dumb/button/button.js";
 import { filterInput } from "../../components/dumb/input/input.js";
 /**

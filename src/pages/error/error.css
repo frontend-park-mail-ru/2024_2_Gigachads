@@ -1,0 +1,12 @@
+.errorPage {
+    background-color: #000;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(270deg, #ffffff, #939394, #363636);
+    background-size: 600% 100%;
+    animation: 20s ease 0s infinite normal both running bg-pan-left;
+}
