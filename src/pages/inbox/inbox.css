@@ -77,7 +77,10 @@
         flex-direction: row;
         align-items: center;
         gap: 16px;
-
+        .logout {
+            background-color: rgb(194, 231, 255);
+            color: #3D4043;
+        }
         .icon_box {
             align-items: center;
             height: 38px;
@@ -163,6 +166,7 @@
 }
 
 .content {
+    padding-top: 12px;
     grid-area: content;
     display: flex;
     flex-direction: column;

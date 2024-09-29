@@ -70,7 +70,6 @@ class Login {
                 }
             };
             const formHtml = loginTemplate(authFormData);
-            console.log(formHtml);
             // Добавляем обработчики событий для валидации
             
 
@@ -141,10 +140,10 @@ class Login {
                     Router.navigateTo('/inbox');
                 }
                 else {
-                    console.log("azazaza");
+                    
                 }
             } else {
-                console.log('Исправьте ошибки в форме');
+                
             }
         }
         /**

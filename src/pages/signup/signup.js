@@ -165,10 +165,10 @@ class Signup {
                     Router.navigateTo('/inbox');
                 }
                 else {
-                    console.log("azazaza");
+                   
                 }
             } else {
-                console.log('Исправьте ошибки в форме');
+               
             }
         }
 

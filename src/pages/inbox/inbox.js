@@ -1,4 +1,5 @@
 import Email from "../../api/modules/email.js";
+import User from "../../api/modules/user.js";
 import { rippleEffect } from "../../components/dumb/button/button.js";
 import { filterInput } from "../../components/dumb/input/input.js";
 import Router from "../../../index.js";
@@ -111,7 +112,7 @@ class Inbox {
             }
                 
 
-            console.log(authFormData);
+            
             return inboxTemplate(authFormData);
     }
     /**
@@ -119,8 +120,19 @@ class Inbox {
      * @returns {void}
      */
     attachEventListeners() {
+
         rippleEffect();
         filterInput();
+        this.logoutButton();
+    }
+    logoutButton() {
+        const button = document.getElementsByClassName('logout');
+        Array.from(button).forEach(element => {
+            element.addEventListener('click', () => {
+                User.logout();
+                Router.navigateTo('/login');
+            });
+        });
     }
 }
 

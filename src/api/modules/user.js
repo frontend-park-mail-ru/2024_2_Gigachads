@@ -25,7 +25,7 @@ class User {
      */
     async logout() {
         const response = await fetch(`${BASE_API_URL}logout`, {
-            method: "POST",
+            method: "GET",
             headers: { 'Content-Type': 'application/json' },
             credentials: "include"
         });
