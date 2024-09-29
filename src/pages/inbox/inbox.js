@@ -104,7 +104,7 @@ class Inbox {
                 authFormData.mail_messages.push({
                     author: result[i].author,    
                     description: result[i].description,
-                    date: result[i].date,
+                    date: String(new Date(result[i].date)),
                     text: result[i].text,
                     badge_text: result[i].badge_text,
                     badge_type: result[i].badge_type

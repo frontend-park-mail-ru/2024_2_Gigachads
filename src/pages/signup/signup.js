@@ -164,10 +164,28 @@ class Signup {
                     Router.navigateTo('/inbox');
                 }
                 else {
+                    const errorBoxes = document.getElementsByClassName('error-box');
+                    const input = errorBoxes[errorBoxes.length - 1].parentElement.querySelector('input');
+                    console.log(errorBoxes[errorBoxes.length - 1]);
+                    const errorMessage = errorBoxes[errorBoxes.length - 1].querySelector('.error-message');
+                    const alertIcon = errorBoxes[errorBoxes.length - 1].querySelector('.alert_icon')
+                    alertIcon.style.display = 'inline';
+                    errorMessage.textContent = 'Пользователь с такой почтой уже есть';
                    
                 }
             } else {
-               
+                    // Start of Selection
+                    const errorBoxes = document.getElementsByClassName('error-box');
+                    for (let i = 0; i < errorBoxes.length; i++) {
+                        
+                        const input = errorBoxes[i].parentElement.querySelector('input');
+                        if (input.value.trim() === '') {
+                            const errorMessage = errorBoxes[i].querySelector('.error-message');
+                            const alertIcon = errorBoxes[i].querySelector('.alert_icon')
+                            alertIcon.style.display = 'inline';
+                            errorMessage.textContent = 'Обязательное поле';
+                        }
+                    }
             }
         }
 
@@ -202,7 +220,7 @@ class Signup {
             const errorContainer = document.querySelector('[data-error-for="username"]');
             const alertIcon = errorContainer.previousElementSibling;
             if (username.length < 3) {
-                errorContainer.textContent = 'Имя пользователя должно быть не менее 3 символов';
+                errorContainer.textContent = 'Поле должно быть не менее 3 символов';
                 alertIcon.style.display = 'inline';
                 inputField.classList.add('invalid');
             } else {
