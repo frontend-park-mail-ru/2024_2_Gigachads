@@ -146,13 +146,15 @@ class Signup {
             event.preventDefault();
             const emailError = document.querySelector('[data-error-for="email"]').textContent;
             const passwordError = document.querySelector('[data-error-for="password"]').textContent;
+            const usernameError = document.querySelector('[data-error-for="username"]').textContent;
+            const repasswordError = document.querySelector('[data-error-for="confirmPassword"]').textContent;
             const usernameInput = document.querySelector('input[name="username"]').value;
             const emailInput = document.querySelector('input[name="email"]').value;
             const passwordInput = document.querySelector('input[name="password"]').value;
             const confirmPasswordInput = document.querySelector('input[name="confirmPassword"]').value;
     
             // Проверка на наличие ошибок
-            if (!emailError && !passwordError && emailInput && passwordInput) {
+            if (!emailError && !passwordError && !repasswordError && !usernameError && emailInput && passwordInput && usernameInput && confirmPasswordInput) {
                 // Отправка формы
                 const response = await User.signup({
                     name: usernameInput,
@@ -166,7 +168,6 @@ class Signup {
                 else {
                     const errorBoxes = document.getElementsByClassName('error-box');
                     const input = errorBoxes[errorBoxes.length - 1].parentElement.querySelector('input');
-                    console.log(errorBoxes[errorBoxes.length - 1]);
                     const errorMessage = errorBoxes[errorBoxes.length - 1].querySelector('.error-message');
                     const alertIcon = errorBoxes[errorBoxes.length - 1].querySelector('.alert_icon')
                     alertIcon.style.display = 'inline';
@@ -184,6 +185,7 @@ class Signup {
                             const alertIcon = errorBoxes[i].querySelector('.alert_icon')
                             alertIcon.style.display = 'inline';
                             errorMessage.textContent = 'Обязательное поле';
+                            input.classList.add('invalid');
                         }
                     }
             }

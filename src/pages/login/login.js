@@ -160,6 +160,7 @@ class Login {
                     const alertIcon = errorBoxes[i].querySelector('.alert_icon')
                     alertIcon.style.display = 'inline';
                     errorMessage.textContent = 'Обязательное поле';
+                    input.classList.add('invalid');
                 }
             }
         }
