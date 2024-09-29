@@ -1,6 +1,7 @@
 import Email from "../../api/modules/email.js";
 import { rippleEffect } from "../../components/dumb/button/button.js";
 import { filterInput } from "../../components/dumb/input/input.js";
+import Router from "../../../index.js";
 /**
  * @class Inbox
  * @description - Класс для отображения страницы "Inbox"
@@ -43,8 +44,9 @@ class Inbox {
             Handlebars.registerPartial('element_menu-template', this.element_menuString);
             const inboxTemplate = Handlebars.compile(this.inboxString);
             const response = await Email.getMessages();
-            if (!response.ok) {
-                return 'error';
+            if (response.status === 401) {
+                Router.navigateTo('/login');
+                return "error";
             }
             const result = await response.json();
           // Преобразуем ответ в JSON
