@@ -49,7 +49,7 @@ class Login {
                     type: "email",
                     name: "email",
                     id: "email",
-                    label: "Email",
+                    label: "Почта",
 
                     required: true
                 },
@@ -66,7 +66,7 @@ class Login {
             submitButton: {
                 type: "submit",
                 className: "submit-button",
-                buttonText: "Зарегистрироваться"
+                buttonText: "Войти"
             }
         };
         const formHtml = loginTemplate(authFormData);

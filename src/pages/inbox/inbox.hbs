@@ -2,23 +2,23 @@
     <header class="header">
         <div class="logo">
             <img class="icon_logo" src="/public/icons/logo.png">
-            <div></div>
+            {{!-- <div></div>
             <div class="search">
                 <div class="icon_box"><img class="search_icon" src="/public/icons/search.svg"></div>
                 <input class="main_search" type="text" placeholder="Search">
-            </div>
+            </div> --}}
         </div>
         <div class="profile_card">
-            <button class="logout button">Logout</button>
-            <div class="icon_box"><img class="icon" src="/public/icons/settings.svg"></div>
+            <button class="logout button">Выйти</button>
+            {{!-- <div class="icon_box"><img class="icon" src="/public/icons/settings.svg"></div> --}}
             <div class="profile_box"><img class="profile_icon" src="/public/icons/ava.jpg"></div>
         </div>
     </header>
     <div class="menu">
-        <a class="create_message">
+        {{!-- <a class="create_message">
             <img src="/public/icons/new.svg">
-            <div>New message</div>
-        </a>
+            <div>Создать сообщение</div>
+        </a> --}}
         <div class="navigator">
             {{#each menu_elements}}
             {{> element_menu-template
