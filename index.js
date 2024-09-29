@@ -6,6 +6,7 @@ import { default as Signup } from "./src/pages/signup/signup.js";
 
 
 const routes = [
+    new Route('/', new Login()),
     new Route('/login', new Login()),
     new Route('/signup', new Signup()),
     new Route('/inbox', new Inbox())

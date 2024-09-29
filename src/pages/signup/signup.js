@@ -92,7 +92,6 @@ class Signup {
                 }
             };
             const formHtml = signupTemplate(registrationFormData);
-            console.log(formHtml);
             return formHtml;
         }
         /**
