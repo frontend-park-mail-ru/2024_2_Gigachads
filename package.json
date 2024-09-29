@@ -1,0 +1,25 @@
+{
+  "name": "2024_2_gigachads",
+  "version": "1.0.0",
+  "description": "Dev ветка для проекта",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js",
+    "start": "node server.js",
+    "lint": "eslint .",
+    "docs": "jsdoc -c jsdoc.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.0",
+    "handlebars": "^4.7.8"
+  },
+  "devDependencies": {
+    "eslint": "^9.11.1",
+    "jsdoc": "^4.0.3",
+    "nodemon": "^3.1.7"
+  }
+}
