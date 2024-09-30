@@ -49,7 +49,7 @@ class Login {
                     type: "email",
                     name: "email",
                     id: "email",
-                    label: "Email",
+                    label: "Почта",
 
                     required: true
                 },
@@ -66,7 +66,7 @@ class Login {
             submitButton: {
                 type: "submit",
                 className: "submit-button",
-                buttonText: "Зарегистрироваться"
+                buttonText: "Войти"
             }
         };
         const formHtml = loginTemplate(authFormData);
@@ -95,6 +95,13 @@ class Login {
             alertIcon.style.display = 'none';
             inputField.classList.remove('invalid');
         }
+        const errorPassword = document.querySelector('[data-error-for="password"]');
+        if (errorPassword.textContent == "Неправильный логин или пароль") {
+            errorPassword.textContent ='';
+            errorPassword.previousElementSibling.style.display = 'none';
+            inputField.classList.remove('invalid');
+        }
+
     }
     /**
      * @description - Валидация пароля
@@ -115,6 +122,7 @@ class Login {
             alertIcon.style.display = 'none';
             inputField.classList.remove('invalid');
         }
+      
     }
 
     /**
@@ -160,6 +168,7 @@ class Login {
                     const alertIcon = errorBoxes[i].querySelector('.alert_icon')
                     alertIcon.style.display = 'inline';
                     errorMessage.textContent = 'Обязательное поле';
+                    input.classList.add('invalid');
                 }
             }
         }

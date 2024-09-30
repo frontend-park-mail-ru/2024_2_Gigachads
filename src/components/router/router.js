@@ -65,7 +65,7 @@ export class Router {
                 matchedRoute.component.attachEventListeners();
             }
         } else {
-            this.errorNavigate("404", "Страница не найдена");
+            this.errorNavigate("Ошибка 404", "Страница не найдена");
         }
     }
 }

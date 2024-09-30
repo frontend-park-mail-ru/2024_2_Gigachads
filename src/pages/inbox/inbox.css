@@ -130,6 +130,7 @@
 
 
 .menu {
+    padding-top: 12px;
     grid-area: menu;
     display: flex;
     flex-direction: column;
@@ -171,4 +172,6 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+    max-height: calc(100dvh - 70px);
+    overflow: auto;
 }
