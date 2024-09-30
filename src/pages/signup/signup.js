@@ -114,6 +114,12 @@ class Signup {
                 alertIcon.style.display = 'none';
                 inputField.classList.remove('invalid');
             }
+            const errorPassword = document.querySelector('[data-error-for="confirmPassword"]');
+            if (errorPassword.textContent == "Пользователь с такой почтой уже есть") {
+                errorPassword.textContent ='';
+                errorPassword.previousElementSibling.style.display = 'none';
+                inputField.classList.remove('invalid');
+            }
         }
     
         /**
@@ -136,6 +142,7 @@ class Signup {
                 inputField.classList.remove('invalid');
             }
         }
+        
 
         /**
          * @description - Обработка отправки формы

@@ -95,6 +95,13 @@ class Login {
             alertIcon.style.display = 'none';
             inputField.classList.remove('invalid');
         }
+        const errorPassword = document.querySelector('[data-error-for="password"]');
+        if (errorPassword.textContent == "Неправильный логин или пароль") {
+            errorPassword.textContent ='';
+            errorPassword.previousElementSibling.style.display = 'none';
+            inputField.classList.remove('invalid');
+        }
+
     }
     /**
      * @description - Валидация пароля
@@ -115,6 +122,7 @@ class Login {
             alertIcon.style.display = 'none';
             inputField.classList.remove('invalid');
         }
+      
     }
 
     /**
