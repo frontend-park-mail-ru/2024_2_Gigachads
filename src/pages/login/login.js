@@ -2,6 +2,7 @@ import User from "../../api/modules/user.js";
 import Router from "../../../index.js";
 import { rippleEffect } from "../../components/dumb/button/button.js";
 import { filterInput } from "../../components/dumb/input/input.js";
+import { loginFormData } from "./login_config.js"
 /**
  * @class Login
  * @description - Класс для отображения страницы "Login"
@@ -39,37 +40,8 @@ class Login {
         Handlebars.registerPartial('button-template', this.buttonTemplateString);
         Handlebars.registerPartial('smart-form-template', this.formTemplateString);
         const loginTemplate = Handlebars.compile(this.loginTemplateString);
-        const authFormData = {
-            formId: "authForm",
-            formClass: "auth-form",
-            novalidate: true,
-            errorContainerId: "forErrors",
-            fields: [
-                {
-                    type: "email",
-                    name: "email",
-                    id: "email",
-                    label: "Почта",
-
-                    required: true
-                },
-                {
-                    type: "password",
-                    name: "password",
-                    id: "password",
-                    label: "Пароль",
-
-                    required: true,
-                    minlength: 6
-                },
-            ],
-            submitButton: {
-                type: "submit",
-                className: "submit-button",
-                buttonText: "Войти"
-            }
-        };
-        const formHtml = loginTemplate(authFormData);
+        
+        const formHtml = loginTemplate(loginFormData);
         // Добавляем обработчики событий для валидации
 
 
@@ -85,8 +57,8 @@ class Login {
         const inputField = event.target;
         const errorContainer = document.querySelector('[data-error-for="email"]');
         const alertIcon = errorContainer.previousElementSibling;
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailPattern.test(email)) {
+       
+        if (email.length < 5) {
             errorContainer.textContent = 'Неверный формат email';
             alertIcon.style.display = 'inline';
             inputField.classList.add('invalid');
@@ -141,7 +113,7 @@ class Login {
         if (!emailError && !passwordError && emailInput && passwordInput) {
             // Отправка формы
             const response = await User.login({
-                email: emailInput,
+                email: emailInput + '@gigamail.ru',
                 password: passwordInput
             })
             if (response.ok) {
@@ -178,7 +150,7 @@ class Login {
      * @returns {void}
      */
     attachEventListeners() {
-        const emailInput = document.querySelector('input[type="email"]');
+        const emailInput = document.querySelector('input[type="text"]');
         const passwordInput = document.querySelector('input[type="password"]');
         const form = document.querySelector('form');
 

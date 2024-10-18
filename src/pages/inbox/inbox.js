@@ -3,6 +3,7 @@ import User from "../../api/modules/user.js";
 import { rippleEffect } from "../../components/dumb/button/button.js";
 import { filterInput } from "../../components/dumb/input/input.js";
 import Router from "../../../index.js";
+import { InboxData } from "./inbox_config.js"
 /**
  * @class Inbox
  * @description - Класс для отображения страницы "Inbox"
@@ -51,55 +52,6 @@ class Inbox {
             }
             const result = await response.json();
           // Преобразуем ответ в JSON
-            const authFormData = {
-                menu_elements: [
-                    {
-                        url: '/public/icons/inbox.svg',
-                        element_text: 'Все письма',
-                        active: true,
-                        count: 0
-                    }
-                    // {
-                    //     url: '/public/icons/star.svg',
-                    //     element_text: 'Starred',
-                    //     active: false,
-                    //     count: 0
-                    // },
-                    // {
-                    //     url: '/public/icons/snooze.svg',
-                    //     element_text: 'Snoozed',
-                    //     active: false,
-                    //     count: 0
-                    // },
-                    // {
-                    //     url: '/public/icons/sent.svg',
-                    //     element_text: 'Sent',
-                    //     active: false,
-                    //     count: 0
-                    // },
-                    // {
-                    //     url: '/public/icons/draft.svg',
-                    //     element_text: 'Drafts',
-                    //     active: false,
-                    //     count: 1
-                    // },
-                    // {
-                    //     url: '/public/icons/spam.svg',
-                    //     element_text: 'Spam',
-                    //     active: false,
-                    //     count: 3
-                    // },
-                    // {
-                    //     url: '/public/icons/trash.svg',
-                    //     element_text: 'Trash',
-                    //     active: false,
-                    //     count: 0
-                    // }
-                ],
-                mail_messages : []
-            };
-       
-         
             for (let i = 0; i < result.length; i++) {   
                 const dateObj = new Date(result[i].date);
                 const formattedDate = dateObj.toLocaleDateString('ru-RU', {
@@ -107,7 +59,7 @@ class Inbox {
                     month: '2-digit',
                     day: '2-digit'
                 }).split('.').reverse().join('-'); 
-                authFormData.mail_messages.push({
+                InboxData.mail_messages.push({
                     author: result[i].author,    
                     description: result[i].description,
                     date: formattedDate,
@@ -119,7 +71,7 @@ class Inbox {
                 
 
             
-            return inboxTemplate(authFormData);
+            return inboxTemplate(InboxData);
     }
     /**
      * @description - Добавление слушателей событий

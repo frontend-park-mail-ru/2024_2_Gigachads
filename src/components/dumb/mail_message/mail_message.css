@@ -32,15 +32,12 @@
     flex-direction: row;
     gap: 8px;
     min-width: 300px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 .subject_card {
     display: flex;
     flex-direction: row;
     gap: 4px;
-    max-width: 700px;
+    /* max-width: 700px; */
 
     .badge {
         height: 18px;
@@ -90,5 +87,8 @@
         line-height: 120%;
         letter-spacing: -0.01em;
         color: var(--color-black-54);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap; 
     }
 }

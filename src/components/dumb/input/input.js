@@ -7,7 +7,7 @@ function filterInput() {
     Array.from(inputs).forEach(input => {
         input.addEventListener('keypress', function (e) {
             const char = String.fromCharCode(e.which);
-            const regex = /^[A-Za-z0-9_@!#$%^&*()+=?.,;:`~]+$/;
+            const regex = /^[A-Za-z0-9_!#$%^&*()+=?.,;:`~]+$/;
             if (!regex.test(char)) {
                 e.preventDefault();
             }
@@ -16,11 +16,13 @@ function filterInput() {
         // Дополнительная проверка на вставку текста
         input.addEventListener('paste', function (e) {
             const pasteData = e.clipboardData.getData('text');
-                const regex = /^[A-Za-z0-9_@!#$%^&*()+=?.,;:`~]+$/;
+                const regex = /^[A-Za-z0-9_!#$%^&*()+=?.,;:`~]+$/;
                 if (!regex.test(pasteData)) {
                     e.preventDefault();
                 }
         });
+
+         
     });
 }
 

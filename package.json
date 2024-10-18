@@ -8,7 +8,8 @@
     "dev": "nodemon server.js",
     "start": "node server.js",
     "lint": "eslint .",
-    "docs": "jsdoc -c jsdoc.json"
+    "docs": "jsdoc -c jsdoc.json",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
@@ -18,8 +19,16 @@
     "handlebars": "^4.7.8"
   },
   "devDependencies": {
-    "eslint": "^9.11.1",
+    "@eslint/js": "^9.12.0",
+    "eslint": "^9.12.0",
+    "globals": "^15.11.0",
+    "husky": "^8.0.0",
     "jsdoc": "^4.0.3",
     "nodemon": "^3.1.7"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
   }
 }
