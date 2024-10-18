@@ -1,4 +1,4 @@
-import {BASE_API_URL } from "../config.js";
+import { BASE_API_URL } from '../config.js';
 
 /**
  * @class Email
@@ -10,10 +10,10 @@ class Email {
      * @returns {Promise<any>} - Список сообщений
      */
     async getMessages() {
-        const response = await fetch(`${BASE_API_URL}mail/inbox`, { 
-            method: "GET", 
-            headers: { 'Content-Type': 'application/json' }, 
-            credentials: "include" 
+        const response = await fetch(`${BASE_API_URL}mail/inbox`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include'
         });
         return response;
     }
@@ -25,9 +25,9 @@ class Email {
      */
     async getMessageById(id) {
         const response = await fetch(`${BASE_API_URL}mail/${id}`, {
-            method: "GET",
+            method: 'GET',
             headers: { 'Content-Type': 'application/json' },
-            credentials: "include"
+            credentials: 'include'
         });
         return (response);
     }
@@ -38,14 +38,13 @@ class Email {
      */
     async getUserInfo() {
         const response = await fetch(`${BASE_API_URL}user`, {
-            method: "GET",
+            method: 'GET',
             headers: { 'Content-Type': 'application/json' },
-            credentials: "include"
+            credentials: 'include'
         });
         return (response);
     }
 
-    
 }
 
 export default new Email();

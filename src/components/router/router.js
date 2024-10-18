@@ -1,4 +1,4 @@
-import  ErrorPage  from "../../pages/error/error.js";
+import ErrorPage from '../../pages/error/error.js';
 const root = document.getElementById('root');
 
 /**
@@ -22,17 +22,17 @@ export class Router {
      */
     init() {
         root.addEventListener('click', (event) => {
-            const {target} = event;
+            const { target } = event;
             if (target instanceof HTMLAnchorElement) {
                 event.preventDefault();
                 this.navigateTo(target.getAttribute('href'));
             }
         });
-    
+
         window.addEventListener('popstate', () => {
             this.loadRoute(window.location.pathname);
         });
-    
+
         this.loadRoute(window.location.pathname);
     }
 
@@ -57,23 +57,22 @@ export class Router {
      * @description - Загрузка маршрута
      */
     async loadRoute(url) {
-        const matchedRoute = this.routes.find(route => route.path === url); 
+        const matchedRoute = this.routes.find(route => route.path === url);
         if (matchedRoute) {
             const view = await matchedRoute.component.render();
-            if (view != 'error') {
+            if (view !== 'error') {
                 root.innerHTML = view;
                 matchedRoute.component.attachEventListeners();
             }
         } else {
-            this.errorNavigate("Ошибка 404", "Страница не найдена");
+            this.errorNavigate('Ошибка 404', 'Страница не найдена');
         }
     }
 }
-
 
 export class Route {
     constructor(path, component) {
         this.path = path;
         this.component = component;
-    }   
+    }
 }

@@ -16,13 +16,12 @@ function filterInput() {
         // Дополнительная проверка на вставку текста
         input.addEventListener('paste', function (e) {
             const pasteData = e.clipboardData.getData('text');
-                const regex = /^[A-Za-z0-9_!#$%^&*()+=?.,;:`~]+$/;
-                if (!regex.test(pasteData)) {
-                    e.preventDefault();
-                }
+            const regex = /^[A-Za-z0-9_!#$%^&*()+=?.,;:`~]+$/;
+            if (!regex.test(pasteData)) {
+                e.preventDefault();
+            }
         });
 
-         
     });
 }
 

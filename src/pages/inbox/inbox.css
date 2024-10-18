@@ -173,5 +173,6 @@
     flex-direction: column;
     gap: 8px;
     max-height: calc(100dvh - 70px);
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
 }

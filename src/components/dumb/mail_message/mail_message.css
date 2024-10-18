@@ -1,6 +1,7 @@
 .email_card {
     display: flex;
     flex-direction: row;
+    /* overflow: hidden; */
     height: 38px;
     padding-top: 8px;
     padding-bottom: 8px;

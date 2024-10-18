@@ -1,8 +1,8 @@
-import User from "../../api/modules/user.js";
-import Router from "../../../index.js";
-import { rippleEffect } from "../../components/dumb/button/button.js";
-import { filterInput } from "../../components/dumb/input/input.js";
-import { loginFormData } from "./login_config.js"
+import User from '../../api/modules/user.js';
+import Router from '../../../index.js';
+import { rippleEffect } from '../../components/dumb/button/button.js';
+import { filterInput } from '../../components/dumb/input/input.js';
+import { loginFormData } from './login_config.js';
 /**
  * @class Login
  * @description - Класс для отображения страницы "Login"
@@ -40,10 +40,9 @@ class Login {
         Handlebars.registerPartial('button-template', this.buttonTemplateString);
         Handlebars.registerPartial('smart-form-template', this.formTemplateString);
         const loginTemplate = Handlebars.compile(this.loginTemplateString);
-        
+
         const formHtml = loginTemplate(loginFormData);
         // Добавляем обработчики событий для валидации
-
 
         return formHtml;
     }
@@ -57,7 +56,7 @@ class Login {
         const inputField = event.target;
         const errorContainer = document.querySelector('[data-error-for="email"]');
         const alertIcon = errorContainer.previousElementSibling;
-       
+
         if (email.length < 5) {
             errorContainer.textContent = 'Неверный формат email';
             alertIcon.style.display = 'inline';
@@ -68,8 +67,8 @@ class Login {
             inputField.classList.remove('invalid');
         }
         const errorPassword = document.querySelector('[data-error-for="password"]');
-        if (errorPassword.textContent == "Неправильный логин или пароль") {
-            errorPassword.textContent ='';
+        if (errorPassword.textContent === 'Неправильный логин или пароль') {
+            errorPassword.textContent = '';
             errorPassword.previousElementSibling.style.display = 'none';
             inputField.classList.remove('invalid');
         }
@@ -94,7 +93,7 @@ class Login {
             alertIcon.style.display = 'none';
             inputField.classList.remove('invalid');
         }
-      
+
     }
 
     /**
@@ -115,20 +114,16 @@ class Login {
             const response = await User.login({
                 email: emailInput + '@gigamail.ru',
                 password: passwordInput
-            })
+            });
             if (response.ok) {
                 Router.navigateTo('/inbox');
             }
             else {
                 const errorBoxes = document.getElementsByClassName('error-box');
-                const input = errorBoxes[errorBoxes.length - 1].parentElement.querySelector('input');
-                console.log(errorBoxes[errorBoxes.length - 1]);
                 const errorMessage = errorBoxes[errorBoxes.length - 1].querySelector('.error-message');
-                const alertIcon = errorBoxes[errorBoxes.length - 1].querySelector('.alert_icon')
+                const alertIcon = errorBoxes[errorBoxes.length - 1].querySelector('.alert_icon');
                 alertIcon.style.display = 'inline';
                 errorMessage.textContent = 'Неправильный логин или пароль';
-
-
             }
         } else {
             const errorBoxes = document.getElementsByClassName('error-box');
@@ -137,7 +132,7 @@ class Login {
                 const input = errorBoxes[i].parentElement.querySelector('input');
                 if (input.value.trim() === '') {
                     const errorMessage = errorBoxes[i].querySelector('.error-message');
-                    const alertIcon = errorBoxes[i].querySelector('.alert_icon')
+                    const alertIcon = errorBoxes[i].querySelector('.alert_icon');
                     alertIcon.style.display = 'inline';
                     errorMessage.textContent = 'Обязательное поле';
                     input.classList.add('invalid');
@@ -160,7 +155,6 @@ class Login {
         rippleEffect();
         filterInput();
     }
-
 
 }
 
