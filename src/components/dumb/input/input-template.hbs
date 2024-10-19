@@ -1,6 +1,6 @@
 <div class="container">
   <div class="entryarea">
-    <input class="input"
+    <input class="input  {{#if isMail}}email{{/if}}"
       type="{{type}}"
       name="{{name}}"
       {{#if id}}id="{{id}}"{{/if}}
@@ -10,9 +10,9 @@
       {{#if minlength}}minlength="{{minlength}}"{{/if}}
       {{#if maxlength}}maxlength="{{maxlength}}"{{/if}}
       spellcheck="false"
-
     >
     <div class="labelline">{{label}}</div>
+    {{#if isMail}}<div class="disable_gigamail_text">@gigamail.ru</div>{{/if}}
   </div>
   <div class="error-box">
     <img class="alert_icon" src="/public/icons/alert.svg">

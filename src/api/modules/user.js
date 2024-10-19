@@ -1,4 +1,4 @@
-import {BASE_API_URL } from "../config.js";
+import { BASE_API_URL } from '../config.js';
 /**
  * @class User
  * @description - Класс для работы с пользователями
@@ -11,9 +11,9 @@ class User {
      */
     async login(userData) {
         const response = await fetch(`${BASE_API_URL}login`, {
-            method: "POST",
+            method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            credentials: "include",
+            credentials: 'include',
             body: JSON.stringify(userData)
         });
         return response;
@@ -25,9 +25,9 @@ class User {
      */
     async logout() {
         const response = await fetch(`${BASE_API_URL}logout`, {
-            method: "GET",
+            method: 'GET',
             headers: { 'Content-Type': 'application/json' },
-            credentials: "include"
+            credentials: 'include'
         });
         return response;
     }
@@ -39,9 +39,9 @@ class User {
      */
     async signup(userData) {
         const response = await fetch(`${BASE_API_URL}signup`, {
-            method: "POST",
+            method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            credentials: "include",
+            credentials: 'include',
             body: JSON.stringify(userData)
         });
         return response;
