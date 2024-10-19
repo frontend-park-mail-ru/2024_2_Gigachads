@@ -4,6 +4,7 @@ import { rippleEffect } from '../../components/dumb/button/button.js';
 import { filterInput } from '../../components/dumb/input/input.js';
 import Router from '../../../index.js';
 import { InboxData } from './inbox_config.js';
+import dateFormating from '../../assets/scripts/date_formating.js'
 /**
  * @class Inbox
  * @description - Класс для отображения страницы "Inbox"
@@ -52,23 +53,21 @@ class Inbox {
         }
         const result = await response.json();
         // Преобразуем ответ в JSON
+        let dates = [];
         for (let i = 0; i < result.length; i++) {
-            const dateObj = new Date(result[i].date);
-            const formattedDate = dateObj.toLocaleDateString('ru-RU', {
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit'
-            }).split('.').reverse().join('-');
+            dates.push(result[i].date);
+        }
+        dates = dateFormating(dates);
+        for (let i = 0; i < dates.length; i++) {
             InboxData.mail_messages.push({
                 author: result[i].author,
                 description: result[i].description,
-                date: formattedDate,
+                date: dates[i],
                 text: result[i].text,
                 badge_text: result[i].badge_text,
                 badge_type: result[i].badge_type
             });
         }
-
         return inboxTemplate(InboxData);
     }
     /**
