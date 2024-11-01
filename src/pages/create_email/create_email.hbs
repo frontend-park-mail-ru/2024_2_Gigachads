@@ -1,0 +1,18 @@
+<div class="create-email">
+    <form class="create-email__form" method="POST" action="">
+        <input type="hidden" name="parentID" value="{{parentID}}">
+        <div class="create-email__input-container">
+            <label class="create-email__label" for="recipient">Кому</label>
+            <input class="create-email__input create-email__input_type_recipient" type="text" name="recipient" value="{{recipient}}" {{#unless recipient}}required{{/unless}}>
+        </div>
+        <div class="create-email__input-container">
+            <label class="create-email__label" for="theme">Тема</label>
+            <input class="create-email__input create-email__input_type_theme" type="text" name="theme" value="{{theme}}" required>
+        </div>
+        <div class="create-email__input-container create-email__input-container_type_description">
+            <label class="create-email__label" for="description">Описание</label>
+            <textarea class="create-email__input create-email__input_type_description" name="description" required></textarea>
+        </div>
+        <button class="create-email__button button" type="submit">Создать</button>
+    </form>
+</div>

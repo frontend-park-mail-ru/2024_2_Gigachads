@@ -1,0 +1,29 @@
+.email-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    .email-container__utility-bar{
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 10px;
+        border-bottom: 1px solid rgba(128, 128, 128, 0.218);
+        .email-container__utility-bar-buttons{
+            display: flex;
+            flex-direction: row;
+            gap: 15px;
+            width: fit-content;
+            justify-content: flex-start;
+            align-items: center;
+            background-color: rgb(194, 231, 255);
+            color: #3D4043;
+            .icon{
+                width: 20px;
+                height: 20px;
+            }
+        }
+    }
+}

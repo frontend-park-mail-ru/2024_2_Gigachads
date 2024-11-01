@@ -1,0 +1,91 @@
+.notification-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 2000;
+}
+
+.notification {
+    min-width: 250px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateY(100%);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.notification.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.notification.success {
+    background-color: #4caf50; 
+}
+
+.notification.error {
+    background-color: #f44336; 
+}
+
+.notification-icon {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.notification-text {
+    flex: 1;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    color: white; /* Убедитесь, что цвет установлен на белый */
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: color 0.3s ease;
+}
+
+.notification.success .close-button {
+    color: white; /* Белый крестик для уведомлений типа success */
+}
+
+.notification.error .close-button {
+    color: white; /* Белый крестик для уведомлений типа error */
+}
+
+.close-button:hover {
+    color: #ddd;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+}
+
+.notification.hide {
+    animation: fadeOut 0.5s forwards;
+}
+.notification {
+    .icon {
+        filter: invert(100%);
+        width: 20px;
+        height: 20px;
+    }
+}

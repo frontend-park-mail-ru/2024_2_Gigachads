@@ -8,6 +8,11 @@
 @import url('/src/components/dumb/mail_message/mail_message.css');
 @import url('/src/components/dumb/element_menu/element_menu.css');
 @import url('/src/pages/error/error.css');
+@import url('/src/components/dumb/notification/notification.css');
+@import url('/src/pages/create_email/create_email.css');
+@import url('/src/pages/settings/settings.css');
+@import url('/src/components/dumb/email/email-template.css');
+@import url('/src/pages/email/email.css');
 @font-face {
     font-family: 'Roboto';
     src: url('/src/assets/fonts/Roboto-Regular.ttf') format('truetype');

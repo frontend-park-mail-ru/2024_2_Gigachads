@@ -1,0 +1,54 @@
+.email-card{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.218);
+    padding: 10px;
+    letter-spacing: -0.2px;
+    .email-card__header{
+        font-size: 20px;
+        font-weight: 500;
+        color: #202124;
+        letter-spacing: -0.2px;
+    }
+    .email-card__sender{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+        .email-card__sender-name{
+            font-size: 14px;
+            font-weight: 400;
+            color: #202124;
+        }
+        .email-card__date{
+            font-size: 14px;
+            font-weight: 400;
+            color: #202124;
+        }
+    }
+    .email-card__description{
+        font-size: 14px;
+        font-weight: 400;
+        color: #202124;
+    }
+}
+
+.email-card.child{
+    background-color: #F5F7F7;
+    margin-left: 10%;
+    .email-card__header{
+        font-size: 14px;
+    }
+    .email-card__sender{
+        .email-card__sender-name{
+            font-size: 12px
+        }
+        .email-card__date{
+            font-size: 12px;
+        }
+    }
+    .email-card__description{
+        font-size: 12px;
+    }
+}

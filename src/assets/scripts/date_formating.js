@@ -1,19 +1,19 @@
 /**
  * Функция для форматирования даты в строку.
  * 
- * @param {Array} date - Массив строк, содержащих даты в любом формате, понятном для new Date().
- * @returns {Array} - Массив строк, содержащих даты в формате 'DD-MM-YYYY'.
+ * @param {Array} emails - Массив писем, содержащих даты в любом формате, понятном для new Date().
+ * @returns {Array} - Массив писем, содержащих даты в формате 'DD-MM-YYYY'.
  */
-export default function dateFormating(date) {
+export default function dateFormatingforEmails(emails) {
 
-    for (let i = 0; i < date.length; i++) {
-        const dateObj = new Date(date[i]);
-        date[i] = dateObj.toLocaleDateString('ru-RU', {
+    for (let i = 0; i < emails.length; i++) {
+        const dateObj = new Date(emails[i].date);
+        emails[i].date = dateObj.toLocaleDateString('ru-RU', {
             year: 'numeric',
             month: '2-digit',
             day: '2-digit'
         }).split('.').reverse().join('-');
     }
 
-    return date;
+    return emails;
 } 

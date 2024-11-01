@@ -1,0 +1,58 @@
+.create-email {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .create-email__form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+
+        .create-email__input-container {
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+            width: 100%;
+            border-bottom: 1px solid rgba(128, 128, 128, 0.22);
+            padding-bottom: 10px;
+
+            .create-email__label {
+                width: 80px;
+            }
+
+            .create-email__input {
+                all: unset;
+                width: 90%;
+            }
+        }
+
+        .create-email__input-container_type_description {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            .create-email__input {
+                width: 100%;
+                border-radius: 5px;
+                resize: none; /* Отключаем ручное изменение размера */
+                overflow-wrap: break-word;
+                /* Перенос длинных слов */
+                word-wrap: break-word;
+                /* Для лучшей поддержки старых браузеров */
+                white-space: pre-wrap;
+                /* Сохранение переносов строк и пробелов */
+                overflow-x: hidden;
+                /* Скрываем горизонтальную полосу прокрутки */
+                min-height: 80px;
+                /* Минимальная высота textarea */
+                box-sizing: border-box;
+            }
+        }
+
+    }
+}

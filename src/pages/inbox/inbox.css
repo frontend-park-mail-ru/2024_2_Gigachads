@@ -19,6 +19,8 @@
     padding-top: 12px;
     padding-bottom: 12px;
     border-bottom: 1px solid rgba(128, 128, 128, 0.218);
+    position: relative; /* Для позиционирования дочерних элементов */
+    z-index: 1000; /* Высокий z-index */
 
     .logo {
         .icon_logo {
@@ -81,30 +83,14 @@
             background-color: rgb(194, 231, 255);
             color: #3D4043;
         }
-        .icon_box {
-            align-items: center;
-            height: 38px;
-            width: 38px;
-            padding-top: 7px;
-            padding-left: 7px;
-            border-radius: 100px;
-
-            .icon {
-                height: 24px;
-                width: 24px;
-            }
-
-            &:hover {
-                cursor: pointer;
-                background-color: rgba(60, 64, 67, 0.08);
-            }
-        }
+        
 
         .profile_box {
+            position: relative;
             width: 42px;
             height: 42px;
             border-radius: 100px;
-            overflow: hidden;
+            /* overflow: hidden; */
             border-top: solid 3px rgb(233, 45, 24);
             border-right: solid 3px rgb(49, 116, 241);
             border-left: solid 3px rgb(246, 173, 1);
@@ -115,6 +101,8 @@
                 border-radius: 100px;
                 border: solid 3px white;
             }
+
+            
             &:hover {
                 cursor: pointer;
                 border-top: solid 4px rgb(233, 45, 24);
@@ -146,7 +134,7 @@
         padding-bottom: 12px;
         padding-right: 20px;
         background-color: rgb(194, 231, 255);
-
+        
         margin-top: 15px;
         margin-left: 8px;
         margin-bottom: 16px;
@@ -167,7 +155,7 @@
 }
 
 .content {
-    padding-top: 12px;
+    
     grid-area: content;
     display: flex;
     flex-direction: column;
@@ -175,4 +163,61 @@
     max-height: calc(100dvh - 70px);
     overflow-y: auto;
     overflow-x: hidden;
+    z-index: 900;
+    .utility_bar {
+        border-bottom: 1px solid rgba(128, 128, 128, 0.218);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        padding-left: 14px;
+        padding-right: 16px;
+        gap: 16px;
+    }
+}
+
+.icon_box {
+    align-items: center;
+    height: 38px;
+    width: 38px;
+    padding-top: 7px;
+    padding-left: 7px;
+    border-radius: 100px;
+
+    .icon {
+        height: 24px;
+        width: 24px;
+        border-radius: 100px;
+    }
+
+    &:hover {
+        cursor: pointer;
+        background-color: rgba(60, 64, 67, 0.08);
+    }
+}
+
+.profile_dropdown {
+    display: none; /* Скрыто по умолчанию */
+    position: absolute;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    top: 50px; /* Расположение под аватаром */
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    padding: 10px;
+    width: 200px;
+    z-index: 1010;
+
+    .user_email {
+
+        font-size: 14px;
+        color: #333;
+    }
 }

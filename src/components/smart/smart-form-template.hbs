@@ -1,7 +1,7 @@
 <form id="{{formId}}" class="{{formClass}}" {{#if novalidate}}novalidate{{/if}}>
   {{#each fields}}
     <div class="form-group">
-      {{> input-template 
+      {{> components/dumb/input/input-template 
         type=this.type
         name=this.name
         id=this.id
@@ -18,7 +18,7 @@
   
   <div id="{{errorContainerId}}" class="error-container"></div>
   
-  {{> button-template 
+  {{> components/dumb/button/button-template 
     type="submit"
     className="submit"
     buttonText=this.buttonText

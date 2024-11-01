@@ -1,0 +1,22 @@
+<div class="utility_bar">
+    <div class="checkbox_container">
+        <input class="checkbox" type="checkbox" name="happy"
+            value="yes" id="main_checkbox">
+        <label for="happy" class="fake-checkbox"></label>
+    </div>
+    <div class="icon_box trash">
+        <img class="icon" src="/icons/trash.svg">
+    </div>
+</div>
+{{#each mail_messages}}
+{{> components/dumb/mail_message/mail_message-template
+id=111
+badge_text=this.badge_text
+badge_type=this.badge_type
+text=this.text
+author=this.author
+description=this.description
+date=this.date
+isRead=this.isRead
+}}
+{{/each}}

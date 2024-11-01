@@ -1,0 +1,44 @@
+<div class="settings-page">
+    <div class="settings-page__avatar-container">
+        <div class="settings-page__email">{{user.email}}</div>
+        <div class="settings-page__avatar-wrapper">
+            <img src="{{user.avatarPath}}" alt="Avatar" class="settings-page__avatar" id="avatarImage">
+            <label for="avatarInput" class="settings-page__avatar-overlay">
+                <img src="/icons/download.svg" alt="Изменить аватар" class="settings-page__upload-icon">
+            </label>
+            <input type="file" name="avatar" class="settings-page__avatar-input" id="avatarInput" accept="image/*" hidden>
+        </div>
+        <div class="settings-page__username">Здравствуй, {{user.nickname}}!</div>
+        <button type="button" class="settings-page__save-button" id="saveAvatarButton" style="display: none;">Сохранить</button>
+    </div>
+    
+    <!-- Кнопка для смены ника -->
+    <div class="settings-page__toggle-form">
+        <button type="button" class="settings-page__toggle-button" id="toggleNicknameFormButton">Сменить логин?</button>
+    </div>
+    
+    <!-- Форма смены ника -->
+    <div class="settings-page__change-nickname-form hide" id="changeNicknameFormContainer" >
+        {{> components/smart/smart-form-template
+            formId=nicknameFormConfig.formId
+            formClass=nicknameFormConfig.formClass
+            buttonText=nicknameFormConfig.buttonText
+            fields=nicknameFormConfig.fields
+        }}
+    </div>
+    
+    <!-- Кнопка для смены пароля -->
+    <div class="settings-page__toggle-form">
+        <button type="button" class="settings-page__toggle-button" id="togglePasswordFormButton">Сменить пароль?</button>
+    </div>
+    
+    <!-- Форма смены пароля -->
+    <div class="settings-page__change-password-form hide" id="changePasswordFormContainer">
+        {{> components/smart/smart-form-template
+            formId=passwordFormConfig.formId
+            formClass=passwordFormConfig.formClass
+            buttonText=passwordFormConfig.buttonText
+            fields=passwordFormConfig.fields
+        }}
+    </div>
+</div>

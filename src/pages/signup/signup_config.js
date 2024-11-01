@@ -6,6 +6,14 @@ export const registrationFormData = {
     fields: [
         {
             type: 'text',
+            name: 'username',
+            id: 'username',
+            label: 'Имя',
+            required: true,
+            minlength: 2
+        },
+        {
+            type: 'text',
             name: 'email',
             id: 'email',
             label: 'Почта',
