@@ -1,6 +1,5 @@
 import notificationTemplate from './notification-template.hbs';
 
-
 /**
  * Класс Notification
  * Отвечает за создание и управление уведомлениями
@@ -59,7 +58,6 @@ class Notification {
         });
     }
 }
-
 
 const notificationInstance = new Notification();
 export default notificationInstance;

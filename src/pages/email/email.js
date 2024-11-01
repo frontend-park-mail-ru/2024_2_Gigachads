@@ -80,7 +80,7 @@ class EmailPage {
         const deleteButtons = document.querySelectorAll('.email-container__utility-bar-buttons[data-action="delete"]');
         deleteButtons.forEach(async button => {
             button.addEventListener('click', async () => {
-                let ids = [];
+                const ids = [];
                 ids.push(this.mainEmail.id);
                 try {
                     const response = await Email.deleteEmails(ids);

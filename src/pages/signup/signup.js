@@ -21,8 +21,6 @@ class Signup {
         return formHtml;
     }
     
-
-    
     /**
      * @description - Обработка отправки формы
      * @param {Event} event - Событие отправки формы
@@ -97,11 +95,6 @@ class Signup {
         validatePassword();
         validateConfirmPassword();
     }
-
-   
-
-    
-
 }
 
 export default Signup;

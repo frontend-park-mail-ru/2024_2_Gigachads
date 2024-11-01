@@ -69,7 +69,7 @@ export function validatePassword() {
     const confirmNewPasswordInput = document.getElementById('confirmNewPassword');
     const oldPasswordInput = document.getElementById('oldPassword');
     const passwordInputs = [passwordInput, confirmPasswordInput, newPasswordInput, confirmNewPasswordInput, oldPasswordInput];
-    
+
     passwordInputs.forEach(input => {
         if (input) {
             input.addEventListener('input', () => {
@@ -141,7 +141,6 @@ export function validateConfirmNewPassword() {
         });
     }
 }
-
 
 /**
  * @description - Валидация имени пользователя и навешивание события ввода

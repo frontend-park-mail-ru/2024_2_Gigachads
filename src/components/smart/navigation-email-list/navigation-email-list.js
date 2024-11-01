@@ -2,7 +2,6 @@ import Email from '../../../api/modules/email.js';
 import Notification from '../../dumb/notification/notification.js';
 import Router from '../../../index.js';
 
-
 export function mainCheckbox() {
     const mainCheckbox = document.getElementById('main_checkbox');
     mainCheckbox.addEventListener('click', () => {
@@ -36,10 +35,10 @@ export function deleteSelectedEmails() {
                 Notification.show('Письма успешно удалены', 'success');
                 Router.navigate('/inbox');
             } else {
-                Notification.show(`Ошибка удаления писем`, 'error');
+                Notification.show('Ошибка удаления писем', 'error');
             }
         } catch (error) {
-            Notification.show(`Ошибка удаления писем`, 'error');
+            Notification.show(`${error}`, 'error');
         }
     });
 }

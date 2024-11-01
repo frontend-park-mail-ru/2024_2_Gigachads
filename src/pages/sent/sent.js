@@ -11,7 +11,7 @@ class Sent {
                 let result = await response.json();
 
                 result = dateFormatingforEmails(result);
-                let sentData = {
+                const sentData = {
                     mail_messages: [],
                 };
                 for (let i = 0; i < result.length; i++) {
@@ -24,7 +24,7 @@ class Sent {
             }
             Notification.show('Не удалось получить отправленные письма', 'error');
         } catch (error) {
-            Notification.show('Не удалось получить отправленные письма', 'error');
+            Notification.show(`${error}`, 'error');
         }
     }
 

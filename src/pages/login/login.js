@@ -21,9 +21,7 @@ class Login {
         const formHtml = loginTemplate(loginFormData);
         return formHtml;
     }
-
-   
-
+    
     /**
      * @description - Обработка отправки формы
      * @param {Event} event - Событие отправки формы

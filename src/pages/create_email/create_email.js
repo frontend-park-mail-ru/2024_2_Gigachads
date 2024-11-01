@@ -3,8 +3,6 @@ import Email from '../../api/modules/email.js';
 import Router from '../../index.js';
 import Notification from '../../components/dumb/notification/notification.js';
 
-
-
 class CreateEmail {
     async render() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -31,19 +29,19 @@ class CreateEmail {
             const parentID = formData.get('parentID') || 0;
             try {
                 const response = await Email.createEmail({
-                recipient: formData.get('recipient'),
-                theme: formData.get('theme'),
-                description: formData.get('description'),
-                parentID: parentID
-            });
-            if (response.status === 200) {
+                    recipient: formData.get('recipient'),
+                    theme: formData.get('theme'),
+                    description: formData.get('description'),
+                    parentID: parentID
+                });
+                if (response.status === 200) {
                     Router.navigate('/sent');
-                    Notification.show('Email created successfully', 'success');
+                    Notification.show('Письмо успешно отправлено', 'success');
                 } else {
-                    Notification.show('Email creation failed', 'error');
+                    Notification.show('Письмо не отправлено', 'error');
                 }
             } catch (error) {
-                Notification.show('Email creation failed', 'error');
+                Notification.show(`${error}`, 'error');
             }
         });
     }
@@ -53,11 +51,10 @@ class CreateEmail {
 
         if (textarea) {
             const autoResize = (element) => {
-                element.style.height = 'auto'; 
-                element.style.height = `${element.scrollHeight}px`; 
+                element.style.height = 'auto';
+                element.style.height = `${element.scrollHeight}px`;
             };
 
-     
             autoResize(textarea);
 
             textarea.addEventListener('input', () => {
@@ -65,9 +62,6 @@ class CreateEmail {
             });
         }
     }
-
-
-
 }
 
 export default CreateEmail;
