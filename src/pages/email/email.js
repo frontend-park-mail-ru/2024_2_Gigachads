@@ -1,6 +1,6 @@
 import emailTemplate from './email.hbs';
 import Email from '../../api/modules/email.js';
-import emailMock from '../../api/mocks/emailMock.json';
+// import emailMock from '../../api/mocks/emailMock.json';
 import Notification from '../../components/dumb/notification/notification.js';
 import Router from '../../index.js';
 class EmailPage {
@@ -9,29 +9,20 @@ class EmailPage {
     }
     async render(params) {
         try {
+            const email = await Email.getEmailTree(params.id);
+            if (email.ok) {
+                const emailData = await email.json();
+                this.mainEmail = emailData.mailList[0];
 
-            const emailData = emailMock;
-            this.mainEmail = emailData.mailList[0];
-
-            return emailTemplate({
-                mainEmail: this.mainEmail,
-                emailTree: emailData.mailList.slice(1)
-            });
-
-            // const email = await Email.getEmailTree(params.id);
-            // if (email.ok) {
-            //     const emailData = await email.json();
-            //     const mainEmail = emailData.mailList[0];
-
-            //     return emailTemplate( {
-            //         mainEmail: mainEmail,
-            //         emailTree: emailData.mailList.slice(1)
-            //     });
-            // } else {
-            //     Notification.show('Не удалось получить письмо', 'error');
-            // }
+                return emailTemplate( {
+                    mainEmail: this.mainEmail,
+                    emailTree: emailData.mailList.slice(1)
+                });
+            } else {
+                Notification.show('Не удалось получить письмо', 'error');
+            }
         } catch (error) {
-            Notification.show(`${error}`, 'error');
+            Notification.show('Не удалось получить письмо', 'error');
         }
     }
 
@@ -71,7 +62,7 @@ class EmailPage {
                 const emailId = this.mainEmail.id;
                 const subject = this.mainEmail.title;
 
-                Router.navigateTo(`/create_email?parentID=${emailId}&theme=Frw: ${encodeURIComponent(subject)}`);
+                Router.navigateTo(`/create_email?parentID=${emailId}&theme=Fwd: ${encodeURIComponent(subject)}`);
             });
         });
     }
@@ -91,7 +82,7 @@ class EmailPage {
                         Notification.show('Не удалось удалить письмо', 'error');
                     }
                 } catch (error) {
-                    Notification.show(`${error}`, 'error');
+                    Notification.show('Не удалось удалить письмо', 'error');
                 }
             });
         });

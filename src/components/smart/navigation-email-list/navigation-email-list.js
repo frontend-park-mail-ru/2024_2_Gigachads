@@ -38,7 +38,7 @@ export function deleteSelectedEmails() {
                 Notification.show('Ошибка удаления писем', 'error');
             }
         } catch (error) {
-            Notification.show(`${error}`, 'error');
+            Notification.show('Ошибка удаления писем', 'error');
         }
     });
 }

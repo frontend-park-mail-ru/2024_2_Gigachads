@@ -34,8 +34,7 @@ class Inbox {
         result = dateFormatingforEmails(result);
         for (let i = 0; i < result.length; i++) {
             InboxData.mail_messages.push({
-                ...result[i],
-                isRead: Math.random() > 0.5 ? true : false
+                ...result[i]
             });
         }
         return inboxTemplate(InboxData);

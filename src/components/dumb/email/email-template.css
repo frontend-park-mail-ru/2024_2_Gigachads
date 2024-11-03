@@ -2,13 +2,13 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
-    border-bottom: 1px solid rgba(128, 128, 128, 0.218);
+    border-bottom: 1px solid var(--color-for-bottom-border);
     padding: 10px;
     letter-spacing: -0.2px;
     .email-card__header{
-        font-size: 20px;
-        font-weight: 500;
-        color: #202124;
+        font-size: var(--large-font-size);
+        font-weight: var(--bold-weight);
+        color: var(--base-font-color);
         letter-spacing: -0.2px;
     }
     .email-card__sender{
@@ -17,38 +17,38 @@
         width: 100%;
         justify-content: space-between;
         .email-card__sender-name{
-            font-size: 14px;
-            font-weight: 400;
-            color: #202124;
+            font-size: var(--base-font-size);
+            font-weight: var(--small-weight);
+            color: var(--base-font-color);
         }
         .email-card__date{
-            font-size: 14px;
-            font-weight: 400;
-            color: #202124;
+            font-size: var(--base-font-size);
+            font-weight: var(--small-weight);
+            color: var(--base-font-color);
         }
     }
     .email-card__description{
-        font-size: 14px;
-        font-weight: 400;
-        color: #202124;
+        font-size: var(--base-font-size);
+        font-weight: var(--small-weight);
+        color: var(--base-font-color);
     }
 }
 
 .email-card.child{
-    background-color: #F5F7F7;
+    background-color: var(--color-subwhite);
     margin-left: 10%;
     .email-card__header{
-        font-size: 14px;
+        font-size: var(--base-font-size);
     }
     .email-card__sender{
         .email-card__sender-name{
-            font-size: 12px
+            font-size: var(--small-font-size);
         }
         .email-card__date{
-            font-size: 12px;
+            font-size: var(--small-font-size);
         }
     }
     .email-card__description{
-        font-size: 12px;
+        font-size: var(--small-font-size);
     }
 }

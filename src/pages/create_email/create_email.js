@@ -41,7 +41,7 @@ class CreateEmail {
                     Notification.show('Письмо не отправлено', 'error');
                 }
             } catch (error) {
-                Notification.show(`${error}`, 'error');
+                Notification.show('Письмо не отправлено', 'error');
             }
         });
     }

@@ -7,7 +7,7 @@
         min-height: 16px;
         width: 320px;
         gap: 8px;
-        font-size: 12px;
+        font-size: var(--small-font-size);
         line-height: 16px;
         margin-top: 4px;
         color: #C84031;
@@ -25,7 +25,7 @@
     height: 40px;
     line-height: 40px;
     .disable_gigamail_text {
-        font-size: 12px;
+        font-size: var(--small-font-size);
         position: relative;
         left: 75%;
         justify-content: start;
@@ -46,7 +46,7 @@
     width: 100%;
     outline: none;
     
-    font-size: 16px;
+    font-size: var(--base-font-size);
     padding: 0 8px;
     line-height: 40px;
     border-radius:  4px;
@@ -65,7 +65,7 @@
     display: inline;
     position: absolute;
    
-    font-size: 16px;
+    font-size: var(--base-font-size);
     color: gray;
     padding: 0 5px;
     margin: 0 5px;
@@ -74,7 +74,7 @@
 }
 .input:focus,
 .input:valid{
-    border: 1px solid #1a73e8;
+    border: 1px solid var(--color-blue);
 
 }
 .input.invalid + .labelline,
@@ -88,16 +88,16 @@
 
 .input:focus + .labelline,
 .input:valid + .labelline{
-    color: #1a73e8;
+    color: var(--color-blue);
     
 }
 .input.invalid + .labelline {
-    color: #C84031;
+    color: var(--color-red);
 }
 .input.invalid:focus {
-    border: 1px solid #C84031;
+    border: 1px solid var(--color-red);
 }
 .input.input.invalid {
-    border: 1px solid #C84031;
+    border: 1px solid var(--color-red);
     transition: 0.1s ease;
 }

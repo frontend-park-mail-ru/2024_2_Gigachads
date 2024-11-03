@@ -18,7 +18,7 @@
     gap: 10px;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px var(--color-box-shadow);
     opacity: 0;
     transform: translateY(100%);
     transition: opacity 0.5s ease, transform 0.5s ease;
@@ -30,16 +30,16 @@
 }
 
 .notification.success {
-    background-color: #4caf50; 
+    background-color: var(--color-green); 
 }
 
 .notification.error {
-    background-color: #f44336; 
+    background-color: var(--color-red); 
 }
 
 .notification-icon {
     margin-right: 10px;
-    font-size: 18px;
+    font-size: var(--base-font-size);
 }
 
 .notification-text {
@@ -49,23 +49,23 @@
 .close-button {
     background: none;
     border: none;
-    color: white; /* Убедитесь, что цвет установлен на белый */
-    font-size: 16px;
+    color: white; 
+    font-size: var(--base-font-size);
     cursor: pointer;
     margin-left: 10px;
     transition: color 0.3s ease;
 }
 
 .notification.success .close-button {
-    color: white; /* Белый крестик для уведомлений типа success */
+    color: white; 
 }
 
 .notification.error .close-button {
-    color: white; /* Белый крестик для уведомлений типа error */
+    color: white; 
 }
 
 .close-button:hover {
-    color: #ddd;
+    color: var(--color-subwhite);
 }
 
 @keyframes fadeOut {

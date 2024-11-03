@@ -18,7 +18,7 @@
             flex-direction: row;
             gap: 5px;
             width: 100%;
-            border-bottom: 1px solid rgba(128, 128, 128, 0.22);
+            border-bottom: 1px solid var(--color-for-bottom-border);
             padding-bottom: 10px;
 
             .create-email__label {
@@ -39,17 +39,12 @@
             .create-email__input {
                 width: 100%;
                 border-radius: 5px;
-                resize: none; /* Отключаем ручное изменение размера */
+                resize: none; 
                 overflow-wrap: break-word;
-                /* Перенос длинных слов */
                 word-wrap: break-word;
-                /* Для лучшей поддержки старых браузеров */
                 white-space: pre-wrap;
-                /* Сохранение переносов строк и пробелов */
                 overflow-x: hidden;
-                /* Скрываем горизонтальную полосу прокрутки */
                 min-height: 80px;
-                /* Минимальная высота textarea */
                 box-sizing: border-box;
             }
         }

@@ -10,11 +10,11 @@
 </div>
 {{#each mail_messages}}
 {{> components/dumb/mail_message/mail_message-template
-id=111
+id=this.id
 badge_text=this.badge_text
 badge_type=this.badge_type
-text=this.text
-author=this.author
+title=this.title
+sender=this.sender
 description=this.description
 date=this.date
 isRead=this.isRead

@@ -9,11 +9,11 @@
     border-radius: 0px 100px 100px 0px;
     margin-right: 16px;
     align-items: center;
-    font-size: 14px;
+    font-size: var(--base-font-size);
     cursor: pointer;
     &:hover {
         background-color: #F1F3F4;
-        font-weight: bold;
+        font-weight: var(--bold-weight);
         .svg_icon {
             filter: invert(41%) sepia(29%) saturate(5415%) hue-rotate(205deg) brightness(92%) contrast(90%);
         };
@@ -21,7 +21,7 @@
 }
 .active {
     background-color: #E9F0FD;
-    font-weight: bold;
+    font-weight: var(--bold-weight);
 }
 
 
@@ -32,7 +32,7 @@
     gap: 16px;
     padding-left: 16px;
     align-items: center;
-    color: #202124;
+    color: var(--base-font-color);
     
 }
 

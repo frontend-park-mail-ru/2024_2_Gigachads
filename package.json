@@ -2,7 +2,7 @@
   "name": "2024_2_gigachads",
   "version": "1.0.0",
   "description": "Dev ветка для проекта",
-  "main": "index.js",
+  "main": "src/index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -22,6 +22,7 @@
     "express": "^4.21.0",
     "handlebars": "^4.7.8",
     "vite": "^5.4.9",
+    "vite-plugin-babel": "^1.2.0",
     "vite-plugin-handlebars": "^2.0.0",
     "vite-plugin-string": "^1.2.3"
   },

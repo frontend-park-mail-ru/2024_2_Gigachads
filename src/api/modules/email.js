@@ -10,7 +10,7 @@ class Email {
      * @returns {Promise<any>} - Список входящих сообщений
      */
     async getInboxMessages() {
-        const response = await fetch(`${BASE_API_URL}mail/inbox`, {
+        const response = await fetch(`${BASE_API_URL}email/inbox`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include'
@@ -23,7 +23,7 @@ class Email {
      * @returns {Promise<any>} - Список исходящих сообщений
      */
     async getSentMessages() {
-        const response = await fetch(`${BASE_API_URL}mail/sent`, {
+        const response = await fetch(`${BASE_API_URL}email/sent`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include'
@@ -75,21 +75,7 @@ class Email {
         });
         return response;
     }
-
-    /**
-     * @description - Удаление сообщения по ID
-     * @param {string} id - ID сообщения
-     * @returns {Promise<any>} - Ответ от сервера
-     */
-    async deleteEmail(id) {
-        const response = await fetch(`${BASE_API_URL}email/${id}`, {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-            credentials: 'include'
-        });
-        return response;
-    }
-
+    
     /**
      * @description - Создание нового сообщения
      * @param {string} id - ID родительского сообщения (для ответов)

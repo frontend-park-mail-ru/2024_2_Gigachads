@@ -96,7 +96,7 @@ export class Router {
      * @returns {boolean} - Возвращает true, если пользователь аутентифицирован
      * @description - Проверка аутентификации пользователя
      */
-    async isAuthenticated() {
+    isAuthenticated() {
         const user = getUser();
         return !!user;
     }

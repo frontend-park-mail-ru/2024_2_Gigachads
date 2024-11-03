@@ -10,7 +10,7 @@
         justify-content: flex-start;
         align-items: center;
         padding: 10px;
-        border-bottom: 1px solid rgba(128, 128, 128, 0.218);
+        border-bottom: 1px solid var(--color-for-bottom-border);
         .email-container__utility-bar-buttons{
             display: flex;
             flex-direction: row;
@@ -18,7 +18,7 @@
             width: fit-content;
             justify-content: flex-start;
             align-items: center;
-            background-color: rgb(194, 231, 255);
+            background-color: var(--color-secondary-button);
             color: #3D4043;
             .icon{
                 width: 20px;

@@ -16,15 +16,14 @@ class Sent {
                 };
                 for (let i = 0; i < result.length; i++) {
                     sentData.mail_messages.push({
-                        ...result[i],
-                        isRead: Math.random() > 0.5 ? true : false
+                        ...result[i]
                     });
                 }
                 return sentMessagesTemplate(sentData);
             }
             Notification.show('Не удалось получить отправленные письма', 'error');
         } catch (error) {
-            Notification.show(`${error}`, 'error');
+            Notification.show('Не удалось получить отправленные письма', 'error');
         }
     }
 

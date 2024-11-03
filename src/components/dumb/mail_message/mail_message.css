@@ -6,41 +6,41 @@
     padding-bottom: 8px;
     padding-right: 16px;
     padding-left: 14px;
-    background-color: #FFFFFF;
+    background-color: white;
     width: 100%;
     flex-grow: 1;
     justify-content: space-between;
     &:hover {
-        box-shadow: 0px 1px 3px  rgba(0, 0, 0, 0.436);
+        box-shadow: 0px 1px 3px  var(--color-box-shadow);
         cursor: pointer;
     }
 
 }
 .read {
-    background-color: #F5F7F7;
+    background-color: var(--color-subwhite);
     .actions_card {
         .sender {
-            font-weight: 400;
+            font-weight: var(--base-weight);
         }
     }
     .subject_card {
         .theme {
-            font-weight: 400;
+            font-weight: var(--base-weight);
         }
     }
     .date_card {
         .time {
             color: var(--color-black-54);
-            font-weight: 400;
+            font-weight: var(--base-weight);
         }
     }
 }
 
 .sender {
     width: 90%;
-    font-size: 14px;
-    font-weight: 600;
-    color: #202124;
+    font-size: var(--subtitle-font-size);
+    font-weight: var(--medium-weight);
+    color: var(--base-font-color);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -67,10 +67,10 @@
         padding-right: 4px;
         padding-top: 2px;
         padding-bottom: 2px;
-        background-color: #98D7E4;
-        color: #0D3B44;
-        font-size: 12px;
-        font-weight: 600;
+        background-color: var(--color-secondary-button);
+        color: var(--color-blue);
+        font-size: var(--small-font-size);
+        font-weight: var(--medium-weight);
         line-height: 120%;
         letter-spacing: 0.75%;
         overflow: hidden;
@@ -79,9 +79,9 @@
         width: 5%;
     }
     .theme {
-        color: #202124;
-        font-weight: 600;
-        font-size: 14px;
+        color: var(--base-font-color);
+        font-weight: var(--medium-weight);
+        font-size: var(--subtitle-font-size);
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -89,8 +89,8 @@
     }
     .description {
         color: var(--color-black-54);
-        font-weight: 400;
-        font-size: 14px;
+        font-weight: var(--base-weight);
+        font-size: var(--subtitle-font-size);
         width: 60%;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -107,13 +107,13 @@
 .date_card {
     width: 8%;
     .time {
-        font-weight: 600;
-        font-size: 14px;
+        font-weight: var(--medium-weight);
+        font-size: var(--subtitle-font-size);
         line-height: 120%;
         letter-spacing: -0.01em;
         display: flex;
         justify-content: flex-end;
-        color: #202124;
+        color: var(--base-font-color);
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap; 
@@ -121,5 +121,5 @@
     }
 }
 .selected {
-    background-color: #d0e7ff; 
+    background-color: var(--color-selected-items); 
 }
