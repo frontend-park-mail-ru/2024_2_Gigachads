@@ -3,6 +3,7 @@ import Email from '../../api/modules/email.js';
 // import emailMock from '../../api/mocks/emailMock.json';
 import Notification from '../../components/dumb/notification/notification.js';
 import Router from '../../index.js';
+import dateFormatingforEmails from '../../assets/scripts/date_formating.js';
 class EmailPage {
     constructor() {
         this.mainEmail = null;
@@ -11,25 +12,28 @@ class EmailPage {
         try {
             const email = await Email.getEmailTree(params.id);
             if (email.ok) {
-                const emailData = await email.json();
-                this.mainEmail = emailData.mailList[0];
+                await Email.updateEmailStatus(params.id, {status: true});
+                let emailData = await email.json();
+                console.log(emailData);
+                emailData = dateFormatingforEmails(emailData);
+                this.mainEmail = emailData[0];
 
                 return emailTemplate( {
                     mainEmail: this.mainEmail,
-                    emailTree: emailData.mailList.slice(1)
+                    emailTree: emailData.slice(1)
                 });
             } else {
                 Notification.show('Не удалось получить письмо', 'error');
             }
         } catch (error) {
-            Notification.show('Не удалось получить письмо', 'error');
+            Notification.show(`${error}`, 'error');
         }
     }
 
     attachEventListeners() {
         this.replyButtonClickHandler();
         this.forwardButtonClickHandler();
-        this.deleteButtonClickHandler();
+        // this.deleteButtonClickHandler();
     }
 
     replyButtonClickHandler() {
@@ -45,7 +49,7 @@ class EmailPage {
                 const recipient = this.mainEmail.sender;
                 const subject = this.mainEmail.title;
 
-                Router.navigateTo(`/create_email?parentID=${emailId}&recipient=${encodeURIComponent(recipient)}&theme=Re: ${encodeURIComponent(subject)}`);
+                Router.navigateTo(`/create_email?parentID=${emailId}&recipient=${encodeURIComponent(recipient)}&title=Re: ${encodeURIComponent(subject)}`);
             });
         });
     }
@@ -62,31 +66,31 @@ class EmailPage {
                 const emailId = this.mainEmail.id;
                 const subject = this.mainEmail.title;
 
-                Router.navigateTo(`/create_email?parentID=${emailId}&theme=Fwd: ${encodeURIComponent(subject)}`);
+                Router.navigateTo(`/create_email?parentID=${emailId}&title=Fwd: ${encodeURIComponent(subject)}`);
             });
         });
     }
 
-    deleteButtonClickHandler() {
-        const deleteButtons = document.querySelectorAll('.email-container__utility-bar-buttons[data-action="delete"]');
-        deleteButtons.forEach(async button => {
-            button.addEventListener('click', async () => {
-                const ids = [];
-                ids.push(this.mainEmail.id);
-                try {
-                    const response = await Email.deleteEmails(ids);
-                    if (response.ok) {
-                        Notification.show('Письмо удалено', 'success');
-                        Router.navigateTo('/inbox');
-                    } else {
-                        Notification.show('Не удалось удалить письмо', 'error');
-                    }
-                } catch (error) {
-                    Notification.show('Не удалось удалить письмо', 'error');
-                }
-            });
-        });
-    }
+    // deleteButtonClickHandler() {
+    //     const deleteButtons = document.querySelectorAll('.email-container__utility-bar-buttons[data-action="delete"]');
+    //     deleteButtons.forEach(async button => {
+    //         button.addEventListener('click', async () => {
+    //             const ids = [];
+    //             ids.push(this.mainEmail.id);
+    //             try {
+    //                 const response = await Email.deleteEmails(ids);
+    //                 if (response.ok) {
+    //                     Notification.show('Письмо удалено', 'success');
+    //                     Router.navigateTo('/inbox');
+    //                 } else {
+    //                     Notification.show('Не удалось удалить письмо', 'error');
+    //                 }
+    //             } catch (error) {
+    //                 Notification.show('Не удалось удалить письмо', 'error');
+    //             }
+    //         });
+    //     });
+    // }
 
 }
 

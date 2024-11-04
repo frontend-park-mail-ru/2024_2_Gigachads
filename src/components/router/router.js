@@ -1,5 +1,6 @@
 import ErrorPage from '../../pages/error/error.js';
 import { getUser } from '../../auth/auth.js';
+import User from '../../api/modules/user.js';
 import Inbox from '../../pages/inbox/inbox.js';
 const root = document.getElementById('root');
 /**
@@ -51,7 +52,12 @@ export class Router {
         const view = await ErrorPage.render(error_code, error_description);
         root.innerHTML = view;
     }
-
+    checkAuth(response) {
+        if (response.status === 401) {
+            User.logout();
+            this.navigateTo('/login');
+        }
+    }
     /**
      * @param {string} url - URL для навигации
      * @returns {void}

@@ -58,11 +58,26 @@ class User {
     async changeAvatar(avatarData) {
         const response = await fetch(`${BASE_API_URL}settings/avatar`, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
-            body: JSON.stringify(avatarData)
+            body: avatarData
         });
         return response;
+    }
+
+    async getAvatar() {
+        const response = await fetch(`${BASE_API_URL}settings/avatar`, {
+            method: 'GET',
+            credentials: 'include',
+        });
+        if (response.ok) {
+            const blob = await response.blob();
+            const avatarUrl = URL.createObjectURL(blob);
+            return avatarUrl; 
+        }
+        else {
+            return '/icons/default.png';
+        }
+        
     }
 
     /**

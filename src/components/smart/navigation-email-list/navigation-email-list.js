@@ -18,7 +18,7 @@ export function mainCheckbox() {
     });
 }
 
-export function deleteSelectedEmails() {
+export function deleteSelectedEmails(folder) {
     const deleteButton = document.querySelector('.trash');
     deleteButton.addEventListener('click', async () => {
         const selectedEmails = document.querySelectorAll('.email_card.selected');
@@ -28,12 +28,15 @@ export function deleteSelectedEmails() {
         }
 
         const ids = Array.from(selectedEmails).map(email => email.dataset.id);
-
+        const body = {
+            ids: ids,
+            folder: folder
+        };
         try {
-            const response = await Email.deleteEmails(ids);
+            const response = await Email.deleteEmails(body);
             if (response.ok) {
                 Notification.show('Письма успешно удалены', 'success');
-                Router.navigate('/inbox');
+                Router.navigateTo('/inbox');
             } else {
                 Notification.show('Ошибка удаления писем', 'error');
             }
@@ -46,8 +49,8 @@ export function deleteSelectedEmails() {
 /**
  * @description - Инициализация всех обработчиков событий
  */
-export function initializeNavigationEmailList() {
+export function initializeNavigationEmailList(folder) {
     mainCheckbox();
-    deleteSelectedEmails();
+    deleteSelectedEmails(folder);
 }
 

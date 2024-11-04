@@ -8,7 +8,9 @@
         <img class="icon" src="/icons/trash.svg">
     </div>
 </div>
+{{#if mail_messages}}
 {{#each mail_messages}}
+{{#if this.id}}
 {{> components/dumb/mail_message/mail_message-template
 id=this.id
 badge_text=this.badge_text
@@ -19,4 +21,6 @@ description=this.description
 date=this.date
 isRead=this.isRead
 }}
+{{/if}}
 {{/each}}
+{{/if}}

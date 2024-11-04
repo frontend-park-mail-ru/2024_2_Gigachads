@@ -8,11 +8,11 @@ class CreateEmail {
         const urlParams = new URLSearchParams(window.location.search);
         const parentID = urlParams.get('parentID') || '';
         const recipient = urlParams.get('recipient') || '';
-        const theme = urlParams.get('theme') || '';
+        const title = urlParams.get('title') || '';
 
         return createEmailTemplate({
             recipient,
-            theme,
+            title,
             parentID
         });
     }
@@ -30,12 +30,12 @@ class CreateEmail {
             try {
                 const response = await Email.createEmail({
                     recipient: formData.get('recipient'),
-                    theme: formData.get('theme'),
+                    title: formData.get('title'),
                     description: formData.get('description'),
-                    parentID: parentID
+                    parentId:  +parentID
                 });
                 if (response.status === 200) {
-                    Router.navigate('/sent');
+                    Router.navigateTo('/sent');
                     Notification.show('Письмо успешно отправлено', 'success');
                 } else {
                     Notification.show('Письмо не отправлено', 'error');

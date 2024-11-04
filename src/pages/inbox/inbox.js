@@ -29,14 +29,17 @@ class Inbox {
             InboxData.userAvatar = user.avatarPath;
         }
         const response = await Email.getInboxMessages();
+        Router.checkAuth(response);
         let result = await response.json();
         // Преобразуем ответ в JSON
+        const mailMessages = [];
         result = dateFormatingforEmails(result);
         for (let i = 0; i < result.length; i++) {
-            InboxData.mail_messages.push({
+            mailMessages.push({
                 ...result[i]
             });
         }
+        InboxData.mail_messages = mailMessages;
         return inboxTemplate(InboxData);
     }
     /**
@@ -54,7 +57,7 @@ class Inbox {
         selectEmail();
         emails();
         this.profileDropdown();
-        initializeNavigationEmailList();
+        initializeNavigationEmailList('inbox');
     }
     logoutButton() {
         const button = document.getElementsByClassName('logout');

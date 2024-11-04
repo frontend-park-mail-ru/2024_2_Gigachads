@@ -45,8 +45,8 @@ class Login {
                 const userData = await response.json(); // Предполагается, что сервер возвращает данные пользователя
                 setUser({
                     email: userData.email,
-                    nickname: userData.nickname,
-                    avatarPath: userData.avatarPath
+                    nickname: userData.name,
+                    avatarPath: await User.getAvatar()
                 });
                 Router.navigateTo('/inbox');
             }

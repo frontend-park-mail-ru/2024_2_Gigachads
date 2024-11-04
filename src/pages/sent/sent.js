@@ -3,33 +3,43 @@ import Email from '../../api/modules/email.js';
 import Notification from '../../components/dumb/notification/notification.js';
 import dateFormatingforEmails from '../../assets/scripts/date_formating.js';
 import { initializeNavigationEmailList } from '../../components/smart/navigation-email-list/navigation-email-list.js';
+import { selectEmail } from '../../components/dumb/mail_message/mail_message.js';
+import { emails } from '../../components/dumb/mail_message/mail_message.js';
+import Router from '../../index.js';
+
 class Sent {
     async render() {
         try {
-            const response = await Email.getSentEmails();
+            const response = await Email.getSentMessages();
+            Router.checkAuth(response);
+            let sentData;
             if (response.status === 200) {
                 let result = await response.json();
-
-                result = dateFormatingforEmails(result);
-                const sentData = {
-                    mail_messages: [],
-                };
-                for (let i = 0; i < result.length; i++) {
-                    sentData.mail_messages.push({
-                        ...result[i]
-                    });
+                if (result.length !== 0) {
+                    result = dateFormatingforEmails(result);
+                    sentData = {
+                        mail_messages: [],
+                    };
+                    for (let i = 0; i < result.length; i++) {
+                        sentData.mail_messages.push({
+                            ...result[i],
+                            sender: result[i].recipient
+                        });
+                    }
                 }
                 return sentMessagesTemplate(sentData);
             }
             Notification.show('Не удалось получить отправленные письма', 'error');
         } catch (error) {
-            Notification.show('Не удалось получить отправленные письма', 'error');
+            Notification.show(`${error}`, 'error');
         }
     }
 
     attachEventListeners() {
         this.sentNavigatorActiveChange();
-        initializeNavigationEmailList();
+        initializeNavigationEmailList('sent');
+        selectEmail();
+        emails();
     }
 
     sentNavigatorActiveChange() {

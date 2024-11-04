@@ -93,14 +93,12 @@ class Settings {
     async handleNicknameChange(event) {
         event.preventDefault();
         const usernameInput = document.getElementById('username').value;
-
         try {
             const response = await User.changeNickname({ name: usernameInput });
             if (response.ok) {
-                const userData = await response.json();
                 setUser({
                     ...getUser(),
-                    name: userData.name
+                    nickname: usernameInput
                 });
                 Notification.show('Никнейм успешно обновлен!', 'success');
                 // Скрыть форму после успешного обновления
@@ -183,24 +181,24 @@ class Settings {
         const formData = new FormData();
         formData.append('avatar', this.selectedAvatarFile);
 
-        try {
-            const response = await User.changeAvatar(formData);
-            if (response.ok) {
-                const userData = await response.json();
-                setUser({
-                    ...getUser(),
-                    avatarPath: userData.avatarPath
-                });
-                avatarImage.src = userData.avatarPath;
-                Notification.show('Аватар успешно обновлен!', 'success');
-                saveAvatarButton.style.display = 'none';
-                this.selectedAvatarFile = null;
-            } else {
-                Notification.show('Не удалось обновить аватар.', 'error');
-            }
-        } catch (error) {
+        // try {
+        const response = await User.changeAvatar(formData);
+        const avatarPath = await User.getAvatar();
+        if (response.ok) {
+            setUser({
+                ...getUser(),
+                avatarPath: avatarPath
+            });
+            avatarImage.src = avatarPath;
+            Notification.show('Аватар успешно обновлен!', 'success');
+            saveAvatarButton.style.display = 'none';
+            this.selectedAvatarFile = null;
+        } else {
             Notification.show('Не удалось обновить аватар.', 'error');
         }
+        // } catch (error) {
+        //     Notification.show(`${error}`, 'error');
+        // }
     }
 }
 
