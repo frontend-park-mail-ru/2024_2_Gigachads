@@ -1,125 +1,46 @@
-import Email from "../../api/modules/email.js";
-import User from "../../api/modules/user.js";
-import { rippleEffect } from "../../components/dumb/button/button.js";
-import { filterInput } from "../../components/dumb/input/input.js";
-import Router from "../../../index.js";
+import Email from '../../api/modules/email.js';
+import User from '../../api/modules/user.js';
+import { rippleEffect } from '../../components/dumb/button/button.js';
+import { filterInput } from '../../components/dumb/input/input.js';
+import Router from '../../index.js';
+import { InboxData } from './inbox_config.js';
+import dateFormatingforEmails from '../../assets/scripts/date_formating.js';
+import inboxTemplate from './inbox.hbs';
+import { getUser } from '../../auth/auth.js';
+import { selectEmail, emails } from '../../components/dumb/mail_message/mail_message.js';
+import Notification from '../../components/dumb/notification/notification.js';
+import { initializeNavigationEmailList } from '../../components/smart/navigation-email-list/navigation-email-list.js';
+
 /**
  * @class Inbox
  * @description - Класс для отображения страницы "Inbox"
  */
 class Inbox {
     /**
-     * @constructor
-     * @description - Конструктор класса Inbox, инициализирует загрузку шаблонов
-     */
-    constructor() {
-        this.templatesLoaded = this.loadTemplates();
-    }
-    /**
-     * @async
-     * @description - Загрузка шаблонов
-     * @returns {Promise<void>} - Promise, который разрешается после загрузки всех шаблонов
-     */
-    async loadTemplates() {
-      const [mail_messageResponse, buttonResponse, inboxResponse, element_menuResponse] = await Promise.all([
-          fetch('/src/components/dumb/mail_message/mail_message-template.hbs'),
-          fetch('/src/components/dumb/button/button-template.hbs'),
-          fetch('/src/pages/inbox/inbox.hbs'),
-          fetch('/src/components/dumb/element_menu/element_menu-template.hbs')
-      ]);
-
-      this.mail_messageString = await mail_messageResponse.text();
-      this.buttonTemplateString = await buttonResponse.text();
-      this.inboxString = await inboxResponse.text();
-      this.element_menuString = await element_menuResponse.text();
-    }
-    /**
      * @async
      * @description - Отображение страницы "Inbox"
      * @returns {string} - HTML-код страницы "Inbox"
      */
     async render() {
-            await this.templatesLoaded;
-            Handlebars.registerPartial('button-template', this.buttonTemplateString);
-            Handlebars.registerPartial('mail_message-template', this.mail_messageString);
-            Handlebars.registerPartial('element_menu-template', this.element_menuString);
-            const inboxTemplate = Handlebars.compile(this.inboxString);
-            const response = await Email.getMessages();
-            if (response.status === 401) {
-                Router.navigateTo('/login');
-                return "error";
-            }
-            const result = await response.json();
-          // Преобразуем ответ в JSON
-            const authFormData = {
-                menu_elements: [
-                    {
-                        url: '/public/icons/inbox.svg',
-                        element_text: 'Все письма',
-                        active: true,
-                        count: 0
-                    }
-                    // {
-                    //     url: '/public/icons/star.svg',
-                    //     element_text: 'Starred',
-                    //     active: false,
-                    //     count: 0
-                    // },
-                    // {
-                    //     url: '/public/icons/snooze.svg',
-                    //     element_text: 'Snoozed',
-                    //     active: false,
-                    //     count: 0
-                    // },
-                    // {
-                    //     url: '/public/icons/sent.svg',
-                    //     element_text: 'Sent',
-                    //     active: false,
-                    //     count: 0
-                    // },
-                    // {
-                    //     url: '/public/icons/draft.svg',
-                    //     element_text: 'Drafts',
-                    //     active: false,
-                    //     count: 1
-                    // },
-                    // {
-                    //     url: '/public/icons/spam.svg',
-                    //     element_text: 'Spam',
-                    //     active: false,
-                    //     count: 3
-                    // },
-                    // {
-                    //     url: '/public/icons/trash.svg',
-                    //     element_text: 'Trash',
-                    //     active: false,
-                    //     count: 0
-                    // }
-                ],
-                mail_messages : []
-            };
-       
-         
-            for (let i = 0; i < result.length; i++) {   
-                const dateObj = new Date(result[i].date);
-                const formattedDate = dateObj.toLocaleDateString('ru-RU', {
-                    year: 'numeric',
-                    month: '2-digit',
-                    day: '2-digit'
-                }).split('.').reverse().join('-'); 
-                authFormData.mail_messages.push({
-                    author: result[i].author,    
-                    description: result[i].description,
-                    date: formattedDate,
-                    text: result[i].text,
-                    badge_text: result[i].badge_text,
-                    badge_type: result[i].badge_type
-                }) 
-            }
-                
-
-            
-            return inboxTemplate(authFormData);
+        const user = getUser();
+        if (user) {
+            InboxData.userEmail = user.email;
+            InboxData.userNickname = user.nickname;
+            InboxData.userAvatar = user.avatarPath;
+        }
+        const response = await Email.getInboxMessages();
+        Router.checkAuth(response);
+        let result = await response.json();
+        // Преобразуем ответ в JSON
+        const mailMessages = [];
+        result = dateFormatingforEmails(result);
+        for (let i = 0; i < result.length; i++) {
+            mailMessages.push({
+                ...result[i]
+            });
+        }
+        InboxData.mail_messages = mailMessages;
+        return inboxTemplate(InboxData);
     }
     /**
      * @description - Добавление слушателей событий
@@ -130,6 +51,13 @@ class Inbox {
         rippleEffect();
         filterInput();
         this.logoutButton();
+        this.createEmailButton();
+        this.settingsButton();
+        this.navigator();
+        selectEmail();
+        emails();
+        this.profileDropdown();
+        initializeNavigationEmailList('inbox');
     }
     logoutButton() {
         const button = document.getElementsByClassName('logout');
@@ -137,9 +65,70 @@ class Inbox {
             element.addEventListener('click', () => {
                 User.logout();
                 Router.navigateTo('/login');
+                Notification.show('Вы успешно вышли из системы', 'success');
             });
         });
     }
+    createEmailButton() {
+        const button = document.getElementsByClassName('create_message');
+        Array.from(button).forEach(element => {
+            element.addEventListener('click', () => {
+                Router.navigateTo('/create_email');
+            });
+        });
+    }
+    settingsButton() {
+        const button = document.getElementsByClassName('settings_button');
+        Array.from(button).forEach(element => {
+            element.addEventListener('click', () => {
+                Router.navigateTo('/settings');
+            });
+        });
+    }
+    navigator() {
+        const navigatorElements = document.getElementsByClassName('navigator');
+        Array.from(navigatorElements).forEach(element => {
+            element.addEventListener('click', (event) => {
+                const target = event.target.closest('.element_menu');
+                if (target && target.dataset.url) {
+                    const otherNavigator = document.querySelectorAll('.element_menu');
+                    for (let i = 0; i < otherNavigator.length; i++) {
+                        otherNavigator[i].classList.remove('active');
+                    }
+                    target.classList.add('active');
+                    Router.navigateTo(target.dataset.url);
+                }
+            });
+        });
+    }
+    profileDropdown() {
+        const profileBox = document.getElementById('profileBox');
+        const profileDropdown = document.getElementById('profileDropdown');
+
+        // Функция для переключения видимости панели
+        const toggleDropdown = (event) => {
+            event.stopPropagation(); // Предотвращает всплытие события
+            const isVisible = profileDropdown.style.display === 'flex';
+            profileDropdown.style.display = isVisible ? 'none' : 'flex';
+        };
+
+        // Функция для скрытия панели
+        const hideDropdown = () => {
+            profileDropdown.style.display = 'none';
+        };
+
+        // Добавляем слушатель клика на аватар
+        profileBox.addEventListener('click', toggleDropdown);
+
+        // Добавляем слушатель клика на документ для скрытия панели при клике вне её
+        document.addEventListener('click', (event) => {
+            if (!profileBox.contains(event.target)) {
+                hideDropdown();
+            }
+        });
+
+    }
+
 }
 
 export default Inbox;

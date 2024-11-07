@@ -1,24 +1,24 @@
-<div class="email_card">
+<div class="email_card {{#if isRead}}read{{/if}}" data-id="{{id}}">
     <div class="for_aligment">
-    <div class="actions_card">
-        <div class="checkbox_container">
-            <input class="checkbox_card" type="checkbox" name="happy"
-                value="yes" disabled>
-            <label for="happy" class="fake-checkbox"></label>
-        </div >
+        <div class="actions_card">
+            <div class="checkbox_container">
+                <input class="checkbox_card checkbox" type="checkbox" name="happy"
+                    value="yes">
+                <label for="happy" class="fake-checkbox"></label>
+            </div>
 
-        <div class="checkbox_star_container">
+            <div class="checkbox_star_container">
 
+            </div>
+            <div class="sender">
+                {{sender}}
+            </div>
         </div>
-        <div class="sender">
-            {{author}}
+        <div class="subject_card">
+            {{!-- <div class="badge {{badge_type}}">{{badge_text}}</div> --}}
+            <div class="title">{{title}}</div>
+            <div class="description">{{description}}.</div>
         </div>
-    </div>
-    <div class="subject_card">
-        <div class="badge {{badge_type}}">{{badge_text}}</div>
-        <div class="theme">{{text}}</div>
-        <div class="description">{{description}}.</div>
-    </div>
     </div>
     <div class="date_card">
         <div class="time">{{date}}</div>

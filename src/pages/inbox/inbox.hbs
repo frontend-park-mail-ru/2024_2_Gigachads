@@ -1,27 +1,34 @@
 <div class="inbox">
     <header class="header">
         <div class="logo">
-            <img class="icon_logo" src="/public/icons/logo.png">
+            <img class="icon_logo" src="/icons/logo.png">
             {{!-- <div></div>
             <div class="search">
-                <div class="icon_box"><img class="search_icon" src="/public/icons/search.svg"></div>
+                <div class="icon_box"><img class="search_icon"
+                        src="/public/icons/search.svg"></div>
                 <input class="main_search" type="text" placeholder="Search">
             </div> --}}
         </div>
         <div class="profile_card">
-            <button class="logout button">Выйти</button>
-            {{!-- <div class="icon_box"><img class="icon" src="/public/icons/settings.svg"></div> --}}
-            <div class="profile_box"><img class="profile_icon" src="/public/icons/ava.jpg"></div>
+            <div class="icon_box settings_button"><img class="icon"
+                    src="/icons/settings.svg"></div>
+            <div class="icon_box" id="profileBox">
+                <img class="icon" src="{{userAvatar}}">
+                <div class="profile_dropdown" id="profileDropdown">
+                    <div class="user_email">{{userEmail}}</div>
+                    <button class="logout button">Выйти</button>
+                </div>
+            </div>
         </div>
     </header>
     <div class="menu">
-        {{!-- <a class="create_message">
-            <img src="/public/icons/new.svg">
+        <div class="create_message">
+            <img src="/icons/new.svg">
             <div>Создать сообщение</div>
-        </a> --}}
+        </div>
         <div class="navigator">
             {{#each menu_elements}}
-            {{> element_menu-template
+            {{> components/dumb/element_menu/element_menu-template
             url=this.url
             element_text=this.element_text
             active=this.active
@@ -30,16 +37,9 @@
             {{/each}}
         </div>
     </div>
-    <div class="content">
-        {{#each mail_messages}}
-        {{> mail_message-template
-        badge_text=this.badge_text
-        badge_type=this.badge_type
-        text=this.text
-        author=this.author
-        description=this.description
-        date=this.date
+    <div class="content" id="content">
+        {{> components/smart/navigation-email-list/navigation-email-list
+        mail_messages=mail_messages
         }}
-        {{/each}}
     </div>
 </div>

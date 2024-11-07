@@ -2,26 +2,46 @@
     display: flex;
     flex-direction: row;
     height: 38px;
+    max-height: 38px;
     padding-top: 8px;
     padding-bottom: 8px;
     padding-right: 16px;
     padding-left: 14px;
-    background-color: #F5F7F7;
+    background-color: white;
     width: 100%;
     flex-grow: 1;
     justify-content: space-between;
     &:hover {
-        box-shadow: 0px 1px 3px  rgba(0, 0, 0, 0.436);
+        box-shadow: 0px 1px 3px  var(--color-box-shadow);
         cursor: pointer;
     }
 
 }
-
+.read {
+    background-color: var(--color-subwhite);
+    .actions_card {
+        .sender {
+            font-weight: var(--base-weight);
+        }
+    }
+    .subject_card {
+        .title {
+            font-weight: var(--base-weight);
+        }
+    }
+    .date_card {
+        .time {
+            color: var(--color-black-54);
+            font-weight: var(--base-weight);
+        }
+    }
+}
 
 .sender {
-    font-size: 14px;
-    font-weight: 400;
-    color: #202124;
+    width: 90%;
+    font-size: var(--subtitle-font-size);
+    font-weight: var(--medium-weight);
+    color: var(--base-font-color);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -30,49 +50,49 @@
 .actions_card {
     display: flex;
     flex-direction: row;
-    gap: 8px;
-    min-width: 300px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    justify-content: space-between;
+    width: 30%;
 }
 .subject_card {
     display: flex;
     flex-direction: row;
-    gap: 4px;
-    max-width: 700px;
+    justify-content: space-between;
+    width: 60%;
 
     .badge {
+        display: flex;
+        justify-content: center;
         height: 18px;
         border-radius: 4px;
         padding-left: 4px;
         padding-right: 4px;
         padding-top: 2px;
         padding-bottom: 2px;
-        background-color: #98D7E4;
-        color: #0D3B44;
-        font-size: 12px;
-        font-weight: 500;
+        background-color: var(--color-secondary-button);
+        color: var(--color-blue);
+        font-size: var(--small-font-size);
+        font-weight: var(--medium-weight);
         line-height: 120%;
         letter-spacing: 0.75%;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        width: 5%;
     }
-    .theme {
-        color: #202124;
-        font-weight: 400;
-        font-size: 14px;
+    .title {
+        color: var(--base-font-color);
+        font-weight: var(--medium-weight);
+        font-size: var(--subtitle-font-size);
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        width: 30%;
     }
     .description {
         color: var(--color-black-54);
-        font-weight: 400;
-        font-size: 14px;
-        min-width: 500px;
-        max-width: 700px;
+        font-weight: var(--base-weight);
+        font-size: var(--subtitle-font-size);
+        width: 60%;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -81,14 +101,26 @@
 .for_aligment {
     display: flex;
     flex-direction: row;
-    gap: 15px;
+    overflow: hidden;
+    justify-content: space-between;
+    width: 85%;
 }
 .date_card {
+    width: 8%;
     .time {
-        font-weight: 500;
-        font-size: 14px;
+        font-weight: var(--medium-weight);
+        font-size: var(--subtitle-font-size);
         line-height: 120%;
         letter-spacing: -0.01em;
-        color: var(--color-black-54);
+        display: flex;
+        justify-content: flex-end;
+        color: var(--base-font-color);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap; 
+        align-content: center;
     }
+}
+.selected {
+    background-color: var(--color-selected-items); 
 }

@@ -1,0 +1,26 @@
+<div class="email-container">
+    <div class="email-container__utility-bar">
+        <div class="email-container__utility-bar-buttons button" data-action="reply">
+            <div class="icon">
+                <img src="/icons/reply.svg" alt="Ответить">
+            </div>
+            <div class="email-container__button">Ответить</div>
+        </div>
+        <div class="email-container__utility-bar-buttons button" data-action="forward">
+            <div class="icon">
+                <img src="/icons/forward.svg" alt="Переслать">
+            </div>
+            <div class="email-container__button">Переслать</div>
+        </div>
+        {{!-- <div class="email-container__utility-bar-buttons button" data-action="delete">
+            <div class="icon">
+                <img src="/icons/trash.svg" alt="Удалить">
+            </div>
+            <div class="email-container__button">Удалить</div>
+        </div> --}}
+    </div>
+    {{> components/dumb/email/email-template email=mainEmail type="main"}}
+    {{#each emailTree}}
+        {{> components/dumb/email/email-template email=this type="child"}}
+    {{/each}}
+</div>

@@ -1,130 +1,27 @@
-import User from "../../api/modules/user.js";
-import Router from "../../../index.js";
-import { rippleEffect } from "../../components/dumb/button/button.js";
-import { filterInput } from "../../components/dumb/input/input.js";
+import User from '../../api/modules/user.js';
+import Router from '../../index.js';
+import { rippleEffect } from '../../components/dumb/button/button.js';
+import { filterInput } from '../../components/dumb/input/input.js';
+import { loginFormData } from './login_config.js';
+import loginTemplate from './login.hbs';
+import { setUser } from '../../auth/auth.js';
+import { validateEmail, validatePassword } from '../../components/dumb/input/input.js';
+
 /**
  * @class Login
  * @description - Класс для отображения страницы "Login"
  */
 class Login {
-    constructor() {
-        this.templatesLoaded = this.loadTemplates();
-    }
-    /**
-     * @async
-     * @description - Загрузка шаблонов
-     * @returns {Promise<void>} - Promise, который разрешается после загрузки всех шаблонов
-     */
-    async loadTemplates() {
-        const [formResponse, inputResponse, buttonResponse, loginResponse] = await Promise.all([
-            fetch('/src/components/smart/smart-form-template.hbs'),
-            fetch('/src/components/dumb/input/input-template.hbs'),
-            fetch('/src/components/dumb/button/button-template.hbs'),
-            fetch('/src/pages/login/login.hbs')
-        ]);
-
-        this.formTemplateString = await formResponse.text();
-        this.inputTemplateString = await inputResponse.text();
-        this.buttonTemplateString = await buttonResponse.text();
-        this.loginTemplateString = await loginResponse.text();
-    }
     /**
      * @async
      * @description - Отображение страницы "Login"
      * @returns {string} - HTML-код страницы "Login"
      */
     async render() {
-        await this.templatesLoaded;
-        Handlebars.registerPartial('input-template', this.inputTemplateString);
-        Handlebars.registerPartial('button-template', this.buttonTemplateString);
-        Handlebars.registerPartial('smart-form-template', this.formTemplateString);
-        const loginTemplate = Handlebars.compile(this.loginTemplateString);
-        const authFormData = {
-            formId: "authForm",
-            formClass: "auth-form",
-            novalidate: true,
-            errorContainerId: "forErrors",
-            fields: [
-                {
-                    type: "email",
-                    name: "email",
-                    id: "email",
-                    label: "Почта",
-
-                    required: true
-                },
-                {
-                    type: "password",
-                    name: "password",
-                    id: "password",
-                    label: "Пароль",
-
-                    required: true,
-                    minlength: 6
-                },
-            ],
-            submitButton: {
-                type: "submit",
-                className: "submit-button",
-                buttonText: "Войти"
-            }
-        };
-        const formHtml = loginTemplate(authFormData);
-        // Добавляем обработчики событий для валидации
-
-
+        const formHtml = loginTemplate(loginFormData);
         return formHtml;
     }
-    /**
-     * @description - Валидация email
-     * @param {Event} event - Событие ввода email
-     * @returns {void}
-     */
-    validateEmail(event) {
-        const email = event.target.value;
-        const inputField = event.target;
-        const errorContainer = document.querySelector('[data-error-for="email"]');
-        const alertIcon = errorContainer.previousElementSibling;
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailPattern.test(email)) {
-            errorContainer.textContent = 'Неверный формат email';
-            alertIcon.style.display = 'inline';
-            inputField.classList.add('invalid');
-        } else {
-            errorContainer.textContent = '';
-            alertIcon.style.display = 'none';
-            inputField.classList.remove('invalid');
-        }
-        const errorPassword = document.querySelector('[data-error-for="password"]');
-        if (errorPassword.textContent == "Неправильный логин или пароль") {
-            errorPassword.textContent ='';
-            errorPassword.previousElementSibling.style.display = 'none';
-            inputField.classList.remove('invalid');
-        }
-
-    }
-    /**
-     * @description - Валидация пароля
-     * @param {Event} event - Событие ввода пароля
-     * @returns {void}
-     */
-    validatePassword(event) {
-        const password = event.target.value;
-        const inputField = event.target;
-        const errorContainer = document.querySelector('[data-error-for="password"]');
-        const alertIcon = errorContainer.previousElementSibling;
-        if (password.length < 6) {
-            errorContainer.textContent = 'Пароль должен быть не менее 6 символов';
-            alertIcon.style.display = 'inline';
-            inputField.classList.add('invalid');
-        } else {
-            errorContainer.textContent = '';
-            alertIcon.style.display = 'none';
-            inputField.classList.remove('invalid');
-        }
-      
-    }
-
+    
     /**
      * @description - Обработка отправки формы
      * @param {Event} event - Событие отправки формы
@@ -141,22 +38,24 @@ class Login {
         if (!emailError && !passwordError && emailInput && passwordInput) {
             // Отправка формы
             const response = await User.login({
-                email: emailInput,
+                email: emailInput + '@gigamail.ru',
                 password: passwordInput
-            })
+            });
             if (response.ok) {
+                const userData = await response.json(); // Предполагается, что сервер возвращает данные пользователя
+                setUser({
+                    email: userData.email,
+                    nickname: userData.name,
+                    avatarPath: await User.getAvatar()
+                });
                 Router.navigateTo('/inbox');
             }
             else {
                 const errorBoxes = document.getElementsByClassName('error-box');
-                const input = errorBoxes[errorBoxes.length - 1].parentElement.querySelector('input');
-                console.log(errorBoxes[errorBoxes.length - 1]);
                 const errorMessage = errorBoxes[errorBoxes.length - 1].querySelector('.error-message');
-                const alertIcon = errorBoxes[errorBoxes.length - 1].querySelector('.alert_icon')
+                const alertIcon = errorBoxes[errorBoxes.length - 1].querySelector('.alert_icon');
                 alertIcon.style.display = 'inline';
                 errorMessage.textContent = 'Неправильный логин или пароль';
-
-
             }
         } else {
             const errorBoxes = document.getElementsByClassName('error-box');
@@ -165,7 +64,7 @@ class Login {
                 const input = errorBoxes[i].parentElement.querySelector('input');
                 if (input.value.trim() === '') {
                     const errorMessage = errorBoxes[i].querySelector('.error-message');
-                    const alertIcon = errorBoxes[i].querySelector('.alert_icon')
+                    const alertIcon = errorBoxes[i].querySelector('.alert_icon');
                     alertIcon.style.display = 'inline';
                     errorMessage.textContent = 'Обязательное поле';
                     input.classList.add('invalid');
@@ -178,17 +77,13 @@ class Login {
      * @returns {void}
      */
     attachEventListeners() {
-        const emailInput = document.querySelector('input[type="email"]');
-        const passwordInput = document.querySelector('input[type="password"]');
         const form = document.querySelector('form');
-
-        emailInput.addEventListener('input', this.validateEmail);
-        passwordInput.addEventListener('input', this.validatePassword);
         form.addEventListener('submit', this.handleSubmit);
         rippleEffect();
         filterInput();
+        validateEmail();
+        validatePassword();
     }
-
 
 }
 

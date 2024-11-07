@@ -18,7 +18,9 @@
     padding-right: 18px;
     padding-top: 12px;
     padding-bottom: 12px;
-    border-bottom: 1px solid rgba(128, 128, 128, 0.218);
+    border-bottom: 1px solid var(--color-for-bottom-border);
+    position: relative; 
+    z-index: 1000; 
 
     .logo {
         .icon_logo {
@@ -55,14 +57,14 @@
                 }
                 &:hover {
                     cursor: pointer;
-                    background-color: rgba(60, 64, 67, 0.08);
+                    background-color: var(--color-background-icon);
                 }
             }
             
             .main_search {
                 all: unset;
                 width: 100%;
-                font-size: 16px;
+                font-size: var(--subtitle-font-size);
                 line-height: 120%;
                 letter-spacing: -0.01em;
                 
@@ -78,33 +80,16 @@
         align-items: center;
         gap: 16px;
         .logout {
-            background-color: rgb(194, 231, 255);
-            color: #3D4043;
+            background-color: var(--color-secondary-button);
+            color: var(--lighter-font-color);
         }
-        .icon_box {
-            align-items: center;
-            height: 38px;
-            width: 38px;
-            padding-top: 7px;
-            padding-left: 7px;
-            border-radius: 100px;
-
-            .icon {
-                height: 24px;
-                width: 24px;
-            }
-
-            &:hover {
-                cursor: pointer;
-                background-color: rgba(60, 64, 67, 0.08);
-            }
-        }
+        
 
         .profile_box {
+            position: relative;
             width: 42px;
             height: 42px;
             border-radius: 100px;
-            overflow: hidden;
             border-top: solid 3px rgb(233, 45, 24);
             border-right: solid 3px rgb(49, 116, 241);
             border-left: solid 3px rgb(246, 173, 1);
@@ -115,6 +100,8 @@
                 border-radius: 100px;
                 border: solid 3px white;
             }
+
+            
             &:hover {
                 cursor: pointer;
                 border-top: solid 4px rgb(233, 45, 24);
@@ -145,33 +132,89 @@
         padding-left: 12px;
         padding-bottom: 12px;
         padding-right: 20px;
-        background-color: rgb(194, 231, 255);
-
+        background-color: var(--color-secondary-button);
+        
         margin-top: 15px;
         margin-left: 8px;
         margin-bottom: 16px;
         align-self: flex-start;
         border-radius: 100px;
-        font-size: 13px;
-        color: #3D4043;
+        font-size: var(--small-font-size);
+        color: var(--lighter-font-color);
         letter-spacing: -0.01em;
-        font-weight: 500px;
+        font-weight: var(--medium-weight);
 
         &:hover {
-            box-shadow: rgba(60, 64, 67, 0.242) 0px 1px 3px 0px, rgba(60, 64, 67, 0.076) 0px 2px 4px 2px;
+            box-shadow: var(--button-shadow);
             cursor: pointer;
         }
 
-        ;
     }
 }
 
 .content {
-    padding-top: 12px;
+    
     grid-area: content;
     display: flex;
     flex-direction: column;
     gap: 8px;
     max-height: calc(100dvh - 70px);
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 900;
+    .utility_bar {
+        border-bottom: 1px solid var(--color-for-bottom-border);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        padding-left: 14px;
+        padding-right: 16px;
+        gap: 16px;
+    }
+}
+
+.icon_box {
+    align-items: center;
+    height: 38px;
+    width: 38px;
+    padding-top: 7px;
+    padding-left: 7px;
+    border-radius: 100px;
+
+    .icon {
+        height: 24px;
+        width: 24px;
+        border-radius: 100px;
+    }
+
+    &:hover {
+        cursor: pointer;
+        background-color: var(--color-background-icon);
+    }
+}
+
+.profile_dropdown {
+    display: none; /* Скрыто по умолчанию */
+    position: absolute;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    top: 50px; /* Расположение под аватаром */
+    right: 0;
+    background-color: white;
+    border: 1px solid var(--color-for-bottom-border);
+    border-radius: 8px;
+    box-shadow: var(--button-shadow);
+    padding: 10px;
+    width: 200px;
+    z-index: 1010;
+
+    .user_email {
+        font-size: var(--small-font-size);
+        color: var(--lighter-font-color);
+    }
 }
