@@ -180,7 +180,6 @@ class Settings {
 
         const formData = new FormData();
         formData.append('avatar', this.selectedAvatarFile);
-
         // try {
         const response = await User.changeAvatar(formData);
         const avatarPath = await User.getAvatar();

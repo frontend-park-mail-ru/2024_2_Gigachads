@@ -1,3 +1,5 @@
+@use 'src/assets/styles/mixins';
+
 .element_menu {
     display: flex;
     flex-direction: row;
@@ -9,7 +11,7 @@
     border-radius: 0px 100px 100px 0px;
     margin-right: 16px;
     align-items: center;
-    font-size: var(--base-font-size);
+    @include mixins.text-style(var(--base-font-size), var(--medium-weight), var(--base-font-color), 20px);
     cursor: pointer;
     &:hover {
         background-color: #F1F3F4;
@@ -32,7 +34,6 @@
     gap: 16px;
     padding-left: 16px;
     align-items: center;
-    color: var(--base-font-color);
     
 }
 

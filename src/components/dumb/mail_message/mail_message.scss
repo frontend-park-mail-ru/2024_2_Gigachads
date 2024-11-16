@@ -1,3 +1,5 @@
+@use 'src/assets/styles/mixins';
+
 .email_card {
     display: flex;
     flex-direction: row;
@@ -39,9 +41,7 @@
 
 .sender {
     width: 90%;
-    font-size: var(--subtitle-font-size);
-    font-weight: var(--medium-weight);
-    color: var(--base-font-color);
+    @include mixins.text-style(var(--subtitle-font-size), var(--medium-weight), var(--base-font-color), normal);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -69,10 +69,7 @@
         padding-top: 2px;
         padding-bottom: 2px;
         background-color: var(--color-secondary-button);
-        color: var(--color-blue);
-        font-size: var(--small-font-size);
-        font-weight: var(--medium-weight);
-        line-height: 120%;
+        @include mixins.text-style(var(--small-font-size), var(--medium-weight), var(--color-blue), 120%);
         letter-spacing: 0.75%;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -80,18 +77,14 @@
         width: 5%;
     }
     .title {
-        color: var(--base-font-color);
-        font-weight: var(--medium-weight);
-        font-size: var(--subtitle-font-size);
+        @include mixins.text-style(var(--subtitle-font-size), var(--medium-weight), var(--base-font-color), normal);
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
         width: 30%;
     }
     .description {
-        color: var(--color-black-54);
-        font-weight: var(--base-weight);
-        font-size: var(--subtitle-font-size);
+        @include mixins.text-style(var(--subtitle-font-size), var(--base-weight), var(--color-black-54), normal);
         width: 60%;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -108,13 +101,10 @@
 .date_card {
     width: 8%;
     .time {
-        font-weight: var(--medium-weight);
-        font-size: var(--subtitle-font-size);
-        line-height: 120%;
+        @include mixins.text-style(var(--subtitle-font-size), var(--medium-weight), var(--base-font-color), 120%);
         letter-spacing: -0.01em;
         display: flex;
         justify-content: flex-end;
-        color: var(--base-font-color);
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap; 

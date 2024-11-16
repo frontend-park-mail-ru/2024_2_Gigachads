@@ -1,3 +1,5 @@
+@use 'src/assets/styles/mixins';
+
 .email-card{
     display: flex;
     flex-direction: column;
@@ -6,9 +8,8 @@
     padding: 10px;
     letter-spacing: -0.2px;
     .email-card__header{
-        font-size: var(--large-font-size);
-        font-weight: var(--bold-weight);
-        color: var(--base-font-color);
+      
+        @include mixins.text-style(var(--large-font-size), var(--bold-weight), var(--base-font-color), normal);
         letter-spacing: -0.2px;
     }
     .email-card__sender{
@@ -17,20 +18,14 @@
         width: 100%;
         justify-content: space-between;
         .email-card__sender-name{
-            font-size: var(--base-font-size);
-            font-weight: var(--small-weight);
-            color: var(--base-font-color);
+            @include mixins.text-style(var(--base-font-size), var(--small-weight), var(--base-font-color), normal);
         }
         .email-card__date{
-            font-size: var(--base-font-size);
-            font-weight: var(--small-weight);
-            color: var(--base-font-color);
+            @include mixins.text-style(var(--base-font-size), var(--small-weight), var(--base-font-color), normal);
         }
     }
     .email-card__description{
-        font-size: var(--base-font-size);
-        font-weight: var(--small-weight);
-        color: var(--base-font-color);
+        @include mixins.text-style(var(--base-font-size), var(--small-weight), var(--base-font-color), normal);
     }
 }
 

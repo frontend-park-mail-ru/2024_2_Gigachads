@@ -1,11 +1,12 @@
-.signupPage {
+@use 'assets/styles/mixins';
+.loginPage {
     background-color: var(--color-main-background);
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100dvh;
 }
-.signupPage__card {
+.loginPage__card {
     background-color: white;
     border-radius: 28px;
     color: var(--base-font-color);
@@ -20,17 +21,19 @@
         gap: 32px;
         .card_head {
             min-width: 400px;
-            .title {
-                font-size: var(--title-font-size);
-                font-weight: var(--base-weight);
-                line-height: 44px;
-            };
-            .subtitle {
-                font-size: var(--subtitle-font-size);
-                font-weight: var(--base-weight);
-                line-height: 24px;
-                padding-top: 5px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            .card_text_content {
+                .title {
+                    @include mixins.text-style(var(--title-font-size), var(--base-weight), var(--base-font-color), 44px);
+                };
+                .subtitle {
+                    @include mixins.text-style(var(--subtitle-font-size), var(--base-weight), var(--base-font-color), 24px);
+                    padding-top: 5px;
+                }
             }
+            
         }
         .card_form {
             display: flex;
@@ -45,3 +48,4 @@
         }
     }
 }
+

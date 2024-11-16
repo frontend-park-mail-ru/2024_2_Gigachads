@@ -9,9 +9,10 @@ class Notification {
         // Создаем контейнер для уведомлений
         this.container = document.createElement('div');
         this.container.classList.add('notification-container');
-        document.body.appendChild(this.container);
+        window.addEventListener('load', () => {
+            document.body.appendChild(this.container);
+        });
     }
-
     /**
      * Показать уведомление
      * @param {string} message - Текст уведомления

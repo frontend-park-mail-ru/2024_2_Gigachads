@@ -15,7 +15,9 @@ export class Router {
      */
     constructor(routes) {
         this.routes = routes;
-        this.init();
+        window.addEventListener('load', () => {
+            this.init();
+        });
     }
 
     /**

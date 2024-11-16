@@ -1,3 +1,4 @@
+@use 'src/assets/styles/mixins';
 .errorPage {
     background-color: azure;
     display: flex;
@@ -22,12 +23,10 @@
             flex-direction: column;
             gap: 15px;
             .title {
-                font-size: 26px;
-                font-weight: 600;
+                @include mixins.text-style(var(--large-font-size), var(--bold-weight), var(--color-black-54), normal);
             }
             .subtitle {
-                font-size: 15px;
-                font-weight: 400;
+                @include mixins.text-style(var(--subtitle-font-size), var(--base-weight), var(--color-black-54), normal);
             }
         }
         /* animation: 20s ease 0s infinite normal both running bg-pan-left; */

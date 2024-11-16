@@ -1,3 +1,4 @@
+import './assets/styles/index.scss';
 import { Route } from './components/router/router.js';
 import { Router } from './components/router/router.js';
 import  Inbox from './pages/inbox/inbox.js';
@@ -19,3 +20,15 @@ const routes = [
     new Route('/sent', new Sent(), true, true),
 ];
 export default new Router(routes);
+
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+                console.log('Service Worker зарегистрирован с областью:', registration.scope);
+            })
+            .catch(error => {
+                console.error('Регистрация Service Worker не удалась:', error);
+            });
+    });
+}

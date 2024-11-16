@@ -1,9 +1,12 @@
+@use 'src/assets/styles/mixins';
+
 .inbox {
     display: grid;
     grid-template-areas: "header header"
         "menu   content";
     grid-template-rows: 64px 1fr;
     grid-template-columns: min-content 1fr;
+    height: 100dvh;
 }
 
 .header {
@@ -64,11 +67,8 @@
             .main_search {
                 all: unset;
                 width: 100%;
-                font-size: var(--subtitle-font-size);
-                line-height: 120%;
+                @include mixins.text-style(var(--subtitle-font-size), var(--base-weight), var(--base-font-color), 120%);
                 letter-spacing: -0.01em;
-                
-
             }
         }
 
@@ -139,11 +139,9 @@
         margin-bottom: 16px;
         align-self: flex-start;
         border-radius: 100px;
-        font-size: var(--small-font-size);
-        color: var(--lighter-font-color);
+        
+        @include mixins.text-style(var(--small-font-size), var(--medium-weight), var(--lighter-font-color), normal);
         letter-spacing: -0.01em;
-        font-weight: var(--medium-weight);
-
         &:hover {
             box-shadow: var(--button-shadow);
             cursor: pointer;
@@ -214,7 +212,6 @@
     z-index: 1010;
 
     .user_email {
-        font-size: var(--small-font-size);
-        color: var(--lighter-font-color);
+        @include mixins.text-style(var(--small-font-size), var(--base-weight), var(--lighter-font-color), normal);
     }
 }

@@ -1,3 +1,5 @@
+@use 'src/assets/styles/mixins';
+
 .settings-page {
     display: flex;
     flex-direction: column;
@@ -18,15 +20,13 @@
 
 
 .settings-page__username {
-    font-size: var(--large-font-size);
+    @include mixins.text-style(var(--large-font-size), var(--base-weight), var(--base-font-color), normal);
     letter-spacing: 0.05em;
-    color: var(--base-font-color);
 }
 
 .settings-page__email {
-    font-size: var(--subtitle-font-size);
+    @include mixins.text-style(var(--subtitle-font-size), var(--base-weight), var(--base-font-color), normal);
     letter-spacing: 0.05em;
-    color: var(--base-font-color);
 }
 
 .settings-page__avatar-wrapper {

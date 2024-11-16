@@ -1,3 +1,5 @@
+@use 'src/assets/styles/mixins';
+
 .notification-container {
     position: fixed;
     bottom: 20px;
@@ -12,7 +14,7 @@
     min-width: 250px;
     padding: 15px 20px;
     border-radius: 8px;
-    color: white;
+    @include mixins.text-style(var(--base-font-size), var(--base-weight), var(--color-subwhite), normal);
     display: flex;
     flex-direction: row;
     gap: 10px;
@@ -49,8 +51,7 @@
 .close-button {
     background: none;
     border: none;
-    color: white; 
-    font-size: var(--base-font-size);
+    @include mixins.text-style(var(--base-font-size), var(--base-weight), var(--color-subwhite), normal);
     cursor: pointer;
     margin-left: 10px;
     transition: color 0.3s ease;
