@@ -18,22 +18,36 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/plugin-syntax-jsx": "^7.25.9",
+    "@jridgewell/sourcemap-codec": "^1.5.0",
     "@yoichiro/vite-plugin-handlebars": "^1.4.0",
+    "core-js": "^3.39.0",
     "express": "^4.21.0",
+    "glob": "^9.3.5",
     "handlebars": "^4.7.8",
     "vite": "^5.4.9",
     "vite-plugin-babel": "^1.2.0",
     "vite-plugin-handlebars": "^2.0.0",
-    "vite-plugin-string": "^1.2.3"
+    "vite-plugin-pwa": "^0.21.0",
+    "vite-plugin-string": "^1.2.3",
+    "workbox": "^0.0.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/plugin-transform-react-jsx": "^7.25.9",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.25.9",
+    "@babel/preset-typescript": "^7.26.0",
     "@eslint/js": "^9.12.0",
+    "@typescript-eslint/eslint-plugin": "^8.15.0",
+    "@typescript-eslint/parser": "^8.15.0",
     "@vituum/vite-plugin-handlebars": "^1.1.0",
     "eslint": "^9.12.0",
     "globals": "^15.11.0",
     "husky": "^8.0.0",
     "jsdoc": "^4.0.3",
-    "nodemon": "^3.1.7"
+    "nodemon": "^3.1.7",
+    "sass-embedded": "^1.81.0"
   },
   "husky": {
     "hooks": {

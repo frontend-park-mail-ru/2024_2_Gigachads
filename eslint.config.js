@@ -1,27 +1,31 @@
-/** @type {import('eslint').Linter.Config} */
-export default [
-    {
-        languageOptions: {
-            globals: {
-                browser: true,
-                es2021: true,
-            },
-            parserOptions: {
-                ecmaVersion: 12,
-                sourceType: 'module',
-            },
-        },
-        ignores: ['docs/'],
-        rules: {
-            'no-console': 'warn', // Предупреждение о использовании console
-            'eqeqeq': 'error', // Использование строгого равенства
-            'no-unused-vars': 'warn', // Предупреждение о неиспользуемых переменных
-            'quotes': ['error', 'single'], // Использование одинарных кавычек
-            'semi': ['error', 'always'], // Обязательное использование точки с запятой
-            'curly': 'error', // Обязательное использование фигурных скобок
-            'no-multiple-empty-lines': ['error', { max: 1 }], // Максимум одна пустая строка
-            'indent': ['error', 4], // Отступ в 4 пробела
-            'prefer-const': 'error', // Предпочтение const для неизменяемых переменных
+import { defineConfig } from '@eslint/js';
+import typescriptParser from '@typescript-eslint/parser';
+import typescriptPlugin from '@typescript-eslint/eslint-plugin';
+
+export default defineConfig({
+    languageOptions: {
+        parser: typescriptParser,
+        parserOptions: {
+            ecmaVersion: 2020,
+            sourceType: 'module',
         },
     },
-];
+    plugins: {
+        '@typescript-eslint': typescriptPlugin,
+    },
+    extends: [
+        'plugin:@typescript-eslint/recommended',
+    ],
+    ignores: ['docs/'],
+    rules: {
+        'no-console': 'warn',
+        'eqeqeq': 'error',
+        'no-unused-vars': 'warn',
+        'quotes': ['error', 'single'],
+        'semi': ['error', 'always'],
+        'curly': 'error',
+        'no-multiple-empty-lines': ['error', { max: 1 }],
+        'indent': ['error', 4],
+        'prefer-const': 'error',
+    },
+});
