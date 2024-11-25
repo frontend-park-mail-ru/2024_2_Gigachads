@@ -48,5 +48,10 @@
             }
         }
 
+        .create-email__buttons-container {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+        }
     }
 }

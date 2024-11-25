@@ -1,5 +1,5 @@
 @use '../../pages/signup/signup';
-@use '../../pages/inbox/inbox';
+@use '../../pages/main/main';
 @use '../../pages/login/login';
 @use 'animation';
 @use '../../components/dumb/button/button';
@@ -13,6 +13,14 @@
 @use '../../pages/settings/settings';
 @use '../../components/dumb/email/email-template';
 @use '../../pages/email/email';
+@use '../../assets/styles/iframe';
+@use '../../components/smart/rating_form/rating_from';
+@use '../../components/dumb/rating_scale/rating_scale';
+@use '../../pages/statistics/statistics';
+@use '../../components/dumb/modal/modal';
+@use '../../components/dumb/contex_menu/contex_menu_for_menu';
+
+
 @font-face {
     font-family: 'Roboto';
     src: url('/src/assets/fonts/Roboto-Regular.ttf') format('truetype');

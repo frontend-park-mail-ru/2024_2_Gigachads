@@ -4,8 +4,8 @@
  * @param {Array} emails - Массив писем, содержащих даты в любом формате, понятном для new Date().
  * @returns {Array} - Массив писем, содержащих даты в формате 'DD-MM-YYYY'.
  */
-export default function dateFormatingforEmails(emails) {
 
+export default function dateFormatingforEmails(emails) {
     for (let i = 0; i < emails.length; i++) {
         const dateObj = new Date(emails[i].date);
         emails[i].date = dateObj.toLocaleDateString('ru-RU', {

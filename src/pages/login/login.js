@@ -48,7 +48,7 @@ class Login {
                     nickname: userData.name,
                     avatarPath: await User.getAvatar()
                 });
-                Router.navigateTo('/inbox');
+                Router.navigateTo('/main');
             }
             else {
                 const errorBoxes = document.getElementsByClassName('error-box');
@@ -76,7 +76,7 @@ class Login {
      * @description - Добавление слушателей событий
      * @returns {void}
      */
-    attachEventListeners() {
+    async attachEventListeners() {
         const form = document.querySelector('form');
         form.addEventListener('submit', this.handleSubmit);
         rippleEffect();

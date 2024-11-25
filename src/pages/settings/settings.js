@@ -9,6 +9,7 @@ import { nicknameFormConfig, passwordFormConfig } from './settings_config.js';
 import User from '../../api/modules/user.js';
 import Notification from '../../components/dumb/notification/notification.js';
 import { setUser, getUser } from '../../auth/auth.js';
+import { iframe } from '../../components/smart/iframe/iframe.js';
 
 class Settings {
     constructor() {
@@ -23,7 +24,7 @@ class Settings {
         });
     }
 
-    attachEventListeners() {
+    async attachEventListeners() {
         // Обработка формы смены ника
         const nicknameForm = document.getElementById(nicknameFormConfig.formId);
         if (nicknameForm) {
@@ -190,6 +191,7 @@ class Settings {
             });
             avatarImage.src = avatarPath;
             Notification.show('Аватар успешно обновлен!', 'success');
+            iframe('UploadAvatar');
             saveAvatarButton.style.display = 'none';
             this.selectedAvatarFile = null;
         } else {

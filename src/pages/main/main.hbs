@@ -1,7 +1,7 @@
 <div class="inbox">
     <header class="header">
         <div class="logo">
-            <img class="icon_logo" src="/icons/logo.png">
+            <img class="icon_logo" src="/icons/favicon.png">
             {{!-- <div></div>
             <div class="search">
                 <div class="icon_box"><img class="search_icon"
@@ -26,20 +26,21 @@
             <img src="/icons/new.svg">
             <div>Создать сообщение</div>
         </div>
-        <div class="navigator">
+        <div class="navigator" id="navigator">
             {{#each menu_elements}}
             {{> components/dumb/element_menu/element_menu-template
             url=this.url
             element_text=this.element_text
             active=this.active
             count=this.count
+            navigation_url=this.navigation_url
             }}
             {{/each}}
         </div>
+        <div class="button_box">
+            <button id="createFolderButton" class="button button_create_folder">Создать папку</button>
+        </div>
     </div>
     <div class="content" id="content">
-        {{> components/smart/navigation-email-list/navigation-email-list
-        mail_messages=mail_messages
-        }}
     </div>
 </div>

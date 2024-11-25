@@ -148,6 +148,22 @@
         }
 
     }
+    .button_create_folder {
+        display: flex;
+        margin: 15px auto 16px auto;
+        align-self: center;
+        background-color: var(--color-secondary-button);
+        @include mixins.text-style(var(--small-font-size), var(--medium-weight), var(--lighter-font-color), normal);
+        letter-spacing: -0.01em;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+        &:hover {
+            background-color: var(--color-secondary-button);
+            box-shadow: var(--button-shadow);
+            cursor: pointer;
+        }
+    }
 }
 
 .content {
@@ -213,5 +229,20 @@
 
     .user_email {
         @include mixins.text-style(var(--small-font-size), var(--base-weight), var(--lighter-font-color), normal);
+    }
+}
+
+.empty_folder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    @include mixins.text-style(var(--subtitle-font-size), var(--base-weight), var(--lighter-font-color), 120%);
+    height: 100%;
+    letter-spacing: -0.01em;
+    gap: 15px;
+    .empty_folder_icon {
+        height: 40px;
+        width: 40px;
     }
 }

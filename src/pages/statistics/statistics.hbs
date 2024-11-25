@@ -1,0 +1,9 @@
+<div class="statisticsPage">
+    {{#each statistics}}
+        <div class="statisticsPage__item">
+            <div class="statisticsPage__item-title">{{this.action}}</div>
+            <div class="statisticsPage__item-AverageValue">Среднее оценка: {{this.average}}</div>
+            <div class="statisticsPage__item-CountValue">Количество ответов: {{this.amount}}</div>
+        </div>
+    {{/each}}
+</div>

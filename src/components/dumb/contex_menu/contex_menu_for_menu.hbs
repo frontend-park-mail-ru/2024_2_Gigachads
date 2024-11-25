@@ -1,0 +1,14 @@
+<div class="context_menu_container {{#if isMove}}move_menu{{/if}}">
+    {{#if isFolder}}
+        <div class="context_menu_item delete_folder">Удалить папку</div>
+        <div class="context_menu_item rename_folder">Переименовать папку</div>
+    {{/if}}
+    {{#if isEmail}}
+        <div class="context_menu_item move_to_folder">Переместить</div>
+    {{/if}}
+    {{#if isMove}}
+        {{#each moveFolders}}
+            <div class="context_menu_item folder_element" data-url="#{{this}}">{{this}}</div>
+        {{/each}}
+    {{/if}}
+</div>

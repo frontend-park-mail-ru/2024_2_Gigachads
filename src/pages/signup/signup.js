@@ -6,6 +6,8 @@ import { registrationFormData } from './signup_config.js';
 import signupTemplate from './signup.hbs';
 import { setUser } from '../../auth/auth.js';
 import { validateEmail, validatePassword, validateConfirmPassword, validateUsername } from '../../components/dumb/input/input.js';
+import { iframe } from '../../components/smart/iframe/iframe.js';
+
 /**
  * @class Signup
  * @description - Класс для отображения страницы "Signup"
@@ -53,7 +55,8 @@ class Signup {
                     nickname: usernameInput,
                     avatarPath: '/icons/default.png'
                 });
-                Router.navigateTo('/inbox');
+                iframe('SignUp');
+                Router.navigateTo('/main');
             }
             else {
                 const errorBoxes = document.getElementsByClassName('error-box');
@@ -84,7 +87,7 @@ class Signup {
      * @description - Добавление слушателей событий для валидации формы
      * @returns {void}
      */
-    attachEventListeners() {
+    async attachEventListeners() {
    
         const form = document.querySelector('form');
         form.addEventListener('submit', this.handleSubmit);

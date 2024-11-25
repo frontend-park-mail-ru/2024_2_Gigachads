@@ -1,0 +1,14 @@
+<div class="rating-scale">
+    {{#if isNumber}}
+        {{#each items as |item|}}
+            <div class="rating-scale__item rating-scale__number-item" data-value="{{item}}">{{item}}</div>
+        {{/each}}
+    {{/if}}
+    {{#if isStar}}
+        {{#each items as |item|}}
+            <div class="rating-scale__item rating-scale__star-item" data-value="{{item}}">
+                <img class="icon" src="/icons/logo2.png" alt="star">
+            </div>
+        {{/each}}
+    {{/if}}
+</div>

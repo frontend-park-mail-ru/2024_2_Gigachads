@@ -1,0 +1,12 @@
+<div class="modal" id="modal">
+    <div class="exit_button">
+        <img src="/icons/exit.svg" alt="exit">
+    </div>
+    {{> components/dumb/input/input-template
+        type='text'
+        name='folder_name'
+        id='folder_name'
+        label='Введите название папки'
+    }}
+    <button class="button" id="ConfirmCreateButton">{{button_text}}</button>
+</div>

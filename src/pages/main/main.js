@@ -1,63 +1,78 @@
-import Email from '../../api/modules/email.js';
 import User from '../../api/modules/user.js';
 import { rippleEffect } from '../../components/dumb/button/button.js';
 import { filterInput } from '../../components/dumb/input/input.js';
 import Router from '../../index.js';
-import { InboxData } from './inbox_config.js';
-import dateFormatingforEmails from '../../assets/scripts/date_formating.js';
-import inboxTemplate from './inbox.hbs';
-import { getUser } from '../../auth/auth.js';
-import { selectEmail, emails } from '../../components/dumb/mail_message/mail_message.js';
-import Notification from '../../components/dumb/notification/notification.js';
-import { initializeNavigationEmailList } from '../../components/smart/navigation-email-list/navigation-email-list.js';
 
+import { getUser } from '../../auth/auth.js';
+import Notification from '../../components/dumb/notification/notification.js';
+import { iframe } from '../../components/smart/iframe/iframe.js';
+import Folder from '../../api/modules/folder.js';
+import MainTemplate from './main.hbs';
+import { fillContent, openContextMenu } from '../../components/smart/navigation-email-list/navigation-email-list.js';
+import CreateFolder, { ExitModal } from '../../components/dumb/modal/modal.js';
+import ModalTemplate from '../../components/dumb/modal/modal.hbs';
 /**
- * @class Inbox
- * @description - Класс для отображения страницы "Inbox"
+ * @class Main
+ * @description - Класс для отображения страницы "Main"
  */
-class Inbox {
+class Main {
     /**
      * @async
-     * @description - Отображение страницы "Inbox"
-     * @returns {string} - HTML-код страницы "Inbox"
+     * @description - Отображение страницы "Main"
+     * @returns {string} - HTML-код страницы "Main"
      */
-    async render() {
+    async render(params) {
+        const MainData = [];
         const user = getUser();
         if (user) {
-            InboxData.userEmail = user.email;
-            InboxData.userNickname = user.nickname;
-            InboxData.userAvatar = user.avatarPath;
+            MainData.userEmail = user.email;
+            MainData.userNickname = user.nickname;
+            MainData.userAvatar = user.avatarPath;
         }
-        const response = await Email.getInboxMessages();
-        Router.checkAuth(response);
-        let result = await response.json();
-        // Преобразуем ответ в JSON
-        const mailMessages = [];
-        result = dateFormatingforEmails(result);
-        for (let i = 0; i < result.length; i++) {
-            mailMessages.push({
-                ...result[i]
-            });
-        }
-        InboxData.mail_messages = mailMessages;
-        return inboxTemplate(InboxData);
+
+        const folders = await (await Folder.getFolders()).json();
+        MainData.menu_elements = this.createNavigationElements(folders);
+        const urlParams = new URLSearchParams(window.location.search);
+        const numberActiveElement = MainData.menu_elements.findIndex(element => element.element_text === (urlParams.get('folder') || 'Входящие'));
+        MainData.menu_elements[numberActiveElement].active = true;
+        return MainTemplate(MainData);
     }
+
     /**
      * @description - Добавление слушателей событий
      * @returns {void}
      */
-    attachEventListeners() {
-
+    async attachEventListeners() {
+        // iframe('Main');
+        const urlParams = new URLSearchParams(window.location.search);
         rippleEffect();
         filterInput();
         this.logoutButton();
         this.createEmailButton();
         this.settingsButton();
         this.navigator();
-        selectEmail();
-        emails();
         this.profileDropdown();
-        initializeNavigationEmailList('inbox');
+        this.createFolderButton();
+        fillContent(urlParams.get('folder') || 'Входящие');
+        openContextMenu();
+    }
+    createFolderButton() {
+        const button = document.getElementById('createFolderButton');
+        button.addEventListener('click', () => {
+            const div_modal = document.querySelector('.div_modal');
+            if (div_modal) {
+                div_modal.remove();
+            }
+            else {
+                const modal = document.createElement('div');
+                modal.classList.add('div_modal');
+                modal.innerHTML = ModalTemplate({ button_text: 'Создать' });
+                document.body.appendChild(modal);
+                CreateFolder('Создать');
+                ExitModal();
+                openContextMenu();
+            }
+        });
     }
     logoutButton() {
         const button = document.getElementsByClassName('logout');
@@ -96,7 +111,8 @@ class Inbox {
                         otherNavigator[i].classList.remove('active');
                     }
                     target.classList.add('active');
-                    Router.navigateTo(target.dataset.url);
+                    Router.navigateTo('/main?folder=' + target.dataset.url.split('#')[1]);
+                    openContextMenu();
                 }
             });
         });
@@ -128,7 +144,35 @@ class Inbox {
         });
 
     }
+    createNavigationElements(folders) {
+        const navigationElements = [];
+        const urlsFolders = [
+            { 'Входящие': '/icons/inbox.svg' },
+            { 'Отправленные': '/icons/sent.svg' },
+            { 'Спам': '/icons/spam.svg' },
+            { 'Черновики': '/icons/draft.svg' },
+            { 'Корзина': '/icons/trash.svg' },
+        ];
+        folders.forEach(folder => {
+            let url = urlsFolders.find(url => url[folder]);
+            if (!url) {
+                url = '/icons/label.svg';
+            }
+            else {
+                url = url[folder];
+            }
+            const navigationUrl = '#' + folder;
+            navigationElements.push({
+                url: url,
+                navigation_url: navigationUrl,
+                element_text: folder,
+                active: false,
+                count: 0
+            });
+        });
+        return navigationElements;
+    }
 
 }
 
-export default Inbox;
+export default Main;
