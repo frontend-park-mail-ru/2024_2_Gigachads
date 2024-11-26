@@ -3,7 +3,6 @@ import handlebarsPlugin from '@yoichiro/vite-plugin-handlebars';
 import { resolve } from 'path';
 import babel from 'vite-plugin-babel';
 import { VitePWA } from 'vite-plugin-pwa';
-import { equals } from './src/components/dumb/helper/helper.js';
 
 export default defineConfig({
   plugins: [
@@ -14,10 +13,6 @@ export default defineConfig({
       transformIndexHtmlOptions: {
         context: async () => {
           return Promise.resolve({ keyword: 'static' });
-        },
-        helpers: {
-          'upper-case': (str) => str.toUpperCase(),
-          'equals': equals,
         },
       },
     }),
