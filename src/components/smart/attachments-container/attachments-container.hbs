@@ -1,0 +1,18 @@
+<div class="attachments-container">
+    <label class="attachments-container__label"
+        for="attachments">Вложения</label>
+    <div class="attachments-container__attachments-container" id="attachments-container">
+        {{#each filenames}}
+        {{> components/dumb/attachment/attachment path=this.path name=this.name isChangable=isChangable}}
+        {{/each}}
+    </div>
+    {{#if isChangable}}
+    <div class="attachments-container__input-container">
+        <label class="file-upload-button button">
+            Выберите файл
+            <input class="attachments-container__input"
+                type="file" name="attachments" id="LoadAttachmentButton" multiple>
+        </label>
+    </div>
+    {{/if}}
+</div>

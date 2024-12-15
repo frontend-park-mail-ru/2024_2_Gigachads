@@ -11,6 +11,9 @@ import MainTemplate from './main.hbs';
 import { fillContent, openContextMenu } from '../../components/smart/navigation-email-list/navigation-email-list.js';
 import CreateFolder, { ExitModal } from '../../components/dumb/modal/modal.js';
 import ModalTemplate from '../../components/dumb/modal/modal.hbs';
+import Email from '../../api/modules/email.js';
+
+import { setCustomInterval} from '../../assets/scripts/intervals.js';
 /**
  * @class Main
  * @description - Класс для отображения страницы "Main"
@@ -55,6 +58,7 @@ class Main {
         this.createFolderButton();
         fillContent(urlParams.get('folder') || 'Входящие');
         openContextMenu();
+        this.getNewEmails();
     }
     createFolderButton() {
         const button = document.getElementById('createFolderButton');
@@ -116,6 +120,19 @@ class Main {
                 }
             });
         });
+    }
+
+    getNewEmails() {
+        let time = new Date().toISOString();
+        setCustomInterval(async () => {
+            const response = await Email.GetNewEmails(time);
+            if (response.ok) {
+                const emails = await response.json();
+                console.log(emails);
+                time = new Date().toISOString();
+                console.log(time);
+            }
+        }, 20000);
     }
     profileDropdown() {
         const profileBox = document.getElementById('profileBox');

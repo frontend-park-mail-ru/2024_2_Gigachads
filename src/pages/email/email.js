@@ -4,6 +4,7 @@ import Email from '../../api/modules/email.js';
 import Notification from '../../components/dumb/notification/notification.js';
 import Router from '../../index.js';
 import { iframe } from '../../components/smart/iframe/iframe.js';
+import { attachAllAttachments } from '../../components/smart/attachments-container/attachments-container.js';
 
 import dateFormatingforEmails from '../../assets/scripts/date_formating.js';
 class EmailPage {
@@ -36,6 +37,7 @@ class EmailPage {
         this.replyButtonClickHandler();
         this.forwardButtonClickHandler();
         // this.deleteButtonClickHandler();
+        attachAllAttachments();
     }
 
     replyButtonClickHandler() {

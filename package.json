@@ -28,8 +28,7 @@
     "vite-plugin-babel": "^1.2.0",
     "vite-plugin-handlebars": "^2.0.0",
     "vite-plugin-pwa": "^0.21.0",
-    "vite-plugin-string": "^1.2.3",
-    "workbox": "^0.0.0"
+    "vite-plugin-string": "^1.2.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.12.0",

@@ -15,6 +15,7 @@
             <label class="create-email__label" for="description">Описание</label>
             <textarea class="create-email__input create-email__input_type_description" name="description" required>{{description}}</textarea>
         </div>
+        {{> components/smart/attachments-container/attachments-container filenames=filenames isChangable=true}}
         <div class="create-email__buttons-container">
             <button class="create-email__button button" id="createMessage" type="submit">Создать</button>
             <button class="create-email__button button secondary" id="saveDraft" type="submit">Сохранить черновик</button>

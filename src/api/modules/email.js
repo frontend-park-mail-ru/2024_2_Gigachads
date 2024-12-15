@@ -128,6 +128,16 @@ class Email {
         });
         return response;
     }
+
+    async GetNewEmails(time) {
+        const response = await fetch(`${BASE_API_URL}status`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ date: time })
+        });
+        return response;
+    }
 }
 
 export default new Email();

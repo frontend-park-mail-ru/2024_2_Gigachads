@@ -1,7 +1,8 @@
 import ErrorPage from '../../pages/error/error.js';
 import { getUser } from '../../auth/auth.js';
 import User from '../../api/modules/user.js';
-import Inbox from '../../pages/main/main.js';
+import Main from '../../pages/main/main.js';
+import { clearAllIntervals } from '../../assets/scripts/intervals.js';
 const root = document.getElementById('root');
 /**
  * @class Router
@@ -78,9 +79,10 @@ export class Router {
                     let contentDiv = document.getElementById('content');
                     let view;
                     if (!contentDiv) {
-                        const inbox = new Inbox();
+                        const inbox = new Main();
                         view = await inbox.render(params);
                         root.innerHTML = view;
+                        clearAllIntervals();
                         await inbox.attachEventListeners(params);
                         contentDiv = document.getElementById('content');
                     }
@@ -91,6 +93,7 @@ export class Router {
                 } else {
                     const view = await route.component.render(params);
                     root.innerHTML = view;
+                    clearAllIntervals();
                     await route.component.attachEventListeners(params);
                 }
                 return;

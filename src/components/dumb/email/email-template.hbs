@@ -7,4 +7,7 @@
         <div class="email-card__date">{{email.date}}</div>
     </div>
     <div class="email-card__description">{{email.description}}</div>
+    {{#if email.filenames}}
+        {{> components/smart/attachments-container/attachments-container filenames=email.filenames isChangable=isChangable}}
+    {{/if}}
 </div>

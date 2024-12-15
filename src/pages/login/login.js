@@ -38,7 +38,7 @@ class Login {
         if (!emailError && !passwordError && emailInput && passwordInput) {
             // Отправка формы
             const response = await User.login({
-                email: emailInput + '@gigamail.ru',
+                email: emailInput + '@giga-mail.ru',
                 password: passwordInput
             });
             if (response.ok) {

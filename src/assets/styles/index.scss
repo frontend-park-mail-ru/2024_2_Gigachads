@@ -19,6 +19,8 @@
 @use '../../pages/statistics/statistics';
 @use '../../components/dumb/modal/modal';
 @use '../../components/dumb/contex_menu/contex_menu_for_menu';
+@use '../../components/smart/attachments-container/attachments-container';
+@use '../../components/dumb/attachment/attachment';
 
 
 @font-face {

@@ -4,6 +4,7 @@ import Router from '../../index.js';
 import Notification from '../../components/dumb/notification/notification.js';
 import { iframe } from '../../components/smart/iframe/iframe.js';
 import Draft from '../../api/modules/draft.js';
+import { loadFileButton, getAllAttachments, attachAllAttachments } from '../../components/smart/attachments-container/attachments-container.js';
 
 class CreateEmail {
     async render() {
@@ -14,18 +15,32 @@ class CreateEmail {
         const description = urlParams.get('description') || '';
         const id = urlParams.get('id') || '';
         const isChangeDraft = urlParams.get('isChangeDraft') || '';
+        let attachments = [];
+        if (id !== '') {
+            const EmailTree = (await (await Email.getEmailTree(id)).json())[0];
+            attachments = EmailTree.filenames;
+        }
+        attachments.isChangable = true;
+        attachments.forEach(attachment => {
+            attachment.isChangable = true;
+        });
+        
         return createEmailTemplate({
             recipient,
             title,
             description,
             parentID,
             id,
-            isChangeDraft
+            isChangeDraft,
+            filenames: attachments,
+            isChangable: true
         });
     }
     async attachEventListeners() {
         this.resizeTextArea();
         this.handleSubmit();
+        loadFileButton();
+        attachAllAttachments();
     }
 
     async handleSubmit() {
@@ -46,14 +61,16 @@ class CreateEmail {
                     id: +id,
                     recipient: formData.get('recipient'),
                     title: formData.get('title'),
-                    description: formData.get('description')
+                    description: formData.get('description'),
+                    attachments: getAllAttachments()
                 });
             } else {
                 response = await Email.createEmail({
                     recipient: formData.get('recipient'),
                     title: formData.get('title'),
                     description: formData.get('description'),
-                    parentId: +parentID
+                    parentId: +parentID,
+                    attachments: getAllAttachments()
                 });
             }
             if (response.ok) {
@@ -78,13 +95,15 @@ class CreateEmail {
                     recipient: formData.get('recipient'),
                     title: formData.get('title'),
                     description: formData.get('description'),
+                    attachments: getAllAttachments()
                 });
             } else {
                 response = await Draft.createDraft({
                     recipient: formData.get('recipient'),
                     title: formData.get('title'),
                     description: formData.get('description'),
-                    parentId: +parentID
+                    parentId: +parentID,
+                    attachments: getAllAttachments()
                 });
             }
             if (response.ok) {

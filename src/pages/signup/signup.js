@@ -45,13 +45,13 @@ class Signup {
             // Отправка формы
             const response = await User.signup({
                 name: usernameInput,
-                email: emailInput + '@gigamail.ru',
+                email: emailInput + '@giga-mail.ru',
                 password: passwordInput,
                 repassword: confirmPasswordInput
             });
             if (response.ok) {
                 setUser({
-                    email: emailInput + '@gigamail.ru',
+                    email: emailInput + '@giga-mail.ru',
                     nickname: usernameInput,
                     avatarPath: '/icons/default.png'
                 });

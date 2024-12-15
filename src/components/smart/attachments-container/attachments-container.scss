@@ -1,0 +1,30 @@
+.attachments-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    .attachments-container__attachments-container {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    .attachments-container__input-container {
+        
+        .attachments-container__input {
+            position: absolute;
+            visibility: hidden;
+        }
+        .file-upload-button {
+            // width: 200px;
+            // height: fit-content;
+            // padding: 5px;
+            // font-weight: normal;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: normal;
+            background-color: var(--color-secondary-button);
+            color: var(--lighter-font-color);
+        }
+    }
+}
