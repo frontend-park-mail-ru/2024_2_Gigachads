@@ -1,0 +1,51 @@
+@use 'assets/styles/mixins';
+.loginPage {
+    background-color: var(--color-main-background);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100dvh;
+}
+.loginPage__card {
+    background-color: white;
+    border-radius: 28px;
+    color: var(--base-font-color);
+    padding: 24px;
+    min-height: 384px;
+    max-width: 800px;
+    width: 100%;
+    .content {
+        display: flex;
+        flex-direction: row;
+        padding-top: 10px;
+        gap: 32px;
+        .card_head {
+            min-width: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            .card_text_content {
+                .title {
+                    @include mixins.text-style(var(--title-font-size), var(--base-weight), var(--base-font-color), 44px);
+                };
+                .subtitle {
+                    @include mixins.text-style(var(--subtitle-font-size), var(--base-weight), var(--base-font-color), 24px);
+                    padding-top: 5px;
+                }
+            }
+            
+        }
+        .card_form {
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+            gap: 16px;
+            max-width: 50%;
+            justify-content: flex-end;
+            button {
+                margin-left: auto;
+            }
+        }
+    }
+}
+

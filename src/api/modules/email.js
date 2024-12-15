@@ -118,6 +118,16 @@ class Email {
         });
         return response;
     }
+
+    async changeEmailFolder(emailId, folderName) {
+        const response = await fetch(`${BASE_API_URL}email/${emailId}/folder`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ name: folderName })
+        });
+        return response;
+    }
 }
 
 export default new Email();

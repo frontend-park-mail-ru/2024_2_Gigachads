@@ -1,0 +1,46 @@
+@use 'src/assets/styles/mixins';
+
+.button {
+    display: block;
+    position: relative;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    background-color: var(--color-primary-button);
+    padding: 0.3rem 0.6rem;
+    cursor: pointer;
+    border-radius: 100px;
+    height: 40px;
+    overflow: hidden;
+    width: fit-content;
+    padding: 0px 24px 0px 24px;
+    @include mixins.text-style(var(--base-font-size), 500, #fff, 20px);
+    &:hover {
+        background-color: var(--color-primary-button);
+        box-shadow: var(--button-shadow);
+    }
+    &:active {
+        box-shadow: none;
+    }
+
+    span {
+        position: absolute;
+        background: #fff;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        border-radius: 50%;
+        animation: ripple 0.8s linear infinite;
+    }
+}
+
+.secondary {
+    background-color: transparent;
+    color: var(--color-primary-button);
+    align-content: center;
+    &:hover {
+        background-color: var(--color-main-background);
+        box-shadow: none;
+    }
+}
+
+

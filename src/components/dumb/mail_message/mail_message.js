@@ -1,5 +1,5 @@
 import Router from '../../../index.js';
-
+import Email from '../../../api/modules/email.js';
 /**
  * Обрабатывает выбор email сообщений.
  * Добавляет слушатели событий на чекбоксы для выбора писем.
@@ -24,12 +24,16 @@ export function selectEmail() {
 /**
  * Обрабатывает клики по email карточкам и навигацию.
  */
-export function emails() {
+export function emails(folder) {
     const emails = document.getElementsByClassName('email_card');
     Array.from(emails).forEach(element => {
         element.dataset.id = element.dataset.id || element.getAttribute('data-id');
         element.addEventListener('click', () => {
-            Router.navigateTo('/email/' + element.dataset.id);
+            if (folder === 'Черновики') {
+                Router.navigateTo('/create_email?description=' + element.querySelector('.description').textContent + '&recipient=' + element.querySelector('.sender').textContent + '&title=' + element.querySelector('.title').textContent + '&id=' + element.dataset.id + '&isChangeDraft=true');
+            } else {
+                Router.navigateTo('/email/' + element.dataset.id);
+            }
         });
     });
 }

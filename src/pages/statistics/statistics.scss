@@ -1,0 +1,23 @@
+@use 'assets/styles/mixins';
+
+.statisticsPage {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    .statisticsPage__item {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        background-color: var(--color-subwhite);
+        border-radius: 10px;
+        border: 1px solid #433434;
+        .statisticsPage__item-title {
+            @include mixins.text-style(var(--font-size-large), 700, var(--base-font-color), 1.2);
+
+        }
+        .statisticsPage__item-CountValue,
+        .statisticsPage__item-AverageValue {
+            @include mixins.text-style(var(--font-size-small), 400, var(--base-font-color), 1.2);
+        }
+    }
+}

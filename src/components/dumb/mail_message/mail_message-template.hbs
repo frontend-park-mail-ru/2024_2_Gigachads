@@ -10,14 +10,12 @@
             <div class="checkbox_star_container">
 
             </div>
-            <div class="sender">
-                {{sender}}
-            </div>
+            <div class="sender">{{#if sender}}{{sender}}{{else}}Неизвестный автор{{/if}}</div>
         </div>
         <div class="subject_card">
             {{!-- <div class="badge {{badge_type}}">{{badge_text}}</div> --}}
-            <div class="title">{{title}}</div>
-            <div class="description">{{description}}.</div>
+            <div class="title">{{#if title}}{{title}}{{else}}Без темы{{/if}}</div>
+            <div class="description">{{#if description}}{{description}}{{else}}Без описания{{/if}}.</div>
         </div>
     </div>
     <div class="date_card">

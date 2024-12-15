@@ -1,7 +1,7 @@
 import ErrorPage from '../../pages/error/error.js';
 import { getUser } from '../../auth/auth.js';
 import User from '../../api/modules/user.js';
-import Inbox from '../../pages/inbox/inbox.js';
+import Inbox from '../../pages/main/main.js';
 const root = document.getElementById('root');
 /**
  * @class Router
@@ -15,7 +15,9 @@ export class Router {
      */
     constructor(routes) {
         this.routes = routes;
-        this.init();
+        window.addEventListener('load', () => {
+            this.init();
+        });
     }
 
     /**
@@ -79,17 +81,17 @@ export class Router {
                         const inbox = new Inbox();
                         view = await inbox.render(params);
                         root.innerHTML = view;
-                        inbox.attachEventListeners();
+                        await inbox.attachEventListeners(params);
                         contentDiv = document.getElementById('content');
                     }
                     view = await route.component.render(params);
                     contentDiv.innerHTML = view;
-                    route.component.attachEventListeners();
+                    await route.component.attachEventListeners(params);
          
                 } else {
                     const view = await route.component.render(params);
                     root.innerHTML = view;
-                    route.component.attachEventListeners();
+                    await route.component.attachEventListeners(params);
                 }
                 return;
             }

@@ -1,0 +1,28 @@
+@use '../../../assets/styles/mixins.scss';
+
+.context_menu {
+    position: absolute;
+    background-color: white;
+    z-index: 10000;
+    .context_menu_container {
+        display: flex;
+        flex-direction: column;
+        gap: 0px;
+        padding: 5px;
+        width: fit-content;
+        height: fit-content;
+        border-radius: 5px;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+        .context_menu_item {
+            padding: 5px;
+            // border-bottom: 1px solid var(--color-for-bottom-border);
+            @include mixins.text-style(var(--base-font-size), var(--base-font-weight), var(--base-font-color), 1.2);
+            cursor: pointer;
+            &:hover {
+                background-color: #F1F3F4;
+                font-weight: var(--bold-weight);
+                box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+            }
+        }
+    }
+}

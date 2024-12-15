@@ -1,0 +1,92 @@
+@use 'src/assets/styles/mixins';
+
+.notification-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 2000;
+}
+
+.notification {
+    min-width: 250px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    @include mixins.text-style(var(--base-font-size), var(--base-weight), var(--color-subwhite), normal);
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 6px var(--color-box-shadow);
+    opacity: 0;
+    transform: translateY(100%);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.notification.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.notification.success {
+    background-color: var(--color-green); 
+}
+
+.notification.error {
+    background-color: var(--color-red); 
+}
+
+.notification-icon {
+    margin-right: 10px;
+    font-size: var(--base-font-size);
+}
+
+.notification-text {
+    flex: 1;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    @include mixins.text-style(var(--base-font-size), var(--base-weight), var(--color-subwhite), normal);
+    cursor: pointer;
+    margin-left: 10px;
+    transition: color 0.3s ease;
+}
+
+.notification.success .close-button {
+    color: white; 
+}
+
+.notification.error .close-button {
+    color: white; 
+}
+
+.close-button:hover {
+    color: var(--color-subwhite);
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+}
+
+.notification.hide {
+    animation: fadeOut 0.5s forwards;
+}
+.notification {
+    .icon {
+        filter: invert(100%);
+        width: 20px;
+        height: 20px;
+    }
+}

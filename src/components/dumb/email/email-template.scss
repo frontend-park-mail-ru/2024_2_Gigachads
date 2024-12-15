@@ -1,0 +1,49 @@
+@use 'src/assets/styles/mixins';
+
+.email-card{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border-bottom: 1px solid var(--color-for-bottom-border);
+    padding: 10px;
+    letter-spacing: -0.2px;
+    .email-card__header{
+      
+        @include mixins.text-style(var(--large-font-size), var(--bold-weight), var(--base-font-color), normal);
+        letter-spacing: -0.2px;
+    }
+    .email-card__sender{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+        .email-card__sender-name{
+            @include mixins.text-style(var(--base-font-size), var(--small-weight), var(--base-font-color), normal);
+        }
+        .email-card__date{
+            @include mixins.text-style(var(--base-font-size), var(--small-weight), var(--base-font-color), normal);
+        }
+    }
+    .email-card__description{
+        @include mixins.text-style(var(--base-font-size), var(--small-weight), var(--base-font-color), normal);
+    }
+}
+
+.email-card.child{
+    background-color: var(--color-subwhite);
+    margin-left: 10%;
+    .email-card__header{
+        font-size: var(--base-font-size);
+    }
+    .email-card__sender{
+        .email-card__sender-name{
+            font-size: var(--small-font-size);
+        }
+        .email-card__date{
+            font-size: var(--small-font-size);
+        }
+    }
+    .email-card__description{
+        font-size: var(--small-font-size);
+    }
+}

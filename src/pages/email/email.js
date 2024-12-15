@@ -3,6 +3,8 @@ import Email from '../../api/modules/email.js';
 // import emailMock from '../../api/mocks/emailMock.json';
 import Notification from '../../components/dumb/notification/notification.js';
 import Router from '../../index.js';
+import { iframe } from '../../components/smart/iframe/iframe.js';
+
 import dateFormatingforEmails from '../../assets/scripts/date_formating.js';
 class EmailPage {
     constructor() {
@@ -30,7 +32,7 @@ class EmailPage {
         }
     }
 
-    attachEventListeners() {
+    async attachEventListeners() {
         this.replyButtonClickHandler();
         this.forwardButtonClickHandler();
         // this.deleteButtonClickHandler();
@@ -48,7 +50,7 @@ class EmailPage {
                 const emailId = this.mainEmail.id;
                 const recipient = this.mainEmail.sender;
                 const subject = this.mainEmail.title;
-
+                iframe('Answer');
                 Router.navigateTo(`/create_email?parentID=${emailId}&recipient=${encodeURIComponent(recipient)}&title=Re: ${encodeURIComponent(subject)}`);
             });
         });
@@ -65,7 +67,7 @@ class EmailPage {
                 }
                 const emailId = this.mainEmail.id;
                 const subject = this.mainEmail.title;
-
+                iframe('Forward');
                 Router.navigateTo(`/create_email?parentID=${emailId}&title=Fwd: ${encodeURIComponent(subject)}`);
             });
         });
