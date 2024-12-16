@@ -50,10 +50,9 @@ export function RenameFolder(oldFolderName) {
                     Notification.show('Папка переименована', 'success');
                     document.querySelector('.div_modal').remove();
                 } else {
-                    console.warn('Не найден элемент с классом .element_text');
+                    Notification.show('Папка не переименована', 'error');
                 }
             } else {
-                console.warn(`Элемент с data-url="#${oldFolderName}" не найден`);
             }
         } else {
             Notification.show('Папка не переименована', 'error');

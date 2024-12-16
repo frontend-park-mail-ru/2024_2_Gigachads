@@ -41,6 +41,13 @@ class Main {
         const urlParams = new URLSearchParams(window.location.search);
         const numberActiveElement = MainData.menu_elements.findIndex(element => element.element_text === (urlParams.get('folder') || 'Входящие'));
         MainData.menu_elements[numberActiveElement].active = true;
+        const unreadCount = localStorage.getItem('unreadCount');
+        if (unreadCount) {
+            MainData.menu_elements[0].count = unreadCount;
+        }
+        if (params.folder === 'Входящие' || Object.keys(params).length === 0) {
+            localStorage.removeItem('unreadCount');
+        }
         return MainTemplate(MainData);
     }
 
@@ -89,6 +96,7 @@ class Main {
             element.addEventListener('click', () => {
                 User.logout();
                 Router.navigateTo('/login');
+                localStorage.removeItem('unreadCount');
                 Notification.show('Вы успешно вышли из системы', 'success');
             });
         });
@@ -120,6 +128,9 @@ class Main {
                         otherNavigator[i].classList.remove('active');
                     }
                     target.classList.add('active');
+                    if (target.dataset.url.split('#')[1] === 'Входящие') {
+                        localStorage.removeItem('unreadCount');
+                    }
                     Router.navigateTo('/main?folder=' + target.dataset.url.split('#')[1]);
                     openContextMenu();
                 }
@@ -128,15 +139,10 @@ class Main {
     }
 
     async requestNotificationPermission() {
-        console.log('Notification доступен:', 'Notification' in window);
-        console.log('Метод requestPermission существует:', typeof window.Notification.requestPermission === 'function');
-        console.log('ServiceWorker доступен:', 'serviceWorker' in navigator);
-        
         if ('Notification' in window && 'serviceWorker' in navigator && typeof window.Notification.requestPermission === 'function') {
             try {
                 const permission = await window.Notification.requestPermission();
                 if (permission === 'granted') {
-                    console.log('Разрешение на уведомления получено.');
                     this.subscribeUserToPush();
                 } else {
                     console.log('Разрешение на уведомления не получено.');
@@ -181,7 +187,9 @@ class Main {
                 if (response.ok) {
                     const emails = await response.json();
                     const formatingEmals = dateFormatingforEmails(emails);
-                    if (Router.getCurrentRoute().path === '/main' && Router.getCurrentRoute().params.folder === 'Входящие') {
+                    if (Router.getCurrentRoute().path === '/main' &&
+                        (Object.keys(Router.getCurrentRoute().params).length === 0 ||
+                            Router.getCurrentRoute().params.folder === 'Входящие')) {
                         const content = document.getElementById('content');
                         formatingEmals.forEach(email => {
                             const emailCard = document.createElement('div');
@@ -205,13 +213,11 @@ class Main {
                             Notification.show('Вам пришло письмо', 'info');
                         }
                         this.showPushNotification(emails.length);
-                        const count = document.getElementById('#Входящие');
-                        if (count.textContent === '') {
-                            count.textContent = emails.length;
-                        }
-                        else {
-                            count.textContent = Number(count.textContent) + emails.length;
-                        }
+                        const countElement = document.getElementById('#Входящие');
+                        let unreadCount = localStorage.getItem('unreadCount') || 0;
+                        unreadCount = Number(unreadCount) + emails.length;
+                        countElement.textContent = unreadCount;
+                        localStorage.setItem('unreadCount', unreadCount);
                     }
 
                     time = new Date().toISOString();
@@ -228,6 +234,10 @@ class Main {
                     body: `У вас ${count} новых ${count > 1 ? 'писем' : 'письмо'}`,
                     icon: '/icons/icon-192x192.png',
                 });
+            }
+            else {
+                // запросить регистрацию
+                console.error('ServiceWorker не найден');
             }
         }
     };

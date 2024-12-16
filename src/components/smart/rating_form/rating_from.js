@@ -7,8 +7,6 @@ function HandleSubmit(actionName) {
         currButton.addEventListener('click', () => {
             const value = GetValue();
             const response = new Action().postValueQuestionByAction({ action: actionName, value: value });
-      
-            console.log('success');
 
             const iframe = window.parent.document.querySelector('.iframe');
         

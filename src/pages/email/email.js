@@ -17,7 +17,6 @@ class EmailPage {
             if (email.ok) {
                 await Email.updateEmailStatus(params.id, {status: true});
                 let emailData = await email.json();
-                console.log(emailData);
                 emailData = dateFormatingforEmails(emailData);
                 this.mainEmail = emailData[0];
 
