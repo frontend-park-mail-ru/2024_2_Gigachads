@@ -12,8 +12,11 @@ import { fillContent, openContextMenu } from '../../components/smart/navigation-
 import CreateFolder, { ExitModal } from '../../components/dumb/modal/modal.js';
 import ModalTemplate from '../../components/dumb/modal/modal.hbs';
 import Email from '../../api/modules/email.js';
-
-import { setCustomInterval} from '../../assets/scripts/intervals.js';
+import { clickEmail, selectOneEmail } from '../../components/dumb/mail_message/mail_message.js';
+import { setCustomInterval } from '../../assets/scripts/intervals.js';
+import EmailTemplate from '../../components/dumb/mail_message/mail_message-template.hbs';
+import { openContextMenuForEmail } from '../../components/smart/navigation-email-list/navigation-email-list.js';
+import dateFormatingforEmails from '../../assets/scripts/date_formating.js';
 /**
  * @class Main
  * @description - Класс для отображения страницы "Main"
@@ -59,7 +62,9 @@ class Main {
         fillContent(urlParams.get('folder') || 'Входящие');
         openContextMenu();
         this.getNewEmails();
+        this.requestNotificationPermission();
     }
+
     createFolderButton() {
         const button = document.getElementById('createFolderButton');
         button.addEventListener('click', () => {
@@ -122,18 +127,110 @@ class Main {
         });
     }
 
+    async requestNotificationPermission() {
+        console.log('Notification доступен:', 'Notification' in window);
+        console.log('Метод requestPermission существует:', typeof window.Notification.requestPermission === 'function');
+        console.log('ServiceWorker доступен:', 'serviceWorker' in navigator);
+        
+        if ('Notification' in window && 'serviceWorker' in navigator && typeof window.Notification.requestPermission === 'function') {
+            try {
+                const permission = await window.Notification.requestPermission();
+                if (permission === 'granted') {
+                    console.log('Разрешение на уведомления получено.');
+                    this.subscribeUserToPush();
+                } else {
+                    console.log('Разрешение на уведомления не получено.');
+                }
+            } catch (error) {
+                console.error('Ошибка при запросе разрешения на уведомления:', error);
+            }
+        } else {
+            console.warn('Ваш браузер не поддерживает уведомления или сервис-воркеры, или метод requestPermission отсутствует.');
+        }
+    };
+
+    async subscribeUserToPush() {
+        try {
+            const registration = await navigator.serviceWorker.ready;
+            const subscription = await registration.pushManager.subscribe({
+                userVisibleOnly: true,
+                applicationServerKey: this.urlBase64ToUint8Array('ВАШ_PUBLIC_VAPID_KEY')
+            });
+            console.log('Пользователь подписан на push:', subscription);
+            // Отправьте объект subscription на ваш сервер для хранения
+        } catch (error) {
+            console.error('Ошибка подписки на push:', error);
+        }
+    };
+
+    urlBase64ToUint8Array(base64String) {
+        const padding = '='.repeat((4 - base64String.length % 4) % 4);
+        const base64 = (base64String + padding)
+            .replace(/-/g, '+')
+            .replace(/_/g, '/');
+
+        const rawData = window.atob(base64);
+        return Uint8Array.from([...rawData].map(char => char.charCodeAt(0)));
+    };
+
     getNewEmails() {
         let time = new Date().toISOString();
         setCustomInterval(async () => {
-            const response = await Email.GetNewEmails(time);
-            if (response.ok) {
-                const emails = await response.json();
-                console.log(emails);
-                time = new Date().toISOString();
-                console.log(time);
+            if (Router.getCurrentRoute().path !== '/signup' && Router.getCurrentRoute().path !== '/login') {
+                const response = await Email.GetNewEmails(time);
+                if (response.ok) {
+                    const emails = await response.json();
+                    const formatingEmals = dateFormatingforEmails(emails);
+                    if (Router.getCurrentRoute().path === '/main' && Router.getCurrentRoute().params.folder === 'Входящие') {
+                        const content = document.getElementById('content');
+                        formatingEmals.forEach(email => {
+                            const emailCard = document.createElement('div');
+                            emailCard.innerHTML = EmailTemplate({ ...email });
+                            clickEmail(emailCard.children[0]);
+                            selectOneEmail(emailCard.children[0]);
+                            openContextMenuForEmail(emailCard.children[0]);
+                            if (content.children.length === 1) {
+                                content.appendChild(emailCard.children[0]);
+                            }
+                            else {
+                                content.insertBefore(emailCard.children[0], content.children[1]);
+                            }
+                        });
+                    }
+                    else {
+                        if (emails.length > 1) {
+                            Notification.show(`У вас ${emails.length} новых писем`, 'info');
+                        }
+                        else {
+                            Notification.show('Вам пришло письмо', 'info');
+                        }
+                        this.showPushNotification(emails.length);
+                        const count = document.getElementById('#Входящие');
+                        if (count.textContent === '') {
+                            count.textContent = emails.length;
+                        }
+                        else {
+                            count.textContent = Number(count.textContent) + emails.length;
+                        }
+                    }
+
+                    time = new Date().toISOString();
+                }
             }
-        }, 20000);
+        }, 5000);
     }
+
+    async showPushNotification(count) {
+        if (Notification.permission === 'granted') {
+            const registration = await navigator.serviceWorker.getRegistration();
+            if (registration) {
+                registration.showNotification('Новые письма', {
+                    body: `У вас ${count} новых ${count > 1 ? 'писем' : 'письмо'}`,
+                    icon: '/icons/icon-192x192.png',
+                });
+            }
+        }
+    };
     profileDropdown() {
         const profileBox = document.getElementById('profileBox');
         const profileDropdown = document.getElementById('profileDropdown');

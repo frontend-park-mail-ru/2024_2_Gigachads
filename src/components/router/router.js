@@ -20,7 +20,15 @@ export class Router {
             this.init();
         });
     }
-
+    getCurrentRoute() {
+        const path = window.location.pathname;
+        const searchParams = new URLSearchParams(window.location.search);
+        const params = {};
+        for (const [key, value] of searchParams) {
+            params[key] = value;
+        }
+        return { path, params };
+    }
     /**
      * @returns {void}
      * @description - Инициализация маршрутов

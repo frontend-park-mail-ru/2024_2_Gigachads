@@ -19,12 +19,14 @@ class CreateEmail {
         if (id !== '') {
             const EmailTree = (await (await Email.getEmailTree(id)).json())[0];
             attachments = EmailTree.filenames;
+            if (attachments) {
+                attachments.isChangable = true;
+                attachments.forEach(attachment => {
+                    attachment.isChangable = true;
+                });
+            }
         }
-        attachments.isChangable = true;
-        attachments.forEach(attachment => {
-            attachment.isChangable = true;
-        });
-        
+     
         return createEmailTemplate({
             recipient,
             title,

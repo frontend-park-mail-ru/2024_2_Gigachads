@@ -24,6 +24,25 @@ export function selectEmail() {
 /**
  * Обрабатывает клики по email карточкам и навигацию.
  */
+export function clickEmail(email) {
+    email.addEventListener('click', () => {
+        Router.navigateTo('/email/' + email.dataset.id);
+    });
+}
+export function selectOneEmail(email) {
+    const checkbox = email.querySelector('.checkbox_card');
+    checkbox.addEventListener('change', () => {
+        if (checkbox.checked) {
+            email.classList.add('selected');
+        } else {
+            email.classList.remove('selected');
+        }
+    });
+    checkbox.addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
+}
+
 export function emails(folder) {
     const emails = document.getElementsByClassName('email_card');
     Array.from(emails).forEach(element => {

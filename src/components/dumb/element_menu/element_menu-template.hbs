@@ -3,7 +3,6 @@
         <img class="svg_icon" src="{{url}}">
         <div class="element_text">{{element_text}}</div>
     </div>
-    {{#if count}}
-    <div class="count">{{count}}</div>
-    {{/if}}
+    <div id="{{navigation_url}}" class="count">{{#if count}}{{count}} {{/if}}</div>
 </div>
+

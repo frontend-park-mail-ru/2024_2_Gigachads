@@ -9,6 +9,21 @@ import Settings from './pages/settings/settings.js';
 import ActionPage from './pages/action/action.js';
 import Statistics from './pages/statistics/statistics.js';
 
+const registerServiceWorker = async () => {
+    if ('serviceWorker' in navigator) {
+        try {
+            const registration = await navigator.serviceWorker.register('/src/assets/scripts/service-worker.js');
+            console.log('Сервис-воркер зарегистрирован:', registration);
+        } catch (error) {
+            console.error('Ошибка регистрации сервис-воркера:', error);
+        }
+    } else {
+        console.warn('Сервис-воркеры не поддерживаются этим браузером.');
+    }
+};
+
+window.addEventListener('load', registerServiceWorker);
+
 const routes = [
     () => new Route('/', new Login()),
     () => new Route('/login', new Login()),

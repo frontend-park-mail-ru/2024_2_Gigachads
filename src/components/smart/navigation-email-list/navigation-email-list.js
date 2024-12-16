@@ -96,6 +96,15 @@ export function openContexMenuForEmails() {
     });
 }
 
+export function openContextMenuForEmail(email) { 
+    email.addEventListener('contextmenu', (event) => {
+        event.preventDefault();
+        const mouseX = event.clientX;
+        const mouseY = event.clientY;
+        createContextMenu(email, mouseX, mouseY, { isFolder: false, isEmail: true, isMove: false });
+    });
+}
+
 /**
  * @description - Инициализация всех обработчиков событий
  */
