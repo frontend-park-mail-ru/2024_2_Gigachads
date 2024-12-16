@@ -12,7 +12,7 @@ import Statistics from './pages/statistics/statistics.js';
 const registerServiceWorker = async () => {
     if ('serviceWorker' in navigator) {
         try {
-            const registration = await navigator.serviceWorker.register('/src/assets/scripts/service-worker.js');
+            const registration = await navigator.serviceWorker.register('service-worker.js');
             console.log('Сервис-воркер зарегистрирован:', registration);
         } catch (error) {
             console.error('Ошибка регистрации сервис-воркера:', error);

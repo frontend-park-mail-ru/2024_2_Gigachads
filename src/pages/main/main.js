@@ -41,12 +41,12 @@ class Main {
         const urlParams = new URLSearchParams(window.location.search);
         const numberActiveElement = MainData.menu_elements.findIndex(element => element.element_text === (urlParams.get('folder') || 'Входящие'));
         MainData.menu_elements[numberActiveElement].active = true;
+        if ((urlParams.get('folder') === 'Входящие') || (Router.getCurrentRoute().path === '/main' && Object.keys(Router.getCurrentRoute().params).length === 0)) {
+            localStorage.removeItem('unreadCount');
+        }
         const unreadCount = localStorage.getItem('unreadCount');
         if (unreadCount) {
             MainData.menu_elements[0].count = unreadCount;
-        }
-        if (params.folder === 'Входящие' || Object.keys(params).length === 0) {
-            localStorage.removeItem('unreadCount');
         }
         return MainTemplate(MainData);
     }
@@ -160,24 +160,29 @@ class Main {
             const registration = await navigator.serviceWorker.ready;
             const subscription = await registration.pushManager.subscribe({
                 userVisibleOnly: true,
-                applicationServerKey: this.urlBase64ToUint8Array('ВАШ_PUBLIC_VAPID_KEY')
+                applicationServerKey: this.urlBase64ToUint8Array('BFtN5RPiYTSxzUY2Qhdd5PyqFlD3pabmZrROIbVYT3cG-kbz8BTd9tCeri3rgG6uIaVSkZfLElI-Mg2xi-MGoMo')
             });
             console.log('Пользователь подписан на push:', subscription);
-            // Отправьте объект subscription на ваш сервер для хранения
         } catch (error) {
             console.error('Ошибка подписки на push:', error);
         }
     };
 
     urlBase64ToUint8Array(base64String) {
-        const padding = '='.repeat((4 - base64String.length % 4) % 4);
-        const base64 = (base64String + padding)
+        const cleanedBase64String = base64String.replace(/\s/g, '');
+        const padding = '='.repeat((4 - cleanedBase64String.length % 4) % 4);
+        const base64 = (cleanedBase64String + padding)
             .replace(/-/g, '+')
             .replace(/_/g, '/');
 
-        const rawData = window.atob(base64);
-        return Uint8Array.from([...rawData].map(char => char.charCodeAt(0)));
-    };
+        try {
+            const rawData = window.atob(base64);
+            return Uint8Array.from([...rawData].map(char => char.charCodeAt(0)));
+        } catch (error) {
+            console.error('Ошибка декодирования base64:', error);
+            return new Uint8Array();
+        }
+    }
 
     getNewEmails() {
         let time = new Date().toISOString();
@@ -212,14 +217,15 @@ class Main {
                         else {
                             Notification.show('Вам пришло письмо', 'info');
                         }
-                        this.showPushNotification(emails.length);
                         const countElement = document.getElementById('#Входящие');
                         let unreadCount = localStorage.getItem('unreadCount') || 0;
                         unreadCount = Number(unreadCount) + emails.length;
                         countElement.textContent = unreadCount;
                         localStorage.setItem('unreadCount', unreadCount);
                     }
-
+                    if (document.hidden) {
+                        this.showPushNotification(Number(localStorage.getItem('unreadCount')));
+                    }
                     time = new Date().toISOString();
                 }
             }
@@ -227,18 +233,15 @@ class Main {
     }
 
     async showPushNotification(count) {
-        if (Notification.permission === 'granted') {
-            const registration = await navigator.serviceWorker.getRegistration();
-            if (registration) {
-                registration.showNotification('Новые письма', {
-                    body: `У вас ${count} новых ${count > 1 ? 'писем' : 'письмо'}`,
-                    icon: '/icons/icon-192x192.png',
-                });
-            }
-            else {
-                // запросить регистрацию
-                console.error('ServiceWorker не найден');
-            }
+        const registration = await navigator.serviceWorker.getRegistration();
+        if (registration) {
+            registration.showNotification('Новые письма', {
+                body: `У вас ${count}  ${count > 1 ? 'новых писем' : 'новое письмо'}`,
+            });
+        }
+        else {
+            // запросить регистрацию
+            console.error('ServiceWorker не найден');
         }
     };
     profileDropdown() {

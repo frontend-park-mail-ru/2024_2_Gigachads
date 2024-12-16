@@ -1,7 +1,7 @@
 import Folder from '../../../api/modules/folder';
 import Notification from '../notification/notification';
 import ElementMenu from '../../dumb/element_menu/element_menu-template.hbs';
-
+import { openContextMenuForNewFolder } from '../../smart/navigation-email-list/navigation-email-list';
 export default async function CreateFolder() {
     const ConfirmCreateButton = document.getElementById('ConfirmCreateButton');
     ConfirmCreateButton.addEventListener('click', async () => {
@@ -21,6 +21,7 @@ export default async function CreateFolder() {
             };
             const newElementMenu = document.createElement('div');
             newElementMenu.innerHTML = ElementMenu(newElementMenuData);
+            openContextMenuForNewFolder(newElementMenu);
             document.querySelector('.navigator').appendChild(newElementMenu);
             document.querySelector('.div_modal').remove();
             Notification.show('Папка создана', 'success');

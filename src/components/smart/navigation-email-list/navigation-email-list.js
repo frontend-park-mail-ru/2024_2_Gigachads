@@ -53,6 +53,15 @@ export function deleteSelectedEmails(folder) {
     });
 }
 
+export function openContextMenuForNewFolder(newFolder) {
+    newFolder.addEventListener('contextmenu', (event) => {
+        event.preventDefault();
+        const mouseX = event.clientX;
+        const mouseY = event.clientY;
+        createContextMenu(newFolder, mouseX, mouseY, { isFolder: true, isEmail: false, isMove: false });
+    });
+}
+
 export function openContextMenu() {
     const elementsMenu = document.querySelectorAll('.element_menu');
     elementsMenu.forEach(element => {
